@@ -120,7 +120,7 @@ namespace EigenCore.Test.Dense.Core
         }
 
 
-        [Fact]
+        [Fact(Skip = "need to update .so")]
         public void MultV_ShouldSucceed()
         {
             MatrixXD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
