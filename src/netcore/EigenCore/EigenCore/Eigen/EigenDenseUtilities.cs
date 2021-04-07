@@ -84,8 +84,8 @@ namespace EigenCore.Eigen
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Transpose(
-                ReadOnlySpan<double> firstMatrix, 
-                int rows1, 
+                ReadOnlySpan<double> firstMatrix,
+                int rows1,
                 int cols1,
                 Span<double> outMatrix)
         {
@@ -139,6 +139,18 @@ namespace EigenCore.Eigen
                             ThunkDenseEigen.dmultv_(pfirst, rows1, cols1, pSecond, length, pOut);
                         }
                     }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Trace(ReadOnlySpan<double> firstMatrix, int rows1, int cols1)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    return ThunkDenseEigen.dtrace_(pfirst, rows1, cols1);
                 }
             }
         }

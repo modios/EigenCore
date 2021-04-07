@@ -66,3 +66,10 @@ EXPORT_API(void) dmultt_(_In_ double* v1, const int row1, const int col1, _In_ d
 	Map<MatrixXd> result(vout, row1, row2);
 	result = matrix1 * matrix2.transpose();
 }
+
+// matrix trace.
+EXPORT_API(double) dtrace_(_In_ double* m1, const int row1, const int col1)
+{
+	Map<const MatrixXd> matrix1(m1, row1, col1);
+	return matrix1.trace();
+}

@@ -113,6 +113,11 @@ namespace EigenCore.Core.Dense
             return new MatrixXD(outMatrix, Rows, other.Rows);
         }
 
+        public double Trace()
+        {
+            return EigenDenseUtilities.Trace(GetValues(), Rows, Cols);
+        }
+
         public override MatrixXD Clone()
         {
             return new MatrixXD(_values.ToArray(), Rows, Cols);
@@ -144,7 +149,7 @@ namespace EigenCore.Core.Dense
         }
 
         protected MatrixXD(double[] values, int rows, int cols)
-                : base(values.ToArray(), rows, cols)
+                : base(values, rows, cols)
         {
         }
 
