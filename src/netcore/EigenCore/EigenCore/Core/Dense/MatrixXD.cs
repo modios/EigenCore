@@ -1,4 +1,5 @@
 ﻿using EigenCore.Eigen;
+using System;
 using System.Linq;
 
 namespace EigenCore.Core.Dense
@@ -15,9 +16,17 @@ namespace EigenCore.Core.Dense
             return VectorHelpers.ArraysEqual(_values, other.GetValues().ToArray());
         }
 
-        public double Max() => _values.Max();
+        public static MatrixXD Zeros(int rows, int cols)
+        {
+            return new MatrixXD(new double[rows * cols], rows, cols);
+        }
 
-        public double Min() => _values.Min();
+        public static MatrixXD Ones(int rows, int cols)
+        {
+            var values = new double[rows * cols];
+            values.Populate(1.0);
+            return new MatrixXD(values, rows, cols);
+        }
 
         public static MatrixXD Random(int rows, int cols, double min = 0, double max = 1, int seed = 0)
         {
@@ -45,6 +54,10 @@ namespace EigenCore.Core.Dense
 
             return new MatrixXD(input, rows, cols);
         }
+
+        public double Max() => _values.Max();
+
+        public double Min() => _values.Min();
 
         public MatrixXD Mult(MatrixXD other)
         {

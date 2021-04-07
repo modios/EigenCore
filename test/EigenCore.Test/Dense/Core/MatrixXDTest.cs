@@ -82,5 +82,29 @@ namespace EigenCore.Test.Dense.Core
             Assert.True(A.Min() >= 0.0);
             Assert.True(A.Max() <= 1.0);
         }
+
+        [Fact]
+        public void Zeros_ShouldSucceed()
+        {
+            MatrixXD A = MatrixXD.Zeros(2, 3);
+            Assert.Equal(2, A.Rows);
+            Assert.Equal(3, A.Cols);
+            Assert.Equal(0.0, A.Min());
+            Assert.Equal(0.0, A.Max());
+
+            Assert.Equal(new double[] { 0, 0, 0, 0, 0, 0 }, A.GetValues().ToArray());
+        }
+
+        [Fact]
+        public void Ones_ShouldSucceed()
+        {
+            MatrixXD A = MatrixXD.Ones(2, 3);
+            Assert.Equal(2, A.Rows);
+            Assert.Equal(3, A.Cols);
+            Assert.Equal(1.0, A.Min());
+            Assert.Equal(1.0, A.Max());
+
+            Assert.Equal(new double[] { 1, 1, 1, 1, 1, 1 }, A.GetValues().ToArray());
+        }
     }
 }
