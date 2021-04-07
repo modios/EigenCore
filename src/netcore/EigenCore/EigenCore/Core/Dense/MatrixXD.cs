@@ -130,7 +130,7 @@ namespace EigenCore.Core.Dense
             return base.GetHashCode();
         }
 
-        public MatrixXD(double[] values, int rows, int cols)
+        protected MatrixXD(double[] values, int rows, int cols)
                 : base(values.ToArray(), rows, cols)
         {
         }
