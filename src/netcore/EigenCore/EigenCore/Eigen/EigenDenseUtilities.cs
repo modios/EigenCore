@@ -122,6 +122,27 @@ namespace EigenCore.Eigen
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Mult(
+        ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
+        ReadOnlySpan<double> vector, int length,
+        Span<double> outMatrix)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pSecond = &MemoryMarshal.GetReference(vector))
+                    {
+                        fixed (double* pOut = &MemoryMarshal.GetReference(outMatrix))
+                        {
+                            ThunkDenseEigen.dmultv_(pfirst, rows1, cols1, pSecond, length, pOut);
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion Matrices
     }
 }

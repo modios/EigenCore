@@ -85,6 +85,19 @@ namespace EigenCore.Core.Dense
             return new MatrixXD(outMatrix, Rows, other.Cols);
         }
 
+        public VectorXD Mult(VectorXD other)
+        {
+            var length = other.Length;
+            double[] outVector = new double[length];
+            EigenDenseUtilities.Mult(GetValues(),
+                Rows,
+                Cols,
+                other.GetValues(),
+                other.Length,
+                outVector);
+            return new VectorXD(outVector);
+        }
+
         public MatrixXD Transpose()
         {
             double[] outMatrix = new double[Rows * Cols];      

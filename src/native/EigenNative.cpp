@@ -41,6 +41,15 @@ EXPORT_API(void) dmult_(_In_ double* m1, const int row1, const int col1, _In_ do
 	result = matrix1 * matrix2;
 }
 
+// matrix product of m1 and v1.
+EXPORT_API(void) dmultv_(_In_ double* m1, const int row1, const int col1, _In_ double* v1, const int length, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix(m1, row1, col1);
+	Map<const VectorXd> vector(v1, length);
+	Map<VectorXd> result(vout, length);
+	result = matrix * vector;
+}
+
 // matrix transpose.
 EXPORT_API(void) dtransp_(_In_ double* m1, const int row1, const int col1, _Out_ double* vout)
 {
@@ -48,7 +57,6 @@ EXPORT_API(void) dtransp_(_In_ double* m1, const int row1, const int col1, _Out_
 	Map<MatrixXd> result(vout, col1, row1);
 	result = matrix1.transpose();
 }
-
 
 //  A * B^T
 EXPORT_API(void) dmultt_(_In_ double* v1, const int row1, const int col1, _In_ double* v2, const int row2, const int col2, _Out_ double* vout)

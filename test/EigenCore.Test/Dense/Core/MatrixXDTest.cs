@@ -19,8 +19,8 @@ namespace EigenCore.Test.Dense.Core
             B = new MatrixXD("3, -1; 1 2; 6 1", 3, 2);
 
             result = A.Mult(B);
-       
-            Assert.Equal(new double[] { 11 ,35, 0, 20}, result.GetValues().ToArray());
+
+            Assert.Equal(new double[] { 11, 35, 0, 20 }, result.GetValues().ToArray());
         }
 
         [Fact(Skip = "need to update .so")]
@@ -60,7 +60,7 @@ namespace EigenCore.Test.Dense.Core
             Assert.True(A.Min() == 0.0);
             Assert.True(A.Max() == 1.0);
             Assert.Equal(
-                new double[] { 1, 0, 0, 0, 1, 0, 0, 0, 1 }, 
+                new double[] { 1, 0, 0, 0, 1, 0, 0, 0, 1 },
                 A.GetValues().ToArray());
         }
 
@@ -116,7 +116,17 @@ namespace EigenCore.Test.Dense.Core
             Assert.Equal(0.0, A.Min());
             Assert.Equal(4.5, A.Max());
 
-            Assert.Equal(new double[] { 3.5, 0, 0, 0, 2, 0, 0, 0, 4.5 },  A.GetValues().ToArray());
+            Assert.Equal(new double[] { 3.5, 0, 0, 0, 2, 0, 0, 0, 4.5 }, A.GetValues().ToArray());
+        }
+
+
+        [Fact]
+        public void MultV_ShouldSucceed()
+        {
+            MatrixXD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
+            VectorXD v = new VectorXD(new[] { 2.0, 2.0, 2.0 });
+            var result = A.Mult(v);
+            Assert.Equal(new double[] { 7, 4, 9 }, result.GetValues().ToArray());
         }
     }
 }
