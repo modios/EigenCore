@@ -43,16 +43,29 @@ namespace EigenCore.Core.Dense
             return new MatrixXD(input, rows, cols);
         }
 
-        public static MatrixXD Identity(int rows, int cols)
+        public static MatrixXD Identity(int size)
         {
-            double[] input = new double[rows * cols];
+            double[] input = new double[size * size];
 
-            for (int i = 0; i < cols; i++)
+            for (int i = 0; i < size; i++)
             {  
-                input[i * (cols + 1)] = 1.0;
+                input[i * (size + 1)] = 1.0;
             }
 
-            return new MatrixXD(input, rows, cols);
+            return new MatrixXD(input, size, size);
+        }
+
+        public static MatrixXD Diag(double[] values)
+        {
+            var size = values.Length;
+            double[] input = new double[size * size];
+
+            for (int i = 0; i < size; i++)
+            {
+                input[i * (size + 1)] = values[i];
+            }
+
+            return new MatrixXD(input, size, size);
         }
 
         public double Max() => _values.Max();

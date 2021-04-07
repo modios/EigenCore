@@ -54,7 +54,7 @@ namespace EigenCore.Test.Dense.Core
         [Fact]
         public void Identity_ShouldSucceed()
         {
-            MatrixXD A = MatrixXD.Identity(3, 3);
+            MatrixXD A = MatrixXD.Identity(3);
             Assert.Equal(3, A.Rows);
             Assert.Equal(3, A.Cols);
             Assert.True(A.Min() == 0.0);
@@ -105,6 +105,18 @@ namespace EigenCore.Test.Dense.Core
             Assert.Equal(1.0, A.Max());
 
             Assert.Equal(new double[] { 1, 1, 1, 1, 1, 1 }, A.GetValues().ToArray());
+        }
+
+        [Fact]
+        public void Diag_ShouldSucceed()
+        {
+            MatrixXD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
+            Assert.Equal(3, A.Rows);
+            Assert.Equal(3, A.Cols);
+            Assert.Equal(0.0, A.Min());
+            Assert.Equal(4.5, A.Max());
+
+            Assert.Equal(new double[] { 3.5, 0, 0, 0, 2, 0, 0, 0, 4.5 },  A.GetValues().ToArray());
         }
     }
 }
