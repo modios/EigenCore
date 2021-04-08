@@ -136,5 +136,13 @@ namespace EigenCore.Test.Dense.Core
             var result = A.Trace();
             Assert.Equal(10.0, result);
         }
+
+        [Fact(Skip = "need to update .so")]
+        public void Eigen_ShouldSucceed()
+        {
+            MatrixXD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
+            var result = A.Eigen();
+            Assert.Equal(new[] { 3.5, 2, 4.5 }, result.Item1.Real().GetValues().ToArray());
+        }
     }
 }

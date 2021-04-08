@@ -37,6 +37,16 @@ namespace EigenCore.Eigen
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern double dtrace_([In] double* firstMatrix, int row1, int col1);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double deigenvalues_(
+            [In] double* firstMatrix,  
+            int size, 
+            [Out] double* out_real_eigen, 
+            [Out] double* out_imag_eigen,
+            [Out] double* out_real_eigenvectors,
+            [Out] double* out_image_eigenvectors);
+
         #endregion Matrices
     }
 }

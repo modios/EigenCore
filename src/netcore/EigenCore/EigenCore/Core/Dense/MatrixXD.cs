@@ -1,5 +1,5 @@
-﻿using EigenCore.Eigen;
-using System;
+﻿using EigenCore.Core.Dense.Complex;
+using EigenCore.Eigen;
 using System.Linq;
 
 namespace EigenCore.Core.Dense
@@ -116,6 +116,17 @@ namespace EigenCore.Core.Dense
         public double Trace()
         {
             return EigenDenseUtilities.Trace(GetValues(), Rows, Cols);
+        }
+
+        public (VectorXCD, MatrixXCD) Eigen()
+        {
+            double[] realValues = new double[Rows];
+            double[] imagValues = new double[Rows];
+            double[] realEigenvectors = new double[Rows * Rows];
+            double[] imagEigenvectors = new double[Rows * Rows];
+            EigenDenseUtilities.EigenSolver(GetValues(), Rows, realValues, imagValues, realEigenvectors, imagEigenvectors);
+
+            return (new VectorXCD(realValues, imagValues), new MatrixXCD(realEigenvectors, imagEigenvectors));
         }
 
         public override MatrixXD Clone()

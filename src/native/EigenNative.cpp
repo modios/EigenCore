@@ -2,6 +2,7 @@
 
 #include "EigenNative.h"
 #include <Eigen/Core>
+#include <Eigen/Eigenvalues>
 
 using namespace std;
 using namespace Eigen;
@@ -73,3 +74,22 @@ EXPORT_API(double) dtrace_(_In_ double* m1, const int row1, const int col1)
 	Map<const MatrixXd> matrix1(m1, row1, col1);
 	return matrix1.trace();
 }
+
+
+// matrix eigenvalues for general matrix.
+EXPORT_API(void) deigenvalues_(_In_ double* m1, const int size, double* out_real_eigen, double*  out_imag_eigen, double* out_real_eigenvectors, double* out_image_eigenvectors)
+{
+	Map<const MatrixXd> matrix(m1, size, size);
+	EigenSolver<MatrixXd> esolver(matrix);
+	VectorXcd  eigenvalues = esolver.eigenvalues();
+	MatrixXcd  eigenvectors = esolver.eigenvectors();
+	Map<VectorXd>  real_eigen(out_real_eigen, size);
+	Map<VectorXd>  image_eigen(out_imag_eigen, size);
+    real_eigen = eigenvalues.real();
+	image_eigen = eigenvalues.imag();
+	Map<MatrixXd>  real_eigen_vector(out_real_eigenvectors, size, size);
+	Map<MatrixXd>  image_eigen_vector(out_image_eigenvectors, size, size);
+	real_eigen_vector = eigenvectors.real();
+	image_eigen_vector = eigenvectors.imag();
+}
+

@@ -155,6 +155,35 @@ namespace EigenCore.Eigen
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void EigenSolver(
+            ReadOnlySpan<double> firstMatrix, int size,
+            Span<double> outRealEigenvalues,
+            Span<double> outImagEigenValue,
+            Span<double> outRealEigenVectors,
+            Span<double> outImagEigenVectors)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pRealOut = &MemoryMarshal.GetReference(outRealEigenvalues))
+                    {
+                        fixed (double* pImageOut = &MemoryMarshal.GetReference(outImagEigenValue))
+                        {
+                            fixed (double* pRealVectorOut = &MemoryMarshal.GetReference(outRealEigenVectors))
+                            {
+                                fixed (double* pImageVectorOut = &MemoryMarshal.GetReference(outImagEigenVectors))
+                                {
+                                    ThunkDenseEigen.deigenvalues_(pfirst, size, pRealOut, pImageOut, pRealVectorOut, pImageVectorOut);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion Matrices
     }
 }
