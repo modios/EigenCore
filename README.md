@@ -24,6 +24,19 @@ DenseMatrix, 2 * 3:
     0 2 1 
 ```
 
+### Basic Matrices
+
+```csharp
+
+MatrixXD zeros = MatrixXD.Zeros(2, 3);
+MatrixXD ones =  MatrixXD.Ones(2, 2);
+MatrixXD ident = MatrixXD.Identity(3);
+MatrixXD random = MatrixXD.Random(3,3);
+MatrixXD diag = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
+
+```
+
+
 ### Matrix Operations
 
 ```csharp
