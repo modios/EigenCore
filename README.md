@@ -6,6 +6,24 @@ For now provides just a few methods and it's in very early stages.
 
 ## Usage 
 
+### Matrix Constructors
+
+```csharp
+
+MatrixXD A = new MatrixXD("1 3 2; 0 2 1", 2, 3);
+
+MatrixXD B = new MatrixXD(new double[][] { new double[] { 1, 3, 2 } , new double[] { 0, 2, 1 } });
+
+MatrixXD C = new MatrixXD(new double[,] { { 1, 3, 2 }, { 0, 2, 1 } });
+
+Console.WriteLine(A.ToString());
+
+DenseMatrix, 2 * 3:
+    
+    1 3 2 
+    0 2 1 
+```
+
 ### Matrix Operations
 
 ```csharp
