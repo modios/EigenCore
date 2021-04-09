@@ -144,6 +144,27 @@ namespace EigenCore.Eigen
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Plus(
+                ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
+                ReadOnlySpan<double> secondMatrix, int rows2, int cols2,
+                Span<double> outMatrix)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pSecond = &MemoryMarshal.GetReference(secondMatrix))
+                    {
+                        fixed (double* pOut = &MemoryMarshal.GetReference(outMatrix))
+                        {
+                            ThunkDenseEigen.dxplusa_(pfirst, rows1, cols1, pSecond, rows2, cols2, pOut);
+                        }
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Trace(ReadOnlySpan<double> firstMatrix, int rows1, int cols1)
         {
             unsafe
@@ -179,6 +200,46 @@ namespace EigenCore.Eigen
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SelfAdjointEigenSolver(ReadOnlySpan<double> firstMatrix, int size, Span<double> outRealEigenvalues, Span<double> outRealEigenVectors)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pRealOut = &MemoryMarshal.GetReference(outRealEigenvalues))
+                    {
+                        fixed (double* pRealVectorOut = &MemoryMarshal.GetReference(outRealEigenVectors))
+                        {
+                            ThunkDenseEigen.dselfadjoint_eigenvalues_(pfirst, size, pRealOut, pRealVectorOut);
+
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// X = A + A^T
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="size"></param>
+        /// <param name="outMatrix"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void PlusT(ReadOnlySpan<double> firstMatrix, int size, Span<double> outMatrix)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pOut = &MemoryMarshal.GetReference(outMatrix))
+                    {
+                        ThunkDenseEigen.dxplusxt_(pfirst, size, pOut);
                     }
                 }
             }

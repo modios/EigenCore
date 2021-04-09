@@ -47,6 +47,36 @@ namespace EigenCore.Eigen
             [Out] double* out_real_eigenvectors,
             [Out] double* out_image_eigenvectors);
 
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dselfadjoint_eigenvalues_(
+            [In] double* firstMatrix,
+            int size,
+            [Out] double* out_real_eigen,
+            [Out] double* out_real_eigenvectors);
+
+        /// <summary>
+        /// A = X + X^T
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="size"></param>
+        /// <param name="secondMatrix"></param>
+        /// <param name="vout"></param>
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dxplusxt_([In] double* firstMatrix, int size, [Out] double* vout);
+
+        /// <summary>
+        /// A = X + Y
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="row1"></param>
+        /// <param name="col1"></param>
+        /// <param name="secondMatrix"></param>
+        /// <param name="row2"></param>
+        /// <param name="col2"></param>
+        /// <param name="vout"></param>
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dxplusa_([In] double* firstMatrix, int row1, int col1, [In] double* secondMatrix, int row2, int col2, [Out] double* vout);
         #endregion Matrices
     }
 }

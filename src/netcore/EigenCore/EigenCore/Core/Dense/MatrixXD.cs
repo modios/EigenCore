@@ -98,6 +98,20 @@ namespace EigenCore.Core.Dense
             return new VectorXD(outVector);
         }
 
+        public MatrixXD Plus(MatrixXD other)
+        {
+            double[] outMatrix = new double[Rows * Cols];
+            EigenDenseUtilities.Plus(
+                GetValues(),
+                Rows,
+                Cols,
+                other.GetValues(),
+                other.Rows,
+                other.Cols,
+                outMatrix);
+            return new MatrixXD(outMatrix, Rows, Cols);
+        }
+
         public MatrixXD Transpose()
         {
             double[] outMatrix = new double[Rows * Cols];      
@@ -118,15 +132,44 @@ namespace EigenCore.Core.Dense
             return EigenDenseUtilities.Trace(GetValues(), Rows, Cols);
         }
 
+        /// <summary>
+        /// eigenvalues and eigenvectros.
+        /// </summary>
+        /// <returns></returns>
         public (VectorXCD, MatrixXCD) Eigen()
         {
             double[] realValues = new double[Rows];
             double[] imagValues = new double[Rows];
-            double[] realEigenvectors = new double[Rows * Rows];
-            double[] imagEigenvectors = new double[Rows * Rows];
+            double[] realEigenvectors = new double[Rows * Cols];
+            double[] imagEigenvectors = new double[Rows * Cols];
+
             EigenDenseUtilities.EigenSolver(GetValues(), Rows, realValues, imagValues, realEigenvectors, imagEigenvectors);
 
             return (new VectorXCD(realValues, imagValues), new MatrixXCD(realEigenvectors, imagEigenvectors));
+        }
+
+        /// <summary>
+        /// X = A + A^T;
+        /// </summary>
+        public MatrixXD PlusT()
+        {
+            double[] outMatrix = new double[Rows * Cols];
+            EigenDenseUtilities.PlusT(GetValues(), Rows, outMatrix);
+            return new MatrixXD(outMatrix, Rows, Cols);
+        }
+
+        /// <summary>
+        /// eigenvalues and eigenvectors for symetric matrix.
+        /// </summary>
+        /// <returns></returns>
+        public (VectorXD, MatrixXD) SymetricEigen()
+        {
+            double[] realValues = new double[Rows];
+            double[] realEigenvectors = new double[Rows * Cols];
+
+            EigenDenseUtilities.SelfAdjointEigenSolver(GetValues(), Rows, realValues, realEigenvectors);
+
+            return (new VectorXD(realValues), new MatrixXD(realEigenvectors, Rows, Cols));
         }
 
         public override MatrixXD Clone()

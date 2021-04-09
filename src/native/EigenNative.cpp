@@ -77,7 +77,12 @@ EXPORT_API(double) dtrace_(_In_ double* m1, const int row1, const int col1)
 
 
 // matrix eigenvalues for general matrix.
-EXPORT_API(void) deigenvalues_(_In_ double* m1, const int size, double* out_real_eigen, double*  out_imag_eigen, double* out_real_eigenvectors, double* out_image_eigenvectors)
+EXPORT_API(void) deigenvalues_(_In_ double* m1, 
+	const int size, 
+	_Out_ double* out_real_eigen, 
+	_Out_ double*  out_imag_eigen,
+	_Out_ double* out_real_eigenvectors,
+	_Out_ double* out_image_eigenvectors)
 {
 	Map<const MatrixXd> matrix(m1, size, size);
 	EigenSolver<MatrixXd> esolver(matrix);
@@ -93,3 +98,34 @@ EXPORT_API(void) deigenvalues_(_In_ double* m1, const int size, double* out_real
 	image_eigen_vector = eigenvectors.imag();
 }
 
+
+// matrix eigenvalues for self symetric matrix.
+EXPORT_API(void) dselfadjoint_eigenvalues_(_In_ double* m1, const int size, _Out_ double* out_real_eigen, _Out_ double* out_real_eigenvectors)
+{
+	Map<const MatrixXd> matrix(m1, size, size);
+	SelfAdjointEigenSolver<MatrixXd> esolver(matrix);
+	VectorXcd  eigenvalues = esolver.eigenvalues();
+	MatrixXcd  eigenvectors = esolver.eigenvectors();
+	Map<VectorXd>  real_eigen(out_real_eigen, size);
+	real_eigen = eigenvalues.real();
+	Map<MatrixXd>  real_eigen_vector(out_real_eigenvectors, size, size);
+	real_eigen_vector = eigenvectors.real();
+}
+
+
+// A = X + X^T
+EXPORT_API(void) dxplusxt_(_In_ double* m1, int size, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix(m1, size, size);
+	Map<MatrixXd> result(vout, size, size);
+	result = matrix + matrix.transpose();
+}
+
+// A = X + Y
+EXPORT_API(void) dxplusa_(_In_ double* v1, const int row1, const int col1, _In_ double* v2, const int row2, const int col2, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(v1, row1, col1);
+	Map<const MatrixXd> matrix2(v2, row2, col2);
+	Map<MatrixXd> result(vout, row1, row2);
+	result = matrix1 + matrix2;
+}

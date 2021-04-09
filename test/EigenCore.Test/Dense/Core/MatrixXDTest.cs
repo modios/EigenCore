@@ -144,5 +144,30 @@ namespace EigenCore.Test.Dense.Core
             var result = A.Eigen();
             Assert.Equal(new[] { 3.5, 2, 4.5 }, result.Item1.Real().GetValues().ToArray());
         }
+
+        [Fact(Skip = "need to update .so")]
+        public void PlusT_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("2 2; 1 1", 2, 2);
+            var result = A.PlusT();
+            Assert.Equal(new double[] { 4, 3, 3 , 2 }, result.GetValues().ToArray());
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void SymetricEigen_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("4 3; 3 2", 2, 2);
+            var eigen = A.SymetricEigen();
+            Assert.Equal(new[] { -0.16227766016837947, 6.162277660168379 }, eigen.Item1.GetValues().ToArray());
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void Plus_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("4 3; 3 2", 2, 2);
+            MatrixXD B = MatrixXD.Identity(2);
+            var result = A.Plus(B);
+            Assert.Equal(new double[] { 5, 3, 3, 3 }, result.GetValues().ToArray());
+        }
     }
 }
