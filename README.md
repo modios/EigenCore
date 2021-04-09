@@ -10,6 +10,19 @@ For now provides just a few methods and it's in very early stages.
 
 ```csharp
 
+MatrixXD A = new MatrixXD("4 3; 3 2", 2, 2);
+MatrixXD B = new MatrixXD("2 2; 1 1", 2, 2);
+var result = A.Plus(B);
+Console.WriteLine(result.ToString());
+
+DenseMatrix, 2 * 2:
+    
+   6 5 
+   4 3
+```
+
+```csharp
+
 MatrixXD A = new MatrixXD("1 2; 3 5", 2, 2);
 MatrixXD B = new MatrixXD("1 2; 3 2", 2, 2);
 MatrixXD result = A.Mult(B);
@@ -33,19 +46,6 @@ DenseMatrix, 2 * 2
 
     2 3 
     4 7 
-```
-
-```csharp
-
-MatrixXD A = new MatrixXD("4 3; 3 2", 2, 2);
-MatrixXD B = new MatrixXD("2 2; 1 1", 2, 2);
-var result = A.Plus(B);
-Console.WriteLine(result.ToString());
-
-DenseMatrix, 2 * 2:
-    
-   6 5 
-   4 3
 ```
 
 
