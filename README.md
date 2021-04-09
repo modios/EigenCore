@@ -17,8 +17,8 @@ Console.WriteLine(result.ToString());
 
 DenseMatrix, 2 * 2  
 
-    7, 18, 
-    6, 16 
+    7 18 
+    6 16 
 ```
 
 
@@ -31,9 +31,23 @@ Console.WriteLine(result.ToString());
 
 DenseMatrix, 2 * 2  
 
-    2, 3, 
-    4, 7 
+    2 3 
+    4 7 
 ```
+
+```csharp
+
+MatrixXD A = new MatrixXD("4 3; 3 2", 2, 2);
+MatrixXD B = new MatrixXD("2 2; 1 1", 2, 2);
+var result = A.Plus(B);
+Console.WriteLine(result.ToString());
+
+DenseMatrix, 2 * 2:
+    
+   6 5 
+   4 3
+```
+
 
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
