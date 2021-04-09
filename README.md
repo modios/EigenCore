@@ -2,6 +2,7 @@
 [![.NET](https://github.com/modios/EigenCore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/modios/EigenCore/actions/workflows/dotnet.yml)
 
 EigenCore C# wrapper for the Eigen library.
+For now provides just a few methods and it's in very early stages.
 
 ## Usage 
 
