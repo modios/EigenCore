@@ -154,10 +154,10 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact(Skip = "need to update .so")]
-        public void SymetricEigen_ShouldSucceed()
+        public void SymmetricEigen_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("4 3; 3 2", 2, 2);
-            var eigen = A.SymetricEigen();
+            var eigen = A.SymmetricEigen();
             Assert.Equal(new[] { -0.16227766016837947, 6.162277660168379 }, eigen.Item1.GetValues().ToArray());
         }
 

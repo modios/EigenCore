@@ -159,10 +159,10 @@ namespace EigenCore.Core.Dense
         }
 
         /// <summary>
-        /// eigenvalues and eigenvectors for symetric matrix.
+        /// eigenvalues and eigenvectors for symmetric matrix.
         /// </summary>
         /// <returns></returns>
-        public (VectorXD, MatrixXD) SymetricEigen()
+        public (VectorXD, MatrixXD) SymmetricEigen()
         {
             double[] realValues = new double[Rows];
             double[] realEigenvectors = new double[Rows * Cols];
