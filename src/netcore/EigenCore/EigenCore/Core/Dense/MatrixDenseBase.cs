@@ -49,6 +49,13 @@ namespace EigenCore.Core.Dense
             return _values[offset];
         }
 
+        protected MatrixDenseBase(Func<T[]> ActionToValues, int rows, int cols)
+                        : base(ActionToValues)
+        {
+            Rows = rows;
+            Cols = cols;
+        }
+
         protected MatrixDenseBase(T[] values, int rows, int cols)
            : base(values)
         {

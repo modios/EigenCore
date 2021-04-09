@@ -13,9 +13,15 @@ namespace EigenCore.Core.Dense
         public T GetItem(int index) => _values[index];
 
         public VBufferDense(T[] values)
-        {
-            Length = values.Length;
+        {         
             _values = values;
+            Length = _values.Length;
+        }
+
+        public VBufferDense(Func<T[]> ActionToValues)
+        {       
+            _values = ActionToValues();
+            Length = _values.Length;
         }
     }
 }

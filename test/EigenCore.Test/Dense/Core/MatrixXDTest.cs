@@ -1,10 +1,29 @@
 ﻿using EigenCore.Core.Dense;
+using System;
 using Xunit;
 
 namespace EigenCore.Test.Dense.Core
 {
     public class MatrixXDTest
     {
+        [Fact]
+        public void ConstructorJagged_ShouldSucceed()
+        {
+            var A = new MatrixXD(new double[][] { new double[] { 1, 3, 2 } , new double[] { 0, 2, 1 } });
+            Assert.Equal(2, A.Rows);
+            Assert.Equal(3, A.Cols);
+            Assert.Equal(new double[] { 1, 0, 3, 2, 2, 1 }, A.GetValues().ToArray());
+        }
+
+        [Fact]
+        public void ConstructorMutyDim_ShouldSucceed()
+        {
+            var A = new MatrixXD(new double[,] { { 1, 3, 2 }, { 0, 2, 1 } });
+            Assert.Equal(2, A.Rows);
+            Assert.Equal(3, A.Cols);
+            Assert.Equal(new double[] { 1, 0, 3, 2, 2, 1 }, A.GetValues().ToArray());
+        }
+
         [Fact]
         public void Mult_ShouldSucceed()
         {

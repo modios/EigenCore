@@ -6,6 +6,46 @@ namespace EigenCore.Core.Dense
 {
     public class MatrixXD : MatrixDenseBase<double>
     {
+        private static double[] JaggedToFlatColumnWise(double[][] inputValues)
+        {
+            var numberOfRows = inputValues.Length;
+            var numberOfCols = inputValues[0].Length;
+            double[] values = new double[numberOfRows * numberOfCols];
+            int index = 0;
+            for (int col = 0; col < numberOfCols; col++)
+            {
+                for (int row = 0; row < numberOfRows; row++)
+                {
+                    values[index] = inputValues[row][col];
+                    index += 1;
+                }
+            }
+
+            return values;
+        }
+
+        private static double[] MultyDimToFlatColumnWise(double[,] inputValues)
+        {
+            var numberOfRows = inputValues.GetLength(0);
+            var numberOfCols = inputValues.GetLength(1);
+            double[] values = new double[numberOfRows * numberOfCols];
+            int index = 0;
+            for (int col = 0; col < numberOfCols; col++)
+            {
+                for (int row = 0; row < numberOfRows; row++)
+                {
+                    values[index] = inputValues[row,col];
+                    index += 1;
+                }
+            }
+
+            return values;
+        }
+
+        private static (int, int) JaggedRowsAndColsInfo(double[][] inputValues) => (inputValues.Length, inputValues[0].Length);
+
+        private static (int, int) MultDimRowsAndColsInfo(double[,] inputValues) => (inputValues.GetLength(0), inputValues.GetLength(1));
+
         private bool IsEqual(MatrixXD other)
         {
             if (Rows != other.Rows || Cols != other.Cols)
@@ -48,7 +88,7 @@ namespace EigenCore.Core.Dense
             double[] input = new double[size * size];
 
             for (int i = 0; i < size; i++)
-            {  
+            {
                 input[i * (size + 1)] = 1.0;
             }
 
@@ -114,7 +154,7 @@ namespace EigenCore.Core.Dense
 
         public MatrixXD Transpose()
         {
-            double[] outMatrix = new double[Rows * Cols];      
+            double[] outMatrix = new double[Rows * Cols];
             EigenDenseUtilities.Transpose(GetValues(), Rows, Cols, outMatrix);
             return new MatrixXD(outMatrix, Cols, Rows);
         }
@@ -123,7 +163,7 @@ namespace EigenCore.Core.Dense
         public MatrixXD MultT(MatrixXD other)
         {
             double[] outMatrix = new double[Rows * other.Rows];
-            EigenDenseUtilities.MultT(GetValues(), Rows, Cols, other.GetValues(), other.Rows, other.Cols,  outMatrix);
+            EigenDenseUtilities.MultT(GetValues(), Rows, Cols, other.GetValues(), other.Rows, other.Cols, outMatrix);
             return new MatrixXD(outMatrix, Rows, other.Rows);
         }
 
@@ -205,6 +245,22 @@ namespace EigenCore.Core.Dense
         protected MatrixXD(double[] values, int rows, int cols)
                 : base(values, rows, cols)
         {
+        }
+
+        public MatrixXD(double[][] inputValues) :
+            base(() => JaggedToFlatColumnWise(inputValues),
+            JaggedRowsAndColsInfo(inputValues).Item1,
+            JaggedRowsAndColsInfo(inputValues).Item2)
+        {
+ 
+        }
+
+        public MatrixXD(double[,] inputValues) :
+            base(() => MultyDimToFlatColumnWise(inputValues),
+            MultDimRowsAndColsInfo(inputValues).Item1,
+            MultDimRowsAndColsInfo(inputValues).Item2)
+        {
+
         }
 
         public MatrixXD(MatrixXD matrixXD)
