@@ -189,8 +189,8 @@ Computes eigenvalues and eigenvectors of selfadjoint matrices.
 
 MatrixXD A = new MatrixXD("2 1; 1 2");
 SAEigenSolverResult result = A.SymmetricEigen();
-VectorXD eigenvalues = result.Eigenvalues.Real();
-MatrixXD eigenvectors = result.Eigenvectors.Real();
+VectorXD eigenvalues = result.Eigenvalues;
+MatrixXD eigenvectors = result.Eigenvectors;
 
 Console.WriteLine(eigenvalues.ToString());
 
