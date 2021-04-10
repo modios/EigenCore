@@ -70,6 +70,7 @@ MatrixXD diag = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
 MatrixXD A = new MatrixXD("4 3; 3 2");
 MatrixXD B = new MatrixXD("2 2; 1 1");
 var result = A.Plus(B);
+
 Console.WriteLine(result.ToString());
 
 MatrixXD, 2 * 2:
@@ -83,6 +84,7 @@ MatrixXD, 2 * 2:
 MatrixXD A = new MatrixXD("1 2; 3 5");
 MatrixXD B = new MatrixXD("1 2; 3 2");
 MatrixXD result = A.Mult(B);
+
 Console.WriteLine(result.ToString());
 
 MatrixXD, 2 * 2:  
@@ -117,6 +119,7 @@ MatrixXD, 3 * 2:
 MatrixXD A = new MatrixXD("1 2 1; 2 5 2");
 MatrixXD B = new MatrixXD("1 0 1; 1 1 0");
 MatrixXD result = A.MultT(B);
+
 Console.WriteLine(result.ToString());
 
 MatrixXD, 2 * 2:  
@@ -129,6 +132,7 @@ MatrixXD, 2 * 2:
 // X = A + A^T
 MatrixXD A = new MatrixXD("2 2; 1 1");
 MatrixXD result = A.PlusT();
+
 Console.WriteLine(result.ToString());
 
 MatrixXD, 2 * 2:
@@ -141,9 +145,11 @@ MatrixXD, 2 * 2:
 ### Matrix-Vector Operations
 
 ```csharp
-  MatrixXD A = new MatrixXD("1 -2 ; 2 5 ; 4 -2");
-  VectorXD v = new VectorXD(new[] { 3.0, -7.0 });
-  VectorXD result = A.Mult(v);
+MatrixXD A = new MatrixXD("1 -2 ; 2 5 ; 4 -2");
+VectorXD v = new VectorXD(new[] { 3.0, -7.0 });
+VectorXD result = A.Mult(v);
+
+Console.WriteLine(result.ToString());
 
 VectorXD, 3:  
 
