@@ -77,6 +77,21 @@ namespace EigenCore.Eigen
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void dxplusa_([In] double* firstMatrix, int row1, int col1, [In] double* secondMatrix, int row2, int col2, [Out] double* vout);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="row1"></param>
+        /// <param name="col1"></param>
+        /// <param name="vout"></param>
+        /// <param name="sout"></param>
+        /// <param name="uout"></param>
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void svd_([In] double* firstMatrix, int row1, int col1, 
+            [Out] double* vout,
+            [Out] double* sout,
+            [Out] double* uout);
         #endregion Matrices
     }
 }

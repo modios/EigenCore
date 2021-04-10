@@ -68,6 +68,22 @@ EXPORT_API(void) dmultt_(_In_ double* v1, const int row1, const int col1, _In_ d
 	result = matrix1 * matrix2.transpose();
 }
 
+//  A * A^T 
+EXPORT_API(void) da_multt_(_In_ double* m1, const int row1, const int col1, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row1, col1);
+	Map<MatrixXd> result(vout, col1, col1);
+	result = matrix1.transpose() * matrix1;
+}
+
+//  A^T * A
+EXPORT_API(void) da_tmult_(_In_ double* m1, const int row1, const int col1, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row1, col1);
+	Map<MatrixXd> result(vout, col1, col1);
+	result = matrix1.transpose() * matrix1;
+}
+
 // matrix trace.
 EXPORT_API(double) dtrace_(_In_ double* m1, const int row1, const int col1)
 {
@@ -128,4 +144,18 @@ EXPORT_API(void) dxplusa_(_In_ double* v1, const int row1, const int col1, _In_ 
 	Map<const MatrixXd> matrix2(v2, row2, col2);
 	Map<MatrixXd> result(vout, row1, row2);
 	result = matrix1 + matrix2;
+}
+
+// svd
+EXPORT_API(void) svd_(_In_ double* m1, const int row, const int col, _Out_ double* uout, _Out_ double* sout, _Out_ double* vout)
+{
+	int minRowsCols = MIN(row, col);
+	Map<const MatrixXd> matrix1(m1, row, col);
+	JacobiSVD<MatrixXd> svd(matrix1, ComputeThinU | ComputeThinV);
+	Map<MatrixXd> u(uout, row, minRowsCols);
+	Map<VectorXd> s(sout, minRowsCols);
+	Map<MatrixXd> v(vout, col, minRowsCols);
+	u = svd.matrixU();
+	v = svd.matrixV();
+	s = svd.singularValues();
 }

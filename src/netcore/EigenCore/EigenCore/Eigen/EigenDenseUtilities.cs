@@ -245,6 +245,31 @@ namespace EigenCore.Eigen
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SVD(ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
+            Span<double> uout,
+            Span<double> sout,
+            Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pUOut = &MemoryMarshal.GetReference(uout))
+                    {
+                        fixed (double* pSOut = &MemoryMarshal.GetReference(sout))
+                        {
+                            fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                            {
+                                ThunkDenseEigen.svd_(pfirst, rows1, cols1, pUOut, pSOut, pVOut);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion Matrices
     }
 }

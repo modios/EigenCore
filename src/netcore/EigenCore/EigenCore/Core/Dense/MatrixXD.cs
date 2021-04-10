@@ -188,6 +188,20 @@ namespace EigenCore.Core.Dense
             return new EigenSolverResult(new VectorXCD(realValues, imagValues), new MatrixXCD(realEigenvectors, imagEigenvectors, Rows, Cols));
         }
 
+        public SVDResult SVD()
+        {
+            int minRowsCols = Cols < Rows ? Cols : Rows;
+            double[] uout = new double[Rows * minRowsCols];
+            double[] sout = new double[minRowsCols];
+            double[] vout = new double[Cols * minRowsCols];
+
+            EigenDenseUtilities.SVD(GetValues(), Rows, Cols, uout, sout, vout);
+
+            return new SVDResult(new MatrixXD(uout, Rows, minRowsCols),
+                new VectorXD(sout),
+                new MatrixXD(vout, Cols, minRowsCols));
+        }
+
         /// <summary>
         /// X = A + A^T;
         /// </summary>

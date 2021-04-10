@@ -223,5 +223,22 @@ namespace EigenCore.Test.Dense.Core
             var result = A.Plus(B);
             Assert.Equal(new double[] { 5, 3, 3, 3 }, result.GetValues().ToArray());
         }
+
+        [Fact(Skip = "need to update .so")]
+        public void SVD_ShouldSucceed()
+        {
+            var A = new MatrixXD("3 2 2 ; 2 3 -2");
+            SVDResult result = A.SVD();
+
+            Assert.Equal(new MatrixXD("-0.7071067811865476 0.7071067811865475 ;" +
+                " -0.7071067811865475  -0.7071067811865476"), result.U);
+
+            Assert.Equal(new[] { 5.0, 3.0 }, result.S.GetValues().ToArray());
+
+            Assert.Equal(new MatrixXD("-0.7071067811865477  0.23570226039551567; " +
+                "-0.7071067811865475 -0.23570226039551567; " +
+                "-2.220446049250313E-16 0.94280904158206336"),
+                result.V);
+        }
     }
 }
