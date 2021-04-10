@@ -82,7 +82,7 @@ MatrixXD B = new MatrixXD("1 2; 3 2");
 MatrixXD result = A.Mult(B);
 Console.WriteLine(result.ToString());
 
-MatrixXD, 2 * 2  
+MatrixXD, 2 * 2:  
 
     7 18 
     6 16 
@@ -116,7 +116,7 @@ MatrixXD B = new MatrixXD("1 0 1; 1 1 0");
 MatrixXD result = A.MultT(B);
 Console.WriteLine(result.ToString());
 
-MatrixXD, 2 * 2  
+MatrixXD, 2 * 2:  
 
     2 3 
     4 7 
@@ -135,6 +135,18 @@ MatrixXD, 2 * 2:
 
 ```
 
+### Matrix-Vector Operations
+
+```csharp
+  MatrixXD A = new MatrixXD("1 -2 ; 2 5 ; 4 -2");
+  VectorXD v = new VectorXD(new[] { 3.0, -7.0 });
+  VectorXD result = A.Mult(v);
+
+VectorXD, 3:  
+
+   17 -29 26
+
+```
 
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
