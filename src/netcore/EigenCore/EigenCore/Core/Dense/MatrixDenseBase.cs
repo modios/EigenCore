@@ -11,8 +11,8 @@ namespace EigenCore.Core.Dense
     /// <typeparam name="T"></typeparam>
     public abstract class MatrixDenseBase<T> : VBufferDense<T>
     {
-        protected virtual int MaxRowsToPrint => 20;
-        protected virtual int MaxColsToPrint => 20;
+        protected static int MaxRowsToPrint => 20;
+        protected static int MaxColsToPrint => 20;
 
         protected static Random _random = default(Random);
 

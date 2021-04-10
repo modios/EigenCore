@@ -7,6 +7,14 @@ namespace EigenCore.Test.Dense.Core
     public class VectorXDTest
     {
         [Fact]
+        public void ArrayConstructor_ShouldSucced()
+        {
+            VectorXD v = new VectorXD( new double[] { 1, 2, 5, 6 });
+            Assert.Equal(new double[] { 1, 2, 5, 6 }, v.GetValues().ToArray());
+            Assert.Equal("VectorXD, 4:\n\n1 2 5 6", v.ToString());
+        }
+
+        [Fact]
         public void Random_ShouldSucceed()
         {
             VectorXD A = VectorXD.Random(10);
@@ -30,16 +38,16 @@ namespace EigenCore.Test.Dense.Core
         [Fact]
         public void Dot_ShouldSucceed()
         {
-            VectorXD A = new VectorXD(Enumerable.Range(1, 4).Select(n => (double)n).ToArray());
-            VectorXD B = new VectorXD(Enumerable.Range(1, 4).Select(n => (double)n).ToArray());
+            VectorXD A = new VectorXD(new double[] { 1, 2, 3, 4 });
+            VectorXD B = new VectorXD(new double[] { 1, 2, 3, 4 });
             Assert.Equal(30.0, A.Dot(B));
         }
 
         [Fact]
         public void Add_ShouldSucceed()
         {
-            VectorXD A = new VectorXD(Enumerable.Range(1, 4).Select(n => (double)n).ToArray());
-            VectorXD B = new VectorXD(Enumerable.Range(1, 4).Select(n => (double)n).ToArray());
+            VectorXD A = new VectorXD(new double[] { 1, 2, 3, 4 });
+            VectorXD B = new VectorXD(new double[] { 1, 2, 3, 4 });
             var addVector = A.Add(B);
             Assert.Equal(new double[] { 2,4,6,8}, addVector.GetValues().ToArray());
         }

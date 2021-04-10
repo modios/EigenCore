@@ -6,9 +6,9 @@ namespace EigenCore.Core.Dense
 {
     public class VectorDenseBase<T> : VBufferDense<T>
     {
-        protected virtual int MaxElements => 20;
-
         protected static Random _random = default(Random);
+
+        protected static int MaxElements = 20;
 
         private static int GeLengthInfo(string valuesString)
         {
