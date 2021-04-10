@@ -25,8 +25,11 @@ VectorXD, 4:
 ### Basic Vectors
 ```csharp
 
-VectorXD v1 = VectorXD.Random(10);
-VectorXD v2 = VectorXD.Linespace(1, 10, 10);
+VectorXD zeros = VectorXD.Zeros(10);
+VectorXD ones =  VectorXD.Ones(10);
+VectorXD ident = VectorXD.Identity(10);
+VectorXD random = VectorXD.Random(10);
+VectorXD linspace = VectorXD.Linespace(1, 10, 10);
 ```
 
 ### Matrix Constructors
@@ -67,6 +70,7 @@ MatrixXD diag = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
 MatrixXD A = new MatrixXD("4 3; 3 2");
 MatrixXD B = new MatrixXD("2 2; 1 1");
 var result = A.Plus(B);
+
 Console.WriteLine(result.ToString());
 
 MatrixXD, 2 * 2:
@@ -80,6 +84,7 @@ MatrixXD, 2 * 2:
 MatrixXD A = new MatrixXD("1 2; 3 5");
 MatrixXD B = new MatrixXD("1 2; 3 2");
 MatrixXD result = A.Mult(B);
+
 Console.WriteLine(result.ToString());
 
 MatrixXD, 2 * 2:  
@@ -114,6 +119,7 @@ MatrixXD, 3 * 2:
 MatrixXD A = new MatrixXD("1 2 1; 2 5 2");
 MatrixXD B = new MatrixXD("1 0 1; 1 1 0");
 MatrixXD result = A.MultT(B);
+
 Console.WriteLine(result.ToString());
 
 MatrixXD, 2 * 2:  
@@ -126,6 +132,7 @@ MatrixXD, 2 * 2:
 // X = A + A^T
 MatrixXD A = new MatrixXD("2 2; 1 1");
 MatrixXD result = A.PlusT();
+
 Console.WriteLine(result.ToString());
 
 MatrixXD, 2 * 2:
@@ -138,14 +145,66 @@ MatrixXD, 2 * 2:
 ### Matrix-Vector Operations
 
 ```csharp
-  MatrixXD A = new MatrixXD("1 -2 ; 2 5 ; 4 -2");
-  VectorXD v = new VectorXD(new[] { 3.0, -7.0 });
-  VectorXD result = A.Mult(v);
+MatrixXD A = new MatrixXD("1 -2 ; 2 5 ; 4 -2");
+VectorXD v = new VectorXD(new[] { 3.0, -7.0 });
+VectorXD result = A.Mult(v);
+
+Console.WriteLine(result.ToString());
 
 VectorXD, 3:  
 
    17 -29 26
 
+```
+### EigenSolvers
+
+Computes eigenvalues and eigenvectors of general matrices.
+[EigenSolver](https://eigen.tuxfamily.org/dox/classEigen_1_1EigenSolver.html)
+
+```csharp
+
+MatrixXD A = new MatrixXD("0 1; -2 -3");
+EigenSolverResult result = A.Eigen();
+VectorXD eigenvalues = result.Eigenvalues.Real();
+MatrixXD eigenvectors = result.Eigenvectors.Real();
+
+Console.WriteLine(eigenvalues.ToString());
+
+VectorXD, 2:
+
+  -1 -2
+  
+Console.WriteLine(eigenvectors.ToString());
+
+MatrixXD, 2 * 2:
+    
+ 0.707 -0.447 
+-0.707  0.894 
+ 
+```
+
+Computes eigenvalues and eigenvectors of selfadjoint matrices.
+[SelfAdjointEigenSolver](https://eigen.tuxfamily.org/dox/classEigen_1_1SelfAdjointEigenSolver.html)
+```csharp
+
+MatrixXD A = new MatrixXD("2 1; 1 2");
+SAEigenSolverResult result = A.SymmetricEigen();
+VectorXD eigenvalues = result.Eigenvalues;
+MatrixXD eigenvectors = result.Eigenvectors;
+
+Console.WriteLine(eigenvalues.ToString());
+
+VectorXD, 2:
+
+  1 3
+  
+Console.WriteLine(eigenvectors.ToString());
+
+MatrixXD, 2 * 2:
+
+ -0.707 0.707 
+  0.707 0.707 
+ 
 ```
 
 ## References
