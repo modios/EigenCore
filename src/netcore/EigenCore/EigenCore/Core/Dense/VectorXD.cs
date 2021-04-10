@@ -6,6 +6,24 @@ namespace EigenCore.Core.Dense
 {
     public class VectorXD : VectorDenseBase<double>
     {
+        public static VectorXD Zeros(int size)
+        {
+            return new VectorXD(new double[size]);
+        }
+
+        public static VectorXD Ones(int size)
+        {
+            double[] input = Enumerable.Range(1,size).Select(n => 1.0).ToArray();
+            return new VectorXD(input);
+        }
+
+        public static VectorXD Identity(int size, int position)
+        {
+            double[] input = new double[size];
+            input[position] = 1.0;
+            return new VectorXD(input);
+        }
+
         public static VectorXD Random(int size, double min = 0, double max = 1, int seed = 0)
         {
             double[] input = new double[size];

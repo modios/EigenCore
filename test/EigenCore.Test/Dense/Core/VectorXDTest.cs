@@ -15,6 +15,38 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact]
+        public void Zeros_ShouldSucceed()
+        {
+            VectorXD v = VectorXD.Zeros(4);
+            Assert.True(v.Max() <= 0.0);
+            Assert.True(v.Min() >= 0.0);
+            Assert.Equal(4, v.Length);
+            Assert.Equal(new double[] { 0, 0, 0, 0 }, v.GetValues().ToArray());
+        }
+
+        [Fact]
+        public void Ones_ShouldSucceed()
+        {
+            VectorXD v = VectorXD.Ones(4);
+            Assert.True(v.Max() <= 1.0);
+            Assert.True(v.Min() >= 1.0);
+            Assert.Equal(4, v.Length);
+            Assert.Equal(new double[] { 1.0, 1.0, 1.0, 1.0 }, v.GetValues().ToArray());
+        }
+
+        [Fact]
+        public void Identity_ShouldSucceed()
+        {
+            VectorXD v = VectorXD.Identity(3, 1);
+            Assert.True(v.Max() <= 1.0);
+            Assert.True(v.Min() >= 0.0);
+            Assert.Equal(3, v.Length);
+            Assert.Equal(1, v.Get(1));
+            Assert.Equal(0, v.Get(0));
+            Assert.Equal(0, v.Get(2));
+        }
+
+        [Fact]
         public void Random_ShouldSucceed()
         {
             VectorXD A = VectorXD.Random(10);
