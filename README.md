@@ -10,7 +10,7 @@ For now provides just a few methods and it's in very early stages.
 
 ```csharp
 
-MatrixXD A = new MatrixXD("1 3 2; 0 2 1", 2, 3);
+MatrixXD A = new MatrixXD("1 3 2; 0 2 1");
 
 MatrixXD B = new MatrixXD(new double[][] { new double[] { 1, 3, 2 } , new double[] { 0, 2, 1 } });
 
@@ -41,8 +41,8 @@ MatrixXD diag = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
 
 ```csharp
 
-MatrixXD A = new MatrixXD("4 3; 3 2", 2, 2);
-MatrixXD B = new MatrixXD("2 2; 1 1", 2, 2);
+MatrixXD A = new MatrixXD("4 3; 3 2");
+MatrixXD B = new MatrixXD("2 2; 1 1");
 var result = A.Plus(B);
 Console.WriteLine(result.ToString());
 
@@ -54,8 +54,8 @@ MatrixXD, 2 * 2:
 
 ```csharp
 
-MatrixXD A = new MatrixXD("1 2; 3 5", 2, 2);
-MatrixXD B = new MatrixXD("1 2; 3 2", 2, 2);
+MatrixXD A = new MatrixXD("1 2; 3 5");
+MatrixXD B = new MatrixXD("1 2; 3 2");
 MatrixXD result = A.Mult(B);
 Console.WriteLine(result.ToString());
 
@@ -68,8 +68,8 @@ MatrixXD, 2 * 2
 
 ```csharp
 // X = A * B^T
-MatrixXD A = new MatrixXD("1 2 1; 2 5 2", 2, 3);
-MatrixXD B = new MatrixXD("1 0 1; 1 1 0", 2, 3);
+MatrixXD A = new MatrixXD("1 2 1; 2 5 2");
+MatrixXD B = new MatrixXD("1 0 1; 1 1 0");
 MatrixXD result = A.MultT(B);
 Console.WriteLine(result.ToString());
 
@@ -81,7 +81,7 @@ MatrixXD, 2 * 2
 
 ```csharp
 // X = A + A^T
-MatrixXD A = new MatrixXD("2 2; 1 1", 2, 2);
+MatrixXD A = new MatrixXD("2 2; 1 1");
 MatrixXD result = A.PlusT();
 Console.WriteLine(result.ToString());
 
