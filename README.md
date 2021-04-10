@@ -183,6 +183,30 @@ MatrixXD, 2 * 2:
  
 ```
 
+Computes eigenvalues and eigenvectors of selfadjoint matrices.
+[SelfAdjointEigenSolver](https://eigen.tuxfamily.org/dox/classEigen_1_1SelfAdjointEigenSolver.html)
+```csharp
+
+MatrixXD A = new MatrixXD("2 1; 1 2");
+SAEigenSolverResult result = A.SymmetricEigen();
+VectorXD eigenvelues = result.Eigenvalues.Real();
+MatrixXD eigenvectors = result.Eigenvectors.Real();
+
+Console.WriteLine(eigenvelues.ToString());
+
+VectorXD, 2:
+
+  1 3
+  
+Console.WriteLine(eigenvectors.ToString());
+
+MatrixXD, 2 * 2:
+
+ -0.707 0.707 
+  0.707 0.707 
+ 
+```
+
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
