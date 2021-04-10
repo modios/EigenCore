@@ -11,10 +11,8 @@ namespace EigenCore.Core.Dense
     /// <typeparam name="T"></typeparam>
     public abstract class MatrixDenseBase<T> : VBufferDense<T>
     {
-        private const int MaxRowsToPrint = 100;
-        private const int MaxColsToPrint = 100;
-        private const int DefaultColsToPrint = 7;
-        private const int DefaultRowsToPrint = 7;
+        protected virtual int MaxRowsToPrint => 20;
+        protected virtual int MaxColsToPrint => 20;
 
         protected static Random _random = default(Random);
 
@@ -109,16 +107,16 @@ namespace EigenCore.Core.Dense
             }
             else
             {
-                int rMax = (Rows > MaxRowsToPrint) ? DefaultRowsToPrint : Rows;
-                int cMax = (Cols > MaxColsToPrint) ? DefaultColsToPrint : Cols;
-                for (int i = 0; i < rMax; i++)
+                int rows = (Rows > MaxRowsToPrint) ? MaxRowsToPrint : Rows;
+                int cols = (Cols > MaxColsToPrint) ? MaxColsToPrint : Cols;
+                for (int i = 0; i < rows; i++)
                 {
                     int row = (Rows > MaxRowsToPrint && i > 3) ? Rows - i - 1 : i;
                     if (Rows > MaxRowsToPrint && i == 3)
                     {
                         stringBuilder.Append("...\n");
                     }
-                    for (int j = 0; j < cMax; j++)
+                    for (int j = 0; j < cols; j++)
                     {
                         int col = (Cols > MaxColsToPrint && j > 3) ? Cols - j - 1 : j;
                         if (Cols > MaxColsToPrint && j == 3)
@@ -127,7 +125,7 @@ namespace EigenCore.Core.Dense
                         }
                         else
                         {
-                            stringBuilder.AppendFormat("{0:0.00} ", Get(row, col));
+                            stringBuilder.AppendFormat("{0:G3} ", Get(row, col));
                         }
                     }
                     stringBuilder.Append('\n');
