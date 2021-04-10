@@ -88,6 +88,26 @@ MatrixXD, 2 * 2
     6 16 
 ```
 
+```csharp
+MatrixXD A = new MatrixXD("1 2 4; 3 5 7");
+MatrixXD B = A.Transpose();
+
+Console.WriteLine(A.ToString());
+
+MatrixXD, 2 * 3:
+    
+    1 2 4 
+    3 5 7 
+    
+Console.WriteLine(B.ToString());
+
+MatrixXD, 3 * 2:
+
+    1 3 
+    2 5 
+    4 7 
+```
+
 
 ```csharp
 // X = A * B^T
