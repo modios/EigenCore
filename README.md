@@ -6,6 +6,21 @@ For now provides just a few methods and it's in very early stages.
 
 ## Usage 
 
+### Vector Constructors
+
+```csharp
+
+VectorXD v = new VectorXD("1 2 5 6");
+
+VectorXD v = new VectorXD( new double[] { 1, 2, 5, 6 });
+
+Console.WriteLine(v.ToString());
+
+VectorXD, 4:    
+    1 2 5 6
+
+```
+
 ### Matrix Constructors
 
 ```csharp
