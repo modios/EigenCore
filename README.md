@@ -22,6 +22,13 @@ VectorXD, 4:
 
 ```
 
+### Basic Vectors
+```csharp
+
+VectorXD v1 = VectorXD.Random(10);
+VectorXD v2 = VectorXD.Linespace(1, 10, 10);
+```
+
 ### Matrix Constructors
 
 ```csharp
