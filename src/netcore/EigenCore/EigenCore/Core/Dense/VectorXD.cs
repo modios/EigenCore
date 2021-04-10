@@ -60,6 +60,11 @@ namespace EigenCore.Core.Dense
             return new VectorXD(outVector);
         }
 
+        public VectorXD(string valuesString) 
+            : base(valuesString, (string value) => double.Parse(value))
+        {
+        }
+
         public VectorXD(double[] values) : base(values)
         {
         }

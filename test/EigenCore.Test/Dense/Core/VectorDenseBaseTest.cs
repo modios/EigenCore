@@ -17,5 +17,20 @@ namespace EigenCore.Test.Dense.Core
             var C = VectorXD.Linespace(0, 99, 100);
             Assert.Equal("VectorXD, 100:\n\n0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ...", C.ToString());
         }
+
+        [Fact]
+        public void ConstructorString_ShouldSucceed()
+        {
+            double[] values = new double[] { 1.0, 2.0, 5.0, 6.0 };
+
+            int length = 4;
+            VectorXD v = new VectorXD("1 2 5 6");
+            Assert.Equal(length, v.Length);
+
+            for (int i = 0; i < length; i++)
+            {
+                Assert.Equal(values[i], v.Get(i));
+            }
+        }
     }
 }

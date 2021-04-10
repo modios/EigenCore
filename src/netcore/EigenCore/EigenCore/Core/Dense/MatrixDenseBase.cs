@@ -16,7 +16,6 @@ namespace EigenCore.Core.Dense
 
         protected static Random _random = default(Random);
 
-
         private static (int, int) GetRowsAndColsInfo(string valuesString)
         {
             string[] lines = valuesString.Split(";");

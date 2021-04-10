@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace EigenCore.Core.Dense
 {
@@ -8,6 +9,30 @@ namespace EigenCore.Core.Dense
         protected virtual int MaxElements => 20;
 
         protected static Random _random = default(Random);
+
+        private static int GeLengthInfo(string valuesString)
+        {
+            string trimmedLine = Regex.Replace(valuesString, @"\s+", " ").Trim();
+            string[] splitline = trimmedLine.Split(" ");
+            return splitline.Length;
+        }
+
+        private static T[] StringToFlatValues(string valuesString, Func<string, T> parser)
+        {
+            var length = GeLengthInfo(valuesString);
+            var inputValues = new T[length];
+
+            string trimmedLine = Regex.Replace(valuesString, @"\s+", " ").Trim();
+            string[] splitline = trimmedLine.Split(" ");;
+
+            for(int index = 0; index < length; index++)
+            {
+                inputValues[index] = parser(splitline[index]);
+            }
+
+            return inputValues;
+        }
+
 
         public static void SetRandomState(int seed)
         {
@@ -38,6 +63,11 @@ namespace EigenCore.Core.Dense
             return stringBuilder.ToString().Trim();
         }
 
+
+        public VectorDenseBase(string valuesString, Func<string, T> parser)
+            : base(() => StringToFlatValues(valuesString, parser))
+        {
+        }
 
         public VectorDenseBase(T[] values) : base(values)
         {
