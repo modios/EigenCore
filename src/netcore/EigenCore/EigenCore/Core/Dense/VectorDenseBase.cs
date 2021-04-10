@@ -54,7 +54,7 @@ namespace EigenCore.Core.Dense
                 if(i > MaxElements)
                 {
                     stringBuilder.Append("...");
-                    return stringBuilder.ToString().ToString().Trim();
+                    return stringBuilder.ToString().Trim();
                 }
 
                 stringBuilder.AppendFormat("{0:G3} ", _values[i]);
