@@ -146,6 +146,17 @@ namespace EigenCore.Test.Dense.Core
             VectorXD v = new VectorXD(new[] { 2.0, 2.0, 2.0 });
             var result = A.Mult(v);
             Assert.Equal(new double[] { 7, 4, 9 }, result.GetValues().ToArray());
+
+
+            A = new MatrixXD("1 2 1; 2 5 2; 2 5 5");
+            v = new VectorXD(new[] { 1.5, 4.5, 2.0 });
+            result = A.Mult(v);
+            Assert.Equal(new double[] { 12.5, 29.5, 35.5 }, result.GetValues().ToArray());
+
+            A = new MatrixXD("1 -2 ; 2 5 ; 4 -2");
+            v = new VectorXD(new[] { 3.0, -7.0 });
+            result = A.Mult(v);
+            Assert.Equal(new double[] { 17.0, -29.0, 26.0 }, result.GetValues().ToArray());
         }
 
         [Fact(Skip = "need to update .so")]

@@ -47,7 +47,7 @@ EXPORT_API(void) dmultv_(_In_ double* m1, const int row1, const int col1, _In_ d
 {
 	Map<const MatrixXd> matrix(m1, row1, col1);
 	Map<const VectorXd> vector(v1, length);
-	Map<VectorXd> result(vout, length);
+	Map<VectorXd> result(vout, row1);
 	result = matrix * vector;
 }
 

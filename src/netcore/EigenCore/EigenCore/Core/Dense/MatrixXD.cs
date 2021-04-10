@@ -128,8 +128,7 @@ namespace EigenCore.Core.Dense
 
         public VectorXD Mult(VectorXD other)
         {
-            var length = other.Length;
-            double[] outVector = new double[length];
+            double[] outVector = new double[Rows];
             EigenDenseUtilities.Mult(GetValues(),
                 Rows,
                 Cols,
