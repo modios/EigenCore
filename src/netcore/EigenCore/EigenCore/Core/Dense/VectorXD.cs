@@ -6,6 +6,16 @@ namespace EigenCore.Core.Dense
 {
     public class VectorXD : VectorDenseBase<double>
     {
+        private bool IsEqual(VectorXD other)
+        {
+            if (Length != other.Length)
+            {
+                return false;
+            }
+
+            return VectorHelpers.ArraysEqual(_values, other.GetValues().ToArray());
+        }
+
         public static VectorXD Zeros(int size)
         {
             return new VectorXD(new double[size]);
@@ -76,6 +86,31 @@ namespace EigenCore.Core.Dense
             double[] outVector = new double[Length];
             EigenDenseUtilities.Scale(GetValues(), scalar, Length, outVector);
             return new VectorXD(outVector);
+        }
+
+        public override bool Equals(object value)
+        {
+            if (ReferenceEquals(null, value))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, value))
+            {
+                return true;
+            }
+
+            if (value.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return IsEqual((VectorXD)value);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public VectorXD(string valuesString) 

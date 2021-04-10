@@ -21,7 +21,7 @@ namespace EigenCore.Test.Dense.Core
             Assert.True(v.Max() <= 0.0);
             Assert.True(v.Min() >= 0.0);
             Assert.Equal(4, v.Length);
-            Assert.Equal(new double[] { 0, 0, 0, 0 }, v.GetValues().ToArray());
+            Assert.Equal(new VectorXD(new[] { 0.0, 0.0, 0.0, 0.0 }), v);
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace EigenCore.Test.Dense.Core
             Assert.True(v.Max() <= 1.0);
             Assert.True(v.Min() >= 1.0);
             Assert.Equal(4, v.Length);
-            Assert.Equal(new double[] { 1.0, 1.0, 1.0, 1.0 }, v.GetValues().ToArray());
+            Assert.Equal(new VectorXD(new [] {1.0, 1.0, 1.0, 1.0 }), v);
         }
 
         [Fact]
@@ -58,13 +58,11 @@ namespace EigenCore.Test.Dense.Core
         [Fact]
         public void Linspace_ShouldSucceed()
         {
-            VectorXD A = VectorXD.Linespace(1, 10, 10);
-            Assert.Equal(10.0, A.Max());
-            Assert.Equal(1.0, A.Min());
-            Assert.Equal(10, A.Length);
-            Assert.Equal(
-                new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 
-                A.GetValues().ToArray());
+            VectorXD v = VectorXD.Linespace(1, 10, 10);
+            Assert.Equal(10.0, v.Max());
+            Assert.Equal(1.0, v.Min());
+            Assert.Equal(10, v.Length);
+            Assert.Equal(new VectorXD(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }), v);
         }
 
         [Fact]
@@ -81,7 +79,7 @@ namespace EigenCore.Test.Dense.Core
             VectorXD A = new VectorXD(new double[] { 1, 2, 3, 4 });
             VectorXD B = new VectorXD(new double[] { 1, 2, 3, 4 });
             var addVector = A.Add(B);
-            Assert.Equal(new double[] { 2,4,6,8}, addVector.GetValues().ToArray());
+            Assert.Equal(new VectorXD(new double[] { 2,4,6,8}), addVector);
         }
 
         [Fact]
@@ -89,7 +87,7 @@ namespace EigenCore.Test.Dense.Core
         {
             VectorXD A = new VectorXD(Enumerable.Range(1, 4).Select(n => (double)n).ToArray());
             var scaledVector = A.Scale(2.0);
-            Assert.Equal(new double[] { 2, 4, 6, 8 }, scaledVector.GetValues().ToArray());
+            Assert.Equal(new VectorXD(new double[] { 2, 4, 6, 8 }), scaledVector);
         }
     }
 }
