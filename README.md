@@ -67,7 +67,7 @@ MatrixXD, 2 * 2
 
 
 ```csharp
-// X = A + B^T
+// X = A * B^T
 MatrixXD A = new MatrixXD("1 2 1; 2 5 2", 2, 3);
 MatrixXD B = new MatrixXD("1 0 1; 1 1 0", 2, 3);
 MatrixXD result = A.MultT(B);
