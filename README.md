@@ -96,3 +96,4 @@ MatrixXD, 2 * 2:
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
+- https://github.com/dotnet/machinelearning
