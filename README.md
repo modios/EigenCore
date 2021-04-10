@@ -165,10 +165,10 @@ Computes eigenvalues and eigenvectors of general matrices.
 
 MatrixXD A = new MatrixXD("0 1; -2 -3");
 EigenSolverResult result = A.Eigen();
-VectorXD eigenvelues = result.Eigenvalues.Real();
+VectorXD eigenvalues = result.Eigenvalues.Real();
 MatrixXD eigenvectors = result.Eigenvectors.Real();
 
-Console.WriteLine(eigenvelues.ToString());
+Console.WriteLine(eigenvalues.ToString());
 
 VectorXD, 2:
 
@@ -189,10 +189,10 @@ Computes eigenvalues and eigenvectors of selfadjoint matrices.
 
 MatrixXD A = new MatrixXD("2 1; 1 2");
 SAEigenSolverResult result = A.SymmetricEigen();
-VectorXD eigenvelues = result.Eigenvalues.Real();
+VectorXD eigenvalues = result.Eigenvalues.Real();
 MatrixXD eigenvectors = result.Eigenvectors.Real();
 
-Console.WriteLine(eigenvelues.ToString());
+Console.WriteLine(eigenvalues.ToString());
 
 VectorXD, 2:
 
