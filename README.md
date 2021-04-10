@@ -156,6 +156,32 @@ VectorXD, 3:
    17 -29 26
 
 ```
+### EigenSolvers
+
+Computes eigenvalues and eigenvectors of general matrices.
+[EigenSolver](https://eigen.tuxfamily.org/dox/classEigen_1_1EigenSolver.html)
+
+```csharp
+
+MatrixXD A = new MatrixXD("0 1; -2 -3");
+EigenSolverResult result = A.Eigen();
+VectorXD eigenvelues = result.Eigenvalues.Real();
+MatrixXD eigenvectors = result.Eigenvectors.Real();
+
+Console.WriteLine(eigenvelues.ToString());
+
+VectorXD, 2:
+
+  -1 -2
+  
+Console.WriteLine(eigenvectors.ToString());
+
+MatrixXD, 2 * 2:
+    
+ 0.707 -0.447 
+-0.707  0.894 
+ 
+```
 
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
