@@ -36,6 +36,12 @@ namespace EigenCore.Eigen
         public static extern void dmultv_([In] double* firstMatrix, int row1, int col1, [In] double* vector, int length, [Out] double* vout);
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void da_multt_([In] double* firstMatrix, int row1, int col1, [Out] double* vout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void da_tmult_([In] double* firstMatrix, int row1, int col1, [Out] double* vout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern double dtrace_([In] double* firstMatrix, int row1, int col1);
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]

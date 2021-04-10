@@ -200,6 +200,30 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact(Skip = "need to update .so")]
+        public void MultT_WithSelf_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("2 2; 1 1");
+            var result = A.MultT();
+            Assert.Equal(new MatrixXD("8 4 ; 4 2"), result);
+
+            MatrixXD B = new MatrixXD("2 2; 1 1; 3 3");
+            result = B.MultT();
+            Assert.Equal(new MatrixXD("8 4 12; 4 2 6; 12 6 18"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void TMult_WithSelf_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("2 2; 1 1");
+            var result = A.TMult();
+            Assert.Equal(new MatrixXD("5 5 ; 5 5"), result);
+
+            MatrixXD B = new MatrixXD("2 2; 1 1; 3 3");
+            result = B.TMult();
+            Assert.Equal(new MatrixXD("14 14; 14 14"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
         public void SymmetricEigen_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("4 3; 3 2");

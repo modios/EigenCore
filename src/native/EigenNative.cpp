@@ -72,8 +72,8 @@ EXPORT_API(void) dmultt_(_In_ double* v1, const int row1, const int col1, _In_ d
 EXPORT_API(void) da_multt_(_In_ double* m1, const int row1, const int col1, _Out_ double* vout)
 {
 	Map<const MatrixXd> matrix1(m1, row1, col1);
-	Map<MatrixXd> result(vout, col1, col1);
-	result = matrix1.transpose() * matrix1;
+	Map<MatrixXd> result(vout, row1, row1);
+	result =  matrix1 * matrix1.transpose();
 }
 
 //  A^T * A

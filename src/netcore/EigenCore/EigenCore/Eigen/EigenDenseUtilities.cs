@@ -245,6 +245,48 @@ namespace EigenCore.Eigen
             }
         }
 
+        /// <summary>
+        /// X = A * A^T
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="size"></param>
+        /// <param name="outMatrix"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void MultT(ReadOnlySpan<double> firstMatrix, int rows, int cols, Span<double> outMatrix)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pOut = &MemoryMarshal.GetReference(outMatrix))
+                    {
+                        ThunkDenseEigen.da_multt_(pfirst, rows, cols, pOut);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// X = A^T * A
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="size"></param>
+        /// <param name="outMatrix"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void TMult(ReadOnlySpan<double> firstMatrix, int rows, int cols, Span<double> outMatrix)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pOut = &MemoryMarshal.GetReference(outMatrix))
+                    {
+                        ThunkDenseEigen.da_tmult_(pfirst, rows, cols, pOut);
+                    }
+                }
+            }
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SVD(ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
             Span<double> uout,

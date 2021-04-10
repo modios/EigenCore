@@ -213,6 +213,26 @@ namespace EigenCore.Core.Dense
         }
 
         /// <summary>
+        /// X = A * A^T;
+        /// </summary>
+        public MatrixXD MultT()
+        {
+            double[] outMatrix = new double[Rows * Rows];
+            EigenDenseUtilities.MultT(GetValues(), Rows, Rows, outMatrix);
+            return new MatrixXD(outMatrix, Rows, Rows);
+        }
+
+        /// <summary>
+        /// X = A^T * A;
+        /// </summary>
+        public MatrixXD TMult()
+        {
+            double[] outMatrix = new double[Cols * Cols];
+            EigenDenseUtilities.TMult(GetValues(), Rows, Cols, outMatrix);
+            return new MatrixXD(outMatrix, Cols, Cols);
+        }
+
+        /// <summary>
         /// eigenvalues and eigenvectors for symmetric matrix.
         /// </summary>
         /// <returns></returns>
