@@ -18,7 +18,7 @@ MatrixXD C = new MatrixXD(new double[,] { { 1, 3, 2 }, { 0, 2, 1 } });
 
 Console.WriteLine(A.ToString());
 
-DenseMatrix, 2 * 3:
+MatrixXD, 2 * 3:
     
     1 3 2 
     0 2 1 
@@ -46,7 +46,7 @@ MatrixXD B = new MatrixXD("2 2; 1 1", 2, 2);
 var result = A.Plus(B);
 Console.WriteLine(result.ToString());
 
-DenseMatrix, 2 * 2:
+MatrixXD, 2 * 2:
     
    6 5 
    4 3
@@ -59,7 +59,7 @@ MatrixXD B = new MatrixXD("1 2; 3 2", 2, 2);
 MatrixXD result = A.Mult(B);
 Console.WriteLine(result.ToString());
 
-DenseMatrix, 2 * 2  
+MatrixXD, 2 * 2  
 
     7 18 
     6 16 
@@ -73,7 +73,7 @@ MatrixXD B = new MatrixXD("1 0 1; 1 1 0", 2, 3);
 MatrixXD result = A.MultT(B);
 Console.WriteLine(result.ToString());
 
-DenseMatrix, 2 * 2  
+MatrixXD, 2 * 2  
 
     2 3 
     4 7 
@@ -85,7 +85,7 @@ MatrixXD A = new MatrixXD("2 2; 1 1", 2, 2);
 MatrixXD result = A.PlusT();
 Console.WriteLine(result.ToString());
 
-DenseMatrix, 2 * 2:
+MatrixXD, 2 * 2:
 
     4 3
     3 2
