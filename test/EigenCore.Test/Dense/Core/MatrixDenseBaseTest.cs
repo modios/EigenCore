@@ -28,7 +28,7 @@ namespace EigenCore.Test.Dense.Core
 
             int rows = 3;
             int cols = 2;
-            MatrixXD A = new MatrixXD("1 2; 3 5; 7 9", 3, 2);
+            MatrixXD A = new MatrixXD("1 2; 3 5; 7 9");
             Assert.Equal(3, A.Rows);
             Assert.Equal(2, A.Cols);
 

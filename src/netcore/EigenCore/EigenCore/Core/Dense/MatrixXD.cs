@@ -268,8 +268,8 @@ namespace EigenCore.Core.Dense
         {
         }
 
-        public MatrixXD(string valuesString, int rows, int cols)
-            : base(valuesString, rows, cols, (string value) => double.Parse(value))
+        public MatrixXD(string valuesString)
+            : base(valuesString, (string value) => double.Parse(value))
         {
 
         }

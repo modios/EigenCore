@@ -16,6 +16,47 @@ namespace EigenCore.Core.Dense
 
         protected static Random _random = default(Random);
 
+
+        private static (int, int) GetRowsAndColsInfo(string valuesString)
+        {
+            string[] lines = valuesString.Split(";");
+            int rows = lines.Length;
+            string trimmedLine = Regex.Replace(lines[0], @"\s+", " ").Trim();
+            string[] splitline = trimmedLine.Split(" ");
+            int cols = splitline.Length;
+
+            return (rows, cols);
+        }
+
+        private static T[] StringToFlatValues(string valuesString, Func<string, T> parser)
+        {
+            (int rows, int cols) = GetRowsAndColsInfo(valuesString);
+            var inputValues = new T[rows * cols];
+  
+            string[] lines = valuesString.Split(";");
+            int row = 0;
+            
+            foreach (string line in lines)
+            {
+                string lineTrim = Regex.Replace(line, @"\s+", " ").Trim();
+                string[] splitline = lineTrim.Split(" ");
+
+                if (splitline.Length != cols)
+                {
+                    throw new Exception("Unequal sized rows in " + valuesString);
+                }
+
+                for (int col = 0; col < cols; col++)
+                {
+                    inputValues[rows * col + row] = parser(splitline[col]);
+                }
+
+                row++;
+            }
+
+            return inputValues;
+        }
+
         public static void SetRandomState(int seed)
         {
             _random = new Random(seed);
@@ -61,31 +102,10 @@ namespace EigenCore.Core.Dense
             Cols = cols;
         }
 
-        public MatrixDenseBase(string valuesString, int rows, int cols, Func<string, T> parser)
-            : base(new T[rows * cols])
+        public MatrixDenseBase(string valuesString, Func<string, T> parser)
+            : base(() => StringToFlatValues(valuesString, parser))
         {
-            string[] lines = valuesString.Split(";");
-            Rows = rows;
-            Cols = cols;
-            int row = 0;
-
-            foreach (string line in lines)
-            {
-                string lineTrim = Regex.Replace(line, @"\s+", " ").Trim();
-                string[] splitline = lineTrim.Split(" ");
-
-                if (splitline.Length != Cols)
-                {
-                    throw new Exception("Unequal sized rows in " + valuesString);
-                }
-
-                for (int col = 0; col < Cols; col++)
-                {
-                    Set(row, col, parser(splitline[col]));
-                }
-
-                row++;
-            }
+            (Rows, Cols) = GetRowsAndColsInfo(valuesString);
         }
 
         public override string ToString()
