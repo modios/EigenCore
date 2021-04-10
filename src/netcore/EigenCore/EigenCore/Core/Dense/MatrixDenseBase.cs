@@ -102,7 +102,7 @@ namespace EigenCore.Core.Dense
                 {
                     for (int col = 0; col < Cols; col++)
                     {
-                        stringBuilder.AppendFormat("{0:0.00} ", Get(row, col));
+                        stringBuilder.AppendFormat("{0:G3} ", Get(row, col));
                     }
                     stringBuilder.Append('\n');
                 }

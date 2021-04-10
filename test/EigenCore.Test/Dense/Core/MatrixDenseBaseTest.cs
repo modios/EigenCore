@@ -9,7 +9,12 @@ namespace EigenCore.Test.Dense.Core
         public void ToString_ShouldSucceed()
         {
             var A = new MatrixXD(new double[][] { new double[] { 1, 3, 1 }, new double[] { 0, 2, 1 } });
-            Assert.Equal("MatrixXD, 2 * 3:\n\n1.00 3.00 1.00 \n0.00 2.00 1.00 \n\n", A.ToString());
+            Assert.Equal("MatrixXD, 2 * 3:\n\n1 3 1 \n0 2 1 \n\n", A.ToString());
+
+            var B = new MatrixXD(new double[][] {
+                new double[] { 1.3423432, 3.234324, 3243241 },
+                new double[] { 0.32432, 3243242, 0.32432431 } });
+            Assert.Equal("MatrixXD, 2 * 3:\n\n1.34 3.23 3.24E+06 \n0.324 3.24E+06 0.324 \n\n", B.ToString());
         }
 
         [Fact]
