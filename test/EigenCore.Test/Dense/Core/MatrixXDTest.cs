@@ -1,5 +1,5 @@
 ﻿using EigenCore.Core.Dense;
-using System;
+using EigenCore.Core.Dense.LinearAlgebra;
 using Xunit;
 
 namespace EigenCore.Test.Dense.Core
@@ -161,7 +161,23 @@ namespace EigenCore.Test.Dense.Core
         {
             MatrixXD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
             var result = A.Eigen();
-            Assert.Equal(new[] { 3.5, 2, 4.5 }, result.Item1.Real().GetValues().ToArray());
+
+            var v1 = result.Eigenvalues.Real();
+            var v2 = result.Eigenvectors.Real();
+
+            Assert.Equal(new[] { 3.5, 2, 4.5 }, v1.GetValues().ToArray());
+            Assert.Equal(new[] { 1.0, 0.0, 0.0,
+                                 0.0, 1.0, 0.0,
+                                 0.0, 0.0, 1.0 }, v2.GetValues().ToArray());
+
+            MatrixXD B = new MatrixXD("0 1; -2 -3");
+            result = B.Eigen();
+            v1 = result.Eigenvalues.Real();
+            v2 = result.Eigenvectors.Real();
+
+            Assert.Equal(new[] { -1.0, -2.0 }, v1.GetValues().ToArray());
+            Assert.Equal(new[] { 0.7071067811865476, -0.7071067811865475,
+                                -0.447213595499958, 0.8944271909999157 }, v2.GetValues().ToArray());
         }
 
         [Fact(Skip = "need to update .so")]
@@ -176,8 +192,16 @@ namespace EigenCore.Test.Dense.Core
         public void SymmetricEigen_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("4 3; 3 2");
-            var eigen = A.SymmetricEigen();
-            Assert.Equal(new[] { -0.16227766016837947, 6.162277660168379 }, eigen.Item1.GetValues().ToArray());
+            SAEigenSolverResult eigen = A.SymmetricEigen();
+            Assert.Equal(new[] { -0.16227766016837947, 6.162277660168379 }, eigen.Eigenvalues.GetValues().ToArray());
+            Assert.Equal(new[] { -0.584710284663765, 0.8112421851755608,
+                                  0.8112421851755608, 0.584710284663765 }, eigen.Eigenvectors.GetValues().ToArray());
+
+            MatrixXD B = new MatrixXD("2 1; 1 2");
+            eigen = B.SymmetricEigen();
+            Assert.Equal(new[] { 0.9999999999999998, 2.9999999999999996 }, eigen.Eigenvalues.GetValues().ToArray());
+            Assert.Equal(new[] { -0.7071067811865475, 0.7071067811865475,
+                                  0.7071067811865475, 0.7071067811865475 }, eigen.Eigenvectors.GetValues().ToArray());
         }
 
         [Fact(Skip = "need to update .so")]

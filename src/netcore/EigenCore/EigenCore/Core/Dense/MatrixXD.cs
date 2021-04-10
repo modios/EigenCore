@@ -1,4 +1,5 @@
 ﻿using EigenCore.Core.Dense.Complex;
+using EigenCore.Core.Dense.LinearAlgebra;
 using EigenCore.Eigen;
 using System.Linq;
 
@@ -176,7 +177,7 @@ namespace EigenCore.Core.Dense
         /// eigenvalues and eigenvectros.
         /// </summary>
         /// <returns></returns>
-        public (VectorXCD, MatrixXCD) Eigen()
+        public EigenSolverResult Eigen()
         {
             double[] realValues = new double[Rows];
             double[] imagValues = new double[Rows];
@@ -185,7 +186,7 @@ namespace EigenCore.Core.Dense
 
             EigenDenseUtilities.EigenSolver(GetValues(), Rows, realValues, imagValues, realEigenvectors, imagEigenvectors);
 
-            return (new VectorXCD(realValues, imagValues), new MatrixXCD(realEigenvectors, imagEigenvectors));
+            return new EigenSolverResult(new VectorXCD(realValues, imagValues), new MatrixXCD(realEigenvectors, imagEigenvectors, Rows, Cols));
         }
 
         /// <summary>
@@ -202,14 +203,14 @@ namespace EigenCore.Core.Dense
         /// eigenvalues and eigenvectors for symmetric matrix.
         /// </summary>
         /// <returns></returns>
-        public (VectorXD, MatrixXD) SymmetricEigen()
+        public SAEigenSolverResult SymmetricEigen()
         {
             double[] realValues = new double[Rows];
             double[] realEigenvectors = new double[Rows * Cols];
 
             EigenDenseUtilities.SelfAdjointEigenSolver(GetValues(), Rows, realValues, realEigenvectors);
 
-            return (new VectorXD(realValues), new MatrixXD(realEigenvectors, Rows, Cols));
+            return new SAEigenSolverResult(new VectorXD(realValues), new MatrixXD(realEigenvectors, Rows, Cols));
         }
 
         public override MatrixXD Clone()
@@ -242,7 +243,7 @@ namespace EigenCore.Core.Dense
             return base.GetHashCode();
         }
 
-        protected MatrixXD(double[] values, int rows, int cols)
+        internal MatrixXD(double[] values, int rows, int cols)
                 : base(values, rows, cols)
         {
         }
