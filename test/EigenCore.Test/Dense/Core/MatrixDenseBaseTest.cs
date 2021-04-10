@@ -5,6 +5,12 @@ namespace EigenCore.Test.Dense.Core
 {
     public sealed class MatrixDenseBaseTest
     {
+        [Fact]
+        public void ToString_ShouldSucceed()
+        {
+            var A = new MatrixXD(new double[][] { new double[] { 1, 3, 1 }, new double[] { 0, 2, 1 } });
+            Assert.Equal("MatrixXD, 2 * 3:\n\n1.00 3.00 1.00 \n0.00 2.00 1.00 \n\n", A.ToString());
+        }
 
         [Fact]
         public void ConstructorString_ShouldSucceed()

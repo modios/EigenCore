@@ -93,7 +93,7 @@ namespace EigenCore.Core.Dense
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("DenseMatrix, " + Rows + " * " + Cols + ":\n");
+            stringBuilder.Append(GetType().Name + ", " + Rows + " * " + Cols + ":\n");
             stringBuilder.Append('\n');
 
             if (Rows * Cols <= MaxColsToPrint * MaxRowsToPrint)
