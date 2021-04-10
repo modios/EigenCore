@@ -16,7 +16,8 @@ VectorXD v = new VectorXD( new double[] { 1, 2, 5, 6 });
 
 Console.WriteLine(v.ToString());
 
-VectorXD, 4:    
+VectorXD, 4:
+
     1 2 5 6
 
 ```
