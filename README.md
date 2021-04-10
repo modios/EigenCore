@@ -25,8 +25,11 @@ VectorXD, 4:
 ### Basic Vectors
 ```csharp
 
-VectorXD v1 = VectorXD.Random(10);
-VectorXD v2 = VectorXD.Linespace(1, 10, 10);
+VectorXD zeros = VectorXD.Zeros(10);
+VectorXD ones =  VectorXD.Ones(10);
+VectorXD ident = VectorXD.Identity(10);
+VectorXD random = VectorXD.Random(10);
+VectorXD linspace = VectorXD.Linespace(1, 10, 10);
 ```
 
 ### Matrix Constructors
