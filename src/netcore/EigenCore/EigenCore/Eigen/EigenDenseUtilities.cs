@@ -303,7 +303,7 @@ namespace EigenCore.Eigen
                         {
                             fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
                             {
-                                ThunkDenseEigen.svd_(pfirst, rows1, cols1, pUOut, pSOut, pVOut);
+                                ThunkDenseEigen.dsvd_(pfirst, rows1, cols1, pUOut, pSOut, pVOut);
                             }
 
                         }
@@ -312,11 +312,75 @@ namespace EigenCore.Eigen
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SVDLeastSquares(ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
+         ReadOnlySpan<double> rhs,
+         Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* prhs = &MemoryMarshal.GetReference(rhs))
+                    {
+                        fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                        {
+                            ThunkDenseEigen.dsvd_leastsquares_(pfirst, rows1, cols1, prhs, pVOut);
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SVDBdcSvd(ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
+        Span<double> uout,
+        Span<double> sout,
+        Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pUOut = &MemoryMarshal.GetReference(uout))
+                    {
+                        fixed (double* pSOut = &MemoryMarshal.GetReference(sout))
+                        {
+                            fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                            {
+                                ThunkDenseEigen.dsvd_bdcSvd_(pfirst, rows1, cols1, pUOut, pSOut, pVOut);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SVDLeastSquaresBdcSvd(ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
+         ReadOnlySpan<double> rhs,
+         Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* prhs = &MemoryMarshal.GetReference(rhs))
+                    {
+                        fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                        {
+                            ThunkDenseEigen.dsvd_bdcSvd__leastsquares_(pfirst, rows1, cols1, prhs, pVOut);
+                        }
+
+                    }
+                }
+            }
+        }
+
         #endregion Matrices
     }
 }
-
-
-
-
-

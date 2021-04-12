@@ -147,7 +147,7 @@ EXPORT_API(void) dxplusa_(_In_ double* v1, const int row1, const int col1, _In_ 
 }
 
 // svd
-EXPORT_API(void) svd_(_In_ double* m1, const int row, const int col, _Out_ double* uout, _Out_ double* sout, _Out_ double* vout)
+EXPORT_API(void) dsvd_(_In_ double* m1, const int row, const int col, _Out_ double* uout, _Out_ double* sout, _Out_ double* vout)
 {
 	int minRowsCols = MIN(row, col);
 	Map<const MatrixXd> matrix1(m1, row, col);
@@ -158,4 +158,37 @@ EXPORT_API(void) svd_(_In_ double* m1, const int row, const int col, _Out_ doubl
 	u = svd.matrixU();
 	v = svd.matrixV();
 	s = svd.singularValues();
+}
+
+EXPORT_API(void) dsvd_leastsquares_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+{
+	int minRowsCols = MIN(row, col);
+	Map<const MatrixXd> matrix1(m1, row, col);
+	JacobiSVD<MatrixXd> svd(matrix1, ComputeThinU | ComputeThinV);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> result(vout, minRowsCols);
+	result = svd.solve(rhs);
+}
+
+EXPORT_API(void) dsvd_bdcSvd_(_In_ double* m1, const int row, const int col, _Out_ double* uout, _Out_ double* sout, _Out_ double* vout)
+{
+	int minRowsCols = MIN(row, col);
+	Map<const MatrixXd> matrix1(m1, row, col);
+	JacobiSVD<MatrixXd> bdcSvd(matrix1, ComputeThinU | ComputeThinV);
+	Map<MatrixXd> u(uout, row, minRowsCols);
+	Map<VectorXd> s(sout, minRowsCols);
+	Map<MatrixXd> v(vout, col, minRowsCols);
+	u = bdcSvd.matrixU();
+	v = bdcSvd.matrixV();
+	s = bdcSvd.singularValues();
+}
+
+EXPORT_API(void) dsvd_bdcSvd__leastsquares_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+{
+	int minRowsCols = MIN(row, col);
+	Map<const MatrixXd> matrix1(m1, row, col);
+	JacobiSVD<MatrixXd> bdcSvd(matrix1, ComputeThinU | ComputeThinV);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> result(vout, minRowsCols);
+	result = bdcSvd.solve(rhs);
 }

@@ -188,14 +188,21 @@ namespace EigenCore.Core.Dense
             return new EigenSolverResult(new VectorXCD(realValues, imagValues), new MatrixXCD(realEigenvectors, imagEigenvectors, Rows, Cols));
         }
 
-        public SVDResult SVD()
+        public SVDResult SVD(SVDType svdType = SVDType.Jacobi)
         {
             int minRowsCols = Cols < Rows ? Cols : Rows;
             double[] uout = new double[Rows * minRowsCols];
             double[] sout = new double[minRowsCols];
             double[] vout = new double[Cols * minRowsCols];
 
-            EigenDenseUtilities.SVD(GetValues(), Rows, Cols, uout, sout, vout);
+            if (svdType == SVDType.Jacobi)
+            {
+                EigenDenseUtilities.SVD(GetValues(), Rows, Cols, uout, sout, vout);
+            }
+            else
+            {
+                EigenDenseUtilities.SVDBdcSvd(GetValues(), Rows, Cols, uout, sout, vout);
+            }
 
             return new SVDResult(new MatrixXD(uout, Rows, minRowsCols),
                 new VectorXD(sout),
@@ -244,6 +251,26 @@ namespace EigenCore.Core.Dense
             EigenDenseUtilities.SelfAdjointEigenSolver(GetValues(), Rows, realValues, realEigenvectors);
 
             return new SAEigenSolverResult(new VectorXD(realValues), new MatrixXD(realEigenvectors, Rows, Cols));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rhs"></param>
+        public VectorXD LeastSquaresSVD(VectorXD rhs, SVDType svdType = SVDType.Jacobi)
+        {
+            int minRowsCols = Cols < Rows ? Cols : Rows;
+            double[] vout = new double[minRowsCols];
+            if (svdType == SVDType.Jacobi)
+            {
+                EigenDenseUtilities.SVDLeastSquares(GetValues(), Rows, Cols, rhs.GetValues(), vout);
+            }
+            else
+            {
+               EigenDenseUtilities.SVDLeastSquaresBdcSvd(GetValues(), Rows, Cols, rhs.GetValues(), vout);
+            }
+
+            return new VectorXD(vout);
         }
 
         public override MatrixXD Clone()

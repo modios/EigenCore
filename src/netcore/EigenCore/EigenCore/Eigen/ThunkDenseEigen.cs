@@ -94,10 +94,56 @@ namespace EigenCore.Eigen
         /// <param name="sout"></param>
         /// <param name="uout"></param>
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
-        public static extern void svd_([In] double* firstMatrix, int row1, int col1, 
+        public static extern void dsvd_([In] double* firstMatrix, int row1, int col1, 
             [Out] double* vout,
             [Out] double* sout,
             [Out] double* uout);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="row1"></param>
+        /// <param name="col1"></param>
+        /// <param name="vout"></param>
+        /// <param name="sout"></param>
+        /// <param name="uout"></param>
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dsvd_leastsquares_([In] double* firstMatrix, int row1, int col1,
+            [In] double* rhs,
+            [Out] double* uout);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="row1"></param>
+        /// <param name="col1"></param>
+        /// <param name="vout"></param>
+        /// <param name="sout"></param>
+        /// <param name="uout"></param>
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dsvd_bdcSvd_([In] double* firstMatrix, int row1, int col1,
+            [Out] double* vout,
+            [Out] double* sout,
+            [Out] double* uout);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstMatrix"></param>
+        /// <param name="row1"></param>
+        /// <param name="col1"></param>
+        /// <param name="vout"></param>
+        /// <param name="sout"></param>
+        /// <param name="uout"></param>
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dsvd_bdcSvd__leastsquares_([In] double* firstMatrix, int row1, int col1,
+            [In] double* rhs,
+            [Out] double* uout);
+
         #endregion Matrices
     }
 }

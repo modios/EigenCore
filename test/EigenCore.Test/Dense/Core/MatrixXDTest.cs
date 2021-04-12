@@ -248,11 +248,13 @@ namespace EigenCore.Test.Dense.Core
             Assert.Equal(new double[] { 5, 3, 3, 3 }, result.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
-        public void SVD_ShouldSucceed()
+        [Theory(Skip = "need to update .so")]
+        [InlineData(SVDType.Jacobi)]
+        [InlineData(SVDType.BdcSvd)]
+        public void SVD_ShouldSucceed(SVDType sdvType)
         {
             var A = new MatrixXD("3 2 2 ; 2 3 -2");
-            SVDResult result = A.SVD();
+            SVDResult result = A.SVD(sdvType);
 
             Assert.Equal(new MatrixXD("-0.7071067811865476 0.7071067811865475 ;" +
                 " -0.7071067811865475  -0.7071067811865476"), result.U);
@@ -263,6 +265,17 @@ namespace EigenCore.Test.Dense.Core
                 "-0.7071067811865475 -0.23570226039551567; " +
                 "-2.220446049250313E-16 0.94280904158206336"),
                 result.V);
+        }
+
+        [Theory(Skip = "need to update .so")]
+        [InlineData(SVDType.Jacobi)]
+        [InlineData(SVDType.BdcSvd)]
+        public void LeastSquaresSVD_ShouldSucceed(SVDType sdvType)
+        {
+            var A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ");
+            var rhs = new VectorXD("-0.906 0.358 0.359");
+            VectorXD result = A.LeastSquaresSVD(rhs, sdvType);
+            Assert.Equal(new VectorXD("0.46347421844577846 0.04209165616389611"), result);
         }
     }
 }
