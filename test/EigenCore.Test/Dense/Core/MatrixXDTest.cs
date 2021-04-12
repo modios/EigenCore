@@ -24,6 +24,17 @@ namespace EigenCore.Test.Dense.Core
             Assert.Equal(new double[] { 1, 0, 3, 2, 2, 1 }, A.GetValues().ToArray());
         }
 
+        [Fact(Skip = "need to update .so")]
+        public void Minus_ShouldSucceed()
+        {
+
+            MatrixXD A = new MatrixXD("2 4; 3 5");
+            MatrixXD B = new MatrixXD("1 3; 3 2");
+
+            var result = A.Minus(B);
+            Assert.Equal(new MatrixXD("1 1; 0 3"), result);
+        }
+
         [Fact]
         public void Mult_ShouldSucceed()
         {
@@ -49,7 +60,6 @@ namespace EigenCore.Test.Dense.Core
             MatrixXD B = A.Transpose();
             Assert.Equal(new double[] { 1, 2, 4, 3, 5, 7 }, B.GetValues().ToArray());
         }
-
 
         [Fact(Skip = "need to update .so")]
         public void MultT_ShouldSucceed()
@@ -245,7 +255,7 @@ namespace EigenCore.Test.Dense.Core
             MatrixXD A = new MatrixXD("4 3; 3 2");
             MatrixXD B = MatrixXD.Identity(2);
             var result = A.Plus(B);
-            Assert.Equal(new double[] { 5, 3, 3, 3 }, result.GetValues().ToArray());
+            Assert.Equal(new MatrixXD("5 3; 3 3"), result);
         }
 
         [Theory(Skip = "need to update .so")]

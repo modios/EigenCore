@@ -21,7 +21,10 @@ namespace EigenCore.Eigen
         #endregion Vectors
 
         #region Matrices
-        
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dminus_([In] double* firstMatrix, int row1, int col1, [In] double* secondMatrix, int row2, int col2, [Out] double* vout);
+
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void dmult_([In] double* firstMatrix, int row1, int col1, [In] double* secondMatrix, int row2, int col2, [Out] double* vout);
 

@@ -113,6 +113,19 @@ namespace EigenCore.Core.Dense
 
         public double Min() => _values.Min();
 
+        public MatrixXD Minus(MatrixXD other)
+        {
+            double[] outMatrix = new double[Rows * other.Cols];
+            EigenDenseUtilities.Minus(GetValues(),
+                Rows,
+                Cols,
+                other.GetValues(),
+                other.Rows,
+                other.Cols,
+                outMatrix);
+            return new MatrixXD(outMatrix, Rows, other.Cols);
+        }
+
         public MatrixXD Mult(MatrixXD other)
         {
             double[] outMatrix = new double[Rows * other.Cols];

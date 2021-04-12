@@ -33,6 +33,15 @@ EXPORT_API(void) dscale_(_In_ double* v1, double scale, int length1, _Out_ doubl
 	result = first * scale;
 }
 
+// m1 - m2.
+EXPORT_API(void) dminus_(_In_ double* m1, const int row1, const int col1, _In_ double* m2, const int row2, const int col2, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row1, col1);
+	Map<const MatrixXd> matrix2(m2, row2, col2);
+	Map<MatrixXd> result(vout, row1, col2);
+	result = matrix1 - matrix2;
+}
+
 // matrix product of m1 and m2.
 EXPORT_API(void) dmult_(_In_ double* m1, const int row1, const int col1, _In_ double* m2, const int row2, const int col2, _Out_ double* vout)
 {

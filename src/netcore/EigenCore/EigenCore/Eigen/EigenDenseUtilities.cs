@@ -60,6 +60,27 @@ namespace EigenCore.Eigen
         #endregion Vectors
 
         #region Matrices
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Minus(
+        ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
+        ReadOnlySpan<double> secondMatrix, int rows2, int cols2,
+        Span<double> outMatrix)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pSecond = &MemoryMarshal.GetReference(secondMatrix))
+                    {
+                        fixed (double* pOut = &MemoryMarshal.GetReference(outMatrix))
+                        {
+                            ThunkDenseEigen.dminus_(pfirst, rows1, cols1, pSecond, rows2, cols2, pOut);
+                        }
+                    }
+                }
+            }
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Mult(

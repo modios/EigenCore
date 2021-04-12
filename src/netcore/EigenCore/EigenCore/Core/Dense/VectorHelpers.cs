@@ -1,4 +1,6 @@
-﻿namespace EigenCore.Core.Dense
+﻿using System;
+
+namespace EigenCore.Core.Dense
 {
     public static class VectorHelpers
     {
@@ -18,7 +20,7 @@
             {
                 for (int i = 0; i < array1.Length; i++)
                 {
-                    if (array1[i] - array2[i] > DoubleTolerance)
+                    if (Math.Abs(array1[i] - array2[i]) > DoubleTolerance)
                     {
                         return false;
                     }
