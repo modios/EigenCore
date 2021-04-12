@@ -212,6 +212,27 @@ var A = new MatrixXD("3 2 2 ; 2 3 -2");
 
 SVDResult result = A.SVD(); // default Jacobi.
 SVDResult result = A.SVD(SVDType.BdcSvd);
+
+Console.WriteLine(result.U.ToString());
+
+MatrixXD, 2 * 2:
+    
+  -0.707 0.707 
+  -0.707 -0.707 
+ 
+Console.WriteLine(result.S.ToString());
+
+VectorXD, 2:
+
+   5 3
+   
+Console.WriteLine(result.V.ToString());
+ 
+MatrixXD, 3 * 2:
+    
+   -0.707 0.236 
+   -0.707 -0.236 
+   -2.22E-16 0.943 
 ```
 
 ### SVD Least Squares
@@ -221,6 +242,12 @@ var rhs = new VectorXD("-0.906 0.358 0.359");
 
 VectorXD result = A.LeastSquaresSVD(rhs); // default Jacobi.
 VectorXD result = A.LeastSquaresSVD(rhs, SVDType.BdcSvd);
+
+Console.WriteLine(result.ToString());
+ 
+VectorXD, 2:
+    
+    0.463 0.0421
 ```
 
 ## References
