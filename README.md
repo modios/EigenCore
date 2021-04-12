@@ -207,6 +207,23 @@ MatrixXD, 2 * 2:
  
 ```
 
+### SVD
+```csharp
+var A = new MatrixXD("3 2 2 ; 2 3 -2");
+
+SVDResult result = A.SVD(); // default Jacobi.
+SVDResult result = A.SVD(SVDType.BdcSvd);
+```
+
+### SVD Least Squares
+```csharp
+var A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ");
+var rhs = new VectorXD("-0.906 0.358 0.359");
+
+VectorXD result = A.LeastSquaresSVD(rhs); // default Jacobi.
+VectorXD result = A.LeastSquaresSVD(rhs, SVDType.BdcSvd);
+```
+
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
