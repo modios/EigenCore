@@ -201,3 +201,48 @@ EXPORT_API(void) dsvd_bdcSvd__leastsquares_(_In_ double* m1, const int row, cons
 	Map<VectorXd> result(vout, minRowsCols);
 	result = bdcSvd.solve(rhs);
 }
+
+// Householder rank-revealing QR decomposition of a matrix with column-pivoting.
+EXPORT_API(void) dsolve_colPivHouseholderQr_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> result(vout, row);
+	result = matrix1.colPivHouseholderQr().solve(rhs);
+}
+
+// Standard Cholesky decomposition (LL^T) of a matrix and associated features.
+EXPORT_API(void) dsolve_LLT_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> result(vout, row);
+	result = matrix1.colPivHouseholderQr().solve(rhs);
+}
+
+EXPORT_API(double) ddeterminant_(_In_ double* m1, const int row, const int col)
+{
+	Map<const MatrixXd> matrix1(m1, row, col);
+	return matrix1.determinant();
+}
+
+EXPORT_API(void) dinverse_(_In_ double* m1, const int row, const int col, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<MatrixXd> result(vout, row, row);
+	result = matrix1.inverse();
+}
+
+EXPORT_API(double) drelative_error_(_In_ double* m1, const int row, const int col, _In_ double* v1, _In_ double* v2) {
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> x(v2, row);
+	return (matrix1 * x - rhs).norm() / rhs.norm();
+}
+
+EXPORT_API(double) dabsolute_error_(_In_ double* m1, const int row, const int col, _In_ double* v1, _In_ double* v2) {
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> x(v2, row);
+	return (matrix1 * x - rhs).norm();
+}

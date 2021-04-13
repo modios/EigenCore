@@ -6,6 +6,8 @@ namespace EigenCore.Test.Dense.Core
 {
     public class MatrixXDTest
     {
+        public const int DoublePrecision = 12;
+
         [Fact]
         public void ConstructorJagged_ShouldSucceed()
         {
@@ -286,6 +288,42 @@ namespace EigenCore.Test.Dense.Core
             var rhs = new VectorXD("-0.906 0.358 0.359");
             VectorXD result = A.LeastSquaresSVD(rhs, sdvType);
             Assert.Equal(new VectorXD("0.46347421844577846 0.04209165616389611"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void SolveColPivHouseholderQr_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
+            var rhs = new VectorXD("3 3 4");
+            VectorXD result = A.Solve(rhs, DenseSolverType.ColPivHouseholderQR);
+            Assert.Equal(new VectorXD("-2 1 1"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void SolveLLT_ShouldSucceed()
+        {
+            var A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
+            var rhs = new VectorXD("3 3 4");
+            VectorXD result = A.Solve(rhs, DenseSolverType.LLT);
+            Assert.Equal(new VectorXD("2.3333333333333321 -1.6666666666666643 3.9999999999999978"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void Determinant_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
+            double result = A.Determinant();
+            Assert.Equal(-3, result, DoublePrecision);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void Inverse_ShouldSucceed()
+        {
+            var A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
+            var result = A.Inverse();
+            Assert.Equal(new MatrixXD("-0.66666666666666663 1 0.33333333333333331;" +
+                                      "1.3333333333333333 -1 -0.66666666666666663;" +
+                                      "-1 1 1"), result);
         }
     }
 }

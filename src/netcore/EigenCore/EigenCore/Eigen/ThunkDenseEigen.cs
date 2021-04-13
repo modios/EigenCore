@@ -6,9 +6,9 @@ namespace EigenCore.Eigen
     internal static unsafe class ThunkDenseEigen
     {
         internal const string NativeThunkEigenPath = "eigen_core";
-        
+
         #region Vectors
-        
+
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern double ddot_([In] double* firstVector, [In] double* secondVector, int length);
 
@@ -49,9 +49,9 @@ namespace EigenCore.Eigen
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern double deigenvalues_(
-            [In] double* firstMatrix,  
-            int size, 
-            [Out] double* out_real_eigen, 
+            [In] double* firstMatrix,
+            int size,
+            [Out] double* out_real_eigen,
             [Out] double* out_imag_eigen,
             [Out] double* out_real_eigenvectors,
             [Out] double* out_image_eigenvectors);
@@ -97,7 +97,7 @@ namespace EigenCore.Eigen
         /// <param name="sout"></param>
         /// <param name="uout"></param>
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
-        public static extern void dsvd_([In] double* firstMatrix, int row1, int col1, 
+        public static extern void dsvd_([In] double* firstMatrix, int row1, int col1,
             [Out] double* vout,
             [Out] double* sout,
             [Out] double* uout);
@@ -145,6 +145,36 @@ namespace EigenCore.Eigen
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void dsvd_bdcSvd__leastsquares_([In] double* firstMatrix, int row1, int col1,
             [In] double* rhs,
+            [Out] double* uout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dsolve_colPivHouseholderQr_(
+            [In] double* firstMatrix,
+            int row1,
+            int col1,
+            [In] double* rhs,
+            [Out] double* uout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dsolve_LLT_(
+            [In] double* firstMatrix,
+            int row1,
+            int col1,
+            [In] double* rhs,
+            [Out] double* uout);
+
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double ddeterminant_(
+            [In] double* firstMatrix,
+            int row1,
+            int col1);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dinverse_(
+            [In] double* firstMatrix,
+            int row1,
+            int col1,
             [Out] double* uout);
 
         #endregion Matrices

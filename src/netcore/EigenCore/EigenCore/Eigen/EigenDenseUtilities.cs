@@ -60,7 +60,7 @@ namespace EigenCore.Eigen
         #endregion Vectors
 
         #region Matrices
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Minus(
         ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
@@ -397,6 +397,79 @@ namespace EigenCore.Eigen
                             ThunkDenseEigen.dsvd_bdcSvd__leastsquares_(pfirst, rows1, cols1, prhs, pVOut);
                         }
 
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SolveColPivHouseholderQr(ReadOnlySpan<double> firstMatrix,
+            int rows1,
+            int cols1,
+            ReadOnlySpan<double> rhs,
+            Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* prhs = &MemoryMarshal.GetReference(rhs))
+                    {
+                        fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                        {
+                            ThunkDenseEigen.dsolve_colPivHouseholderQr_(pfirst, rows1, cols1, prhs, pVOut);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SolveLLT(ReadOnlySpan<double> firstMatrix,
+                int rows1,
+                int cols1,
+                ReadOnlySpan<double> rhs,
+                Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* prhs = &MemoryMarshal.GetReference(rhs))
+                    {
+                        fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                        {
+                            ThunkDenseEigen.dsolve_LLT_(pfirst, rows1, cols1, prhs, pVOut);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Determinant(ReadOnlySpan<double> firstMatrix, int rows1, int cols1)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    return ThunkDenseEigen.ddeterminant_(pfirst, rows1, cols1);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Determinant(ReadOnlySpan<double> firstMatrix, int rows1, int cols1, Span<double> mout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pmout = &MemoryMarshal.GetReference(mout))
+                    {
+                        ThunkDenseEigen.dinverse_(pfirst, rows1, cols1, pmout);
                     }
                 }
             }

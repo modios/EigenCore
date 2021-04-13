@@ -186,6 +186,40 @@ namespace EigenCore.Core.Dense
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public VectorXD Solve(VectorXD other, DenseSolverType denseSolverType = DenseSolverType.ColPivHouseholderQR)
+        {
+            double[] vout = new double[Rows];
+            switch (denseSolverType)
+            {
+                case DenseSolverType.LLT:
+                    EigenDenseUtilities.SolveLLT(GetValues(), Rows, Cols, other.GetValues(), vout);
+                    break;
+                case DenseSolverType.ColPivHouseholderQR:
+                default:
+                    EigenDenseUtilities.SolveColPivHouseholderQr(GetValues(), Rows, Cols, other.GetValues(), vout);
+                    break;
+            }
+
+            return new VectorXD(vout);
+        }
+
+        public double Determinant()
+        {
+            return EigenDenseUtilities.Determinant(GetValues(), Rows, Cols);
+        }
+
+        public MatrixXD Inverse()
+        {
+            double[] vout = new double[Rows * Cols];
+            EigenDenseUtilities.Determinant(GetValues(), Rows, Cols, vout);
+            return new MatrixXD(vout, Rows, Cols);
+        }
+
+        /// <summary>
         /// eigenvalues and eigenvectros.
         /// </summary>
         /// <returns></returns>
