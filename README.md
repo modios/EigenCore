@@ -237,8 +237,8 @@ MatrixXD, 3 * 2:
 
 ### SVD Least Squares
 ```csharp
-var A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ");
-var rhs = new VectorXD("-0.906 0.358 0.359");
+MatrixXD A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ");
+VectorXD rhs = new VectorXD("-0.906 0.358 0.359");
 
 VectorXD result = A.LeastSquaresSVD(rhs); // default Jacobi.
 VectorXD result = A.LeastSquaresSVD(rhs, SVDType.BdcSvd);
@@ -248,6 +248,29 @@ Console.WriteLine(result.ToString());
 VectorXD, 2:
     
     0.463 0.0421
+```
+
+### Basic linear solving
+```csharp
+MatrixXD A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
+VectorXD rhs = new VectorXD("3 3 4");
+VectorXD result = A.Solve(rhs) // DenseSolverType.ColPivHouseholderQR;
+
+Console.WriteLine(result.ToString());
+ 
+VectorXD, 3:
+    
+    -2 1 1
+    
+MatrixXD A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
+VectorXD rhs = new VectorXD("3 3 4");
+VectorXD result = A.Solve(rhs, DenseSolverType.LLT);  
+
+Console.WriteLine(result.ToString());
+
+VectorXD, 3:
+    
+    2.33 -1.67 4
 ```
 
 ## References
