@@ -141,6 +141,24 @@ MatrixXD, 2 * 2:
 
 ```
 
+```csharp
+MatrixXD A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
+double result = A.Determinant();
+```           
+
+```csharp
+MatrixXD A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
+MatrixXD result = A.Inverse();
+
+Console.WriteLine(result.ToString());
+
+MatrixXD, 3 * 3:
+
+   -0.667 1 0.333 
+    1.33 -1 -0.667 
+   -1 1 1 
+```     
+
 ### Matrix-Vector Operations
 
 ```csharp
