@@ -253,10 +253,13 @@ MatrixXD, 3 * 2:
    -2.22E-16 0.943 
 ```
 
-### SVD Least Squares
+### Least Squares
 ```csharp
 MatrixXD A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ");
 VectorXD rhs = new VectorXD("-0.906 0.358 0.359");
+
+// A^TAx = A^b
+VectorXD result = A.LeastSquaresNE(rhs);
 
 VectorXD result = A.LeastSquaresSVD(rhs); // default Jacobi.
 VectorXD result = A.LeastSquaresSVD(rhs, SVDType.BdcSvd);
