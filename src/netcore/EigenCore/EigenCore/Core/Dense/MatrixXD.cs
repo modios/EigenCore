@@ -306,8 +306,7 @@ namespace EigenCore.Core.Dense
         /// <param name="rhs"></param>
         public VectorXD LeastSquaresSVD(VectorXD rhs, SVDType svdType = SVDType.Jacobi)
         {
-            int minRowsCols = Cols < Rows ? Cols : Rows;
-            double[] vout = new double[minRowsCols];
+            double[] vout = new double[Cols];
             if (svdType == SVDType.Jacobi)
             {
                 EigenDenseUtilities.SVDLeastSquares(GetValues(), Rows, Cols, rhs.GetValues(), vout);
@@ -317,6 +316,18 @@ namespace EigenCore.Core.Dense
                EigenDenseUtilities.SVDLeastSquaresBdcSvd(GetValues(), Rows, Cols, rhs.GetValues(), vout);
             }
 
+            return new VectorXD(vout);
+        }
+
+        /// <summary>
+        /// A^TAx = A^b
+        /// </summary>
+        /// <param name="rhs"></param>
+        /// <returns></returns>
+        public VectorXD LeastSquaresNE(VectorXD rhs)
+        {
+            double[] vout = new double[Cols];
+            EigenDenseUtilities.NormalEquationsLeastSquares(GetValues(), Rows, Cols, rhs.GetValues(), vout);
             return new VectorXD(vout);
         }
 

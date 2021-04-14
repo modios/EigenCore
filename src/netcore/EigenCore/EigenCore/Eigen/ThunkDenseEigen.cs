@@ -156,6 +156,14 @@ namespace EigenCore.Eigen
             [Out] double* uout);
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dnormal_equations__leastsquares_(
+            [In] double* firstMatrix,
+            int row1,
+            int col1,
+            [In] double* rhs,
+            [Out] double* uout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void dsolve_LLT_(
             [In] double* firstMatrix,
             int row1,

@@ -403,6 +403,27 @@ namespace EigenCore.Eigen
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void NormalEquationsLeastSquares(ReadOnlySpan<double> firstMatrix, int rows1, int cols1,
+            ReadOnlySpan<double> rhs,
+            Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* prhs = &MemoryMarshal.GetReference(rhs))
+                    {
+                        fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                        {
+                            ThunkDenseEigen.dnormal_equations__leastsquares_(pfirst, rows1, cols1, prhs, pVOut);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SolveColPivHouseholderQr(ReadOnlySpan<double> firstMatrix,
             int rows1,
             int cols1,

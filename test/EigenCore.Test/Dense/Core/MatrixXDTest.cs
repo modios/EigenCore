@@ -291,6 +291,15 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact(Skip = "need to update .so")]
+        public void LeastSquaresNE_ShouldSucceed()
+        {
+            var A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ");
+            var rhs = new VectorXD("-0.906 0.358 0.359");
+            VectorXD result = A.LeastSquaresNE(rhs);
+            Assert.Equal(new VectorXD("0.46347421844577846 0.04209165616389611"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
         public void SolveColPivHouseholderQr_ShouldSucceed()
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");

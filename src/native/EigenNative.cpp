@@ -202,6 +202,15 @@ EXPORT_API(void) dsvd_bdcSvd__leastsquares_(_In_ double* m1, const int row, cons
 	result = bdcSvd.solve(rhs);
 }
 
+EXPORT_API(void) dnormal_equations__leastsquares_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row, col);
+	JacobiSVD<MatrixXd> bdcSvd(matrix1, ComputeThinU | ComputeThinV);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> result(vout, col);
+	result = (matrix1.transpose() * matrix1).ldlt().solve(matrix1.transpose() * rhs);
+}
+
 // Householder rank-revealing QR decomposition of a matrix with column-pivoting.
 EXPORT_API(void) dsolve_colPivHouseholderQr_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
 {
