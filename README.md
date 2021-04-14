@@ -226,7 +226,7 @@ MatrixXD, 2 * 2:
 
 ### SVD
 ```csharp
-var A = new MatrixXD("3 2 2 ; 2 3 -2");
+MatrixXD A = new MatrixXD("3 2 2 ; 2 3 -2");
 
 SVDResult result = A.SVD(); // default Jacobi.
 SVDResult result = A.SVD(SVDType.BdcSvd);
