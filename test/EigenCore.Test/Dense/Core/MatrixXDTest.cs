@@ -334,5 +334,21 @@ namespace EigenCore.Test.Dense.Core
                                       "1.3333333333333333 -1 -0.66666666666666663;" +
                                       "-1 1 1"), result);
         }
+
+        [Theory(Skip = "need to update .so")]
+        [InlineData(QRType.HouseholderQR)]
+        public void QR_ShouldSucceed(QRType qRType)
+        {
+            var A = new MatrixXD("1 -2 4; 1 -1 1;1 0 0");
+            var result = A.QR(qRType);
+            Assert.Equal(new MatrixXD("-0.5773502691896257 0.7071067811865475 0.4082482904638628;" +
+                "-0.5773502691896257 0 -0.816496580927726;" +
+                "-0.5773502691896257 -0.7071067811865475 0.40824829046386313"),
+                result.Q);
+
+            Assert.Equal(new MatrixXD( "-1.7320508075688772 1.7320508075688776 -2.886751345948128;" +
+                "0 -1.4142135623730951 2.82842712474619;" +
+                "0 0 0.8164965809277254"), result.R);
+        }
     }
 }

@@ -496,6 +496,29 @@ namespace EigenCore.Eigen
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void HouseholderQR(ReadOnlySpan<double> firstMatrix,
+        int rows1,
+        int cols1,
+        Span<double> q,
+        Span<double> r)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pQ = &MemoryMarshal.GetReference(q))
+                    {
+                        fixed (double* pR = &MemoryMarshal.GetReference(r))
+                        {
+                            ThunkDenseEigen.dhouseholderQR_(pfirst, rows1, cols1, pQ, pR);
+                        }
+
+                    }
+                }
+            }
+        }
+
         #endregion Matrices
     }
 }

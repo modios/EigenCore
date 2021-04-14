@@ -255,3 +255,12 @@ EXPORT_API(double) dabsolute_error_(_In_ double* m1, const int row, const int co
 	Map<VectorXd> x(v2, row);
 	return (matrix1 * x - rhs).norm();
 }
+
+EXPORT_API(void) dhouseholderQR_(_In_ double* m1, const int row, const int col, _Out_ double* v1, _Out_ double* v2) {
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<MatrixXd> Q(v1, row, row);
+	Map<MatrixXd> R(v2, row, col);
+	HouseholderQR<MatrixXd> qr(matrix1);
+    Q = qr.householderQ();
+	R = qr.matrixQR().triangularView<Upper>();
+}

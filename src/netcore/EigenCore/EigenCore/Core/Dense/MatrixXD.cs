@@ -331,6 +331,27 @@ namespace EigenCore.Core.Dense
             return new VectorXD(vout);
         }
 
+        /// <summary>
+        /// QR decomposition
+        /// </summary>
+        /// <param name="qRType"></param>
+        /// <returns></returns>
+        public QRResult QR(QRType qRType = QRType.HouseholderQR)
+        {
+            double[] q = new double[Rows * Rows];
+            double[] r = new double[Rows * Cols];
+
+            switch (qRType)
+            {
+                case QRType.HouseholderQR:
+                default:
+                    EigenDenseUtilities.HouseholderQR(GetValues(), Rows, Cols, q, r);
+                    break;
+            }
+
+            return new QRResult(new MatrixXD(q, Rows, Rows), new MatrixXD(r, Rows, Cols));
+        }
+
         public override MatrixXD Clone()
         {
             return new MatrixXD(_values.ToArray(), Rows, Cols);

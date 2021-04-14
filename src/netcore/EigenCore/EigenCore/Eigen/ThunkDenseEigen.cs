@@ -185,6 +185,14 @@ namespace EigenCore.Eigen
             int col1,
             [Out] double* uout);
 
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dhouseholderQR_(
+            [In] double* firstMatrix,
+            int row1,
+            int col1,
+            [Out] double* q,
+            [Out] double* r);
+
         #endregion Matrices
     }
 }
