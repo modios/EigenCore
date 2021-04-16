@@ -275,7 +275,7 @@ VectorXD, 2:
 ```csharp
 MatrixXD A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
 VectorXD rhs = new VectorXD("3 3 4");
-VectorXD result = A.Solve(rhs) // DenseSolverType.ColPivHouseholderQR;
+VectorXD result = A.Solve(rhs) // default DenseSolverType.ColPivHouseholderQR;
 
 Console.WriteLine(result.ToString());
  
