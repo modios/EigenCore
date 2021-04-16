@@ -343,6 +343,10 @@ namespace EigenCore.Core.Dense
 
             switch (qRType)
             {
+                case QRType.ColPivHouseholderQR:
+                    double[] p = new double[Cols * Cols];
+                    EigenDenseUtilities.ColPivHouseholderQR(GetValues(), Rows, Cols, q, r, p);
+                    return new QRResult(new MatrixXD(q, Rows, Rows), new MatrixXD(r, Rows, Cols), new MatrixXD(p, Cols, Cols));
                 case QRType.HouseholderQR:
                 default:
                     EigenDenseUtilities.HouseholderQR(GetValues(), Rows, Cols, q, r);

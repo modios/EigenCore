@@ -107,6 +107,27 @@ namespace EigenCore.Core.Dense
             (Rows, Cols) = GetRowsAndColsInfo(valuesString);
         }
 
+#if DEBUG
+        public string PrintFull()
+        {
+            StringBuilder matrix = new StringBuilder();
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Cols; j++)
+                {
+                    if (j != Cols - 1) matrix.Append(Get(i, j) + " ");
+                    else matrix.Append(Get(i, j));
+                }
+
+                if (i == Rows - 1) return matrix.ToString();
+
+                matrix.Append(";");
+            }
+
+            return default;
+        }
+#endif
+
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();

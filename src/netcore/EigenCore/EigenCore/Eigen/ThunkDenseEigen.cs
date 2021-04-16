@@ -193,6 +193,16 @@ namespace EigenCore.Eigen
             [Out] double* q,
             [Out] double* r);
 
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dcolPivHouseholderQR_(
+                                [In] double* firstMatrix,
+                                int row1,
+                                int col1,
+                                [Out] double* q,
+                                [Out] double* r,
+                                [Out] double* p);
+
         #endregion Matrices
     }
 }

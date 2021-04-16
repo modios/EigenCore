@@ -264,3 +264,14 @@ EXPORT_API(void) dhouseholderQR_(_In_ double* m1, const int row, const int col, 
     Q = qr.householderQ();
 	R = qr.matrixQR().triangularView<Upper>();
 }
+
+EXPORT_API(void) dcolPivHouseholderQR_(_In_ double* m1, const int row, const int col, _Out_ double* v1, _Out_ double* v2, _Out_ double *v3) {
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<MatrixXd> Q(v1, row, row);
+	Map<MatrixXd> R(v2, row, col);
+	Map<MatrixXd>  P(v3, col, col);
+	ColPivHouseholderQR<MatrixXd> qr(matrix1);
+	Q = qr.householderQ();
+	R = qr.matrixQR().triangularView<Upper>();
+    P = qr.colsPermutation();
+}

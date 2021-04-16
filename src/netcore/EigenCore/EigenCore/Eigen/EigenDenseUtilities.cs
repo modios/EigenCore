@@ -519,6 +519,33 @@ namespace EigenCore.Eigen
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ColPivHouseholderQR(ReadOnlySpan<double> firstMatrix,
+                int rows1,
+                int cols1,
+                Span<double> q,
+                Span<double> r,
+                Span<double> p)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pQ = &MemoryMarshal.GetReference(q))
+                    {
+                        fixed (double* pR = &MemoryMarshal.GetReference(r))
+                        {
+                            fixed (double* pP = &MemoryMarshal.GetReference(p))
+                            {
+                                ThunkDenseEigen.dcolPivHouseholderQR_(pfirst, rows1, cols1, pQ, pR,pP);
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
         #endregion Matrices
     }
 }
