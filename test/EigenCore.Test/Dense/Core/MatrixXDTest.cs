@@ -372,5 +372,25 @@ namespace EigenCore.Test.Dense.Core
 
             Assert.Equal(new MatrixXD("0 0 1 0;0 0 0 1;0 1 0 0;1 0 0 0"), result.P);
         }
+
+        [Fact(Skip = "need to update .so")]
+        public void FullPivLU()
+        {
+            var A = new MatrixXD("-1 -0.562 -0.233;-0.737 -0.906 0.0388; 0.511 0.358 0.662; -0.0827 0.359 -0.931;  0.0655   0.869  -0.893");
+            var result =  A.FullPivLU();
+            
+            Assert.Equal(new MatrixXD("1 0 0 0 0;" +
+                "0.0827 1 0 0 0;" +
+                "-0.0655 0.9961947105225896 1 0 0;" +
+                "0.737 -0.23090256127109438 -0.9297746434749113 1 0;" +
+                "-0.511 -0.5955013699766016 0.7291932816982963 1.2461174142951108E-306 1"), result.L);
+            Assert.Equal(new MatrixXD("-1 -0.233 -0.562;" +
+                "0 -0.9117309 0.4054774;" +
+                "0 0 0.4282545588835477;" +
+                "0 0 0;" +
+                "0 0 0"), result.U);
+            Assert.Equal(new MatrixXD("1 0 0 0 0;0 0 0 1 0;0 0 0 0 1;0 1 0 0 0;0 0 1 0 0"), result.P);
+            Assert.Equal(new MatrixXD("1 0 0;0 0 1;0 1 0"), result.Q);
+        }
     }
 }

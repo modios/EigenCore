@@ -275,3 +275,25 @@ EXPORT_API(void) dcolPivHouseholderQR_(_In_ double* m1, const int row, const int
 	R = qr.matrixQR().triangularView<Upper>();
     P = qr.colsPermutation();
 }
+
+EXPORT_API(void) dfullPivLU_(_In_ double* m1, 
+	const int row, 
+	const int col,
+	_Out_ double* v1,
+	_Out_ double* v2,
+	_Out_ double* v3,
+	_Out_ double* v4) {
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<MatrixXd>  L(v1, row, row);
+	Map<MatrixXd>  U(v2, row, col);
+	Map<MatrixXd>  P(v3, row, row);
+	Map<MatrixXd>  Q(v4, col, col);
+
+	FullPivLU<MatrixXd> lu(matrix1);
+
+	P = lu.permutationP();
+	Q = lu.permutationQ();
+
+	U = lu.matrixLU().triangularView<Upper>();
+	L = lu.matrixLU().triangularView<StrictlyLower>();
+}

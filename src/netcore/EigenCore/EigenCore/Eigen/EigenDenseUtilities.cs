@@ -546,6 +546,36 @@ namespace EigenCore.Eigen
             }
         }
 
+        public static void FullPivLU(ReadOnlySpan<double> firstMatrix,
+               int rows1,
+               int cols1,
+               Span<double> l,
+               Span<double> u,
+               Span<double> p,
+               Span<double> q)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pL = &MemoryMarshal.GetReference(l))
+                    {
+                        fixed (double* pU = &MemoryMarshal.GetReference(u))
+                        {
+                            fixed (double* pP = &MemoryMarshal.GetReference(p))
+                            {
+                                fixed (double* pQ = &MemoryMarshal.GetReference(q))
+                                {
+                                    ThunkDenseEigen.dfullPivLU_(pfirst, rows1, cols1, pL, pU, pP, pQ);
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
         #endregion Matrices
     }
 }

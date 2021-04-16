@@ -203,6 +203,17 @@ namespace EigenCore.Eigen
                                 [Out] double* r,
                                 [Out] double* p);
 
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dfullPivLU_(
+                        [In] double* firstMatrix,
+                        int row1,
+                        int col1,
+                        [Out] double* l,
+                        [Out] double* u,
+                        [Out] double* p,
+                        [Out] double* q);
+        
         #endregion Matrices
     }
 }

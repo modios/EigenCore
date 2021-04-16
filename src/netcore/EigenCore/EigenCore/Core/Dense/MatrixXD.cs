@@ -112,7 +112,15 @@ namespace EigenCore.Core.Dense
         public double Max() => _values.Max();
 
         public double Min() => _values.Min();
-
+    
+        public void SetDiag(double scalar)
+        {
+            for (int i = 0; i < Cols; i++)
+            {
+                Set(i, i, 1.0);
+            }
+        }      
+        
         public MatrixXD Minus(MatrixXD other)
         {
             double[] outMatrix = new double[Rows * other.Cols];
@@ -354,6 +362,24 @@ namespace EigenCore.Core.Dense
             }
 
             return new QRResult(new MatrixXD(q, Rows, Rows), new MatrixXD(r, Rows, Cols));
+        }
+
+        public FullPivLUResult FullPivLU()
+        {
+            double[] l = new double[Rows * Rows];
+            double[] u = new double[Rows * Cols];
+            double[] p = new double[Rows * Rows];
+            double[] q = new double[Cols * Cols];
+
+            EigenDenseUtilities.FullPivLU(GetValues(),Rows, Cols, l, u, p, q);
+
+            var L = new MatrixXD(l, Rows, Rows);
+            L.SetDiag(1.0);
+            return new FullPivLUResult(L,
+                new MatrixXD(u, Rows, Cols),
+                new MatrixXD(p, Rows, Rows),
+                new MatrixXD(q, Cols, Cols));
+
         }
 
         public override MatrixXD Clone()
