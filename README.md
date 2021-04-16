@@ -275,7 +275,7 @@ VectorXD, 2:
 ```csharp
 MatrixXD A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
 VectorXD rhs = new VectorXD("3 3 4");
-VectorXD result = A.Solve(rhs) // DenseSolverType.ColPivHouseholderQR;
+VectorXD result = A.Solve(rhs) // default DenseSolverType.ColPivHouseholderQR;
 
 Console.WriteLine(result.ToString());
  
@@ -315,7 +315,36 @@ MatrixXD, 3 * 3:
    0 -1.41 2.83 
    0 0 0.816
 ```
+```csharp
+MatrixXD A = new MatrixXD("1 -2 4; 1 -1 1;1 0 0");
+QRResult result = A.QR(QRType.ColPivHouseholderQR);
 
+//Note: AP = QR
+
+Console.WriteLine(result.Q.ToString());
+
+MatrixXD, 3 * 3:
+
+  -0.97 0.143 0.196 
+  -0.243 -0.571 -0.784 
+   0 -0.809 0.588 
+
+Console.WriteLine(result.R.ToString());
+
+MatrixXD, 3 * 3:
+  
+   -4.12 -1.21 2.18 
+    0 -1.24 0.285 
+    0 0 0.392 
+
+Console.WriteLine(result.P.ToString());
+
+MatrixXD, 3 * 3:
+ 
+    0 1 0 
+    0 0 1 
+    1 0 0 
+```
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
