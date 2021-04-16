@@ -294,6 +294,28 @@ VectorXD, 3:
     2.33 -1.67 4
 ```
 
+### QR decomposition
+```csharp
+MatrixXD A = new MatrixXD("1 -2 4; 1 -1 1;1 0 0");
+QRResult result = A.QR(); // default QRType.HouseholderQR
+
+Console.WriteLine(result.Q.ToString());
+
+MatrixXD, 3 * 3:
+
+   -0.577 0.707 0.408
+   -0.577 0 -0.816 
+   -0.577 -0.707 0.408
+
+Console.WriteLine(result.R.ToString());
+
+MatrixXD, 3 * 3:
+
+  -1.73 1.73 -2.89 
+   0 -1.41 2.83 
+   0 0 0.816
+```
+
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
