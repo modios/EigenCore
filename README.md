@@ -325,17 +325,17 @@ Console.WriteLine(result.Q.ToString());
 
 MatrixXD, 3 * 3:
 
-  -0.97 0.143 0.196 
+  -0.97   0.143 0.196 
   -0.243 -0.571 -0.784 
-   0 -0.809 0.588 
+   0     -0.809 0.588 
 
 Console.WriteLine(result.R.ToString());
 
 MatrixXD, 3 * 3:
   
    -4.12 -1.21 2.18 
-    0 -1.24 0.285 
-    0 0 0.392 
+    0    -1.24 0.285 
+    0     0    0.392 
 
 Console.WriteLine(result.P.ToString());
 
@@ -344,6 +344,52 @@ MatrixXD, 3 * 3:
     0 1 0 
     0 0 1 
     1 0 0 
+```
+### LU Decomposition 
+
+```csharp
+// FullPivLU
+
+MatrixXD A = new MatrixXD("-1 -0.562 -0.233;-0.737 -0.906 0.0388; 0.511 0.358 0.662; -0.0827 0.359 -0.931;  0.0655   0.869  -0.893");
+FullPivLUResult result =  A.FullPivLU();
+
+Console.WriteLine(result.L.ToString());
+
+MatrixXD, 5 * 5:
+
+ 1       0       0    0 0 
+ 0.0827  1       0    0 0 
+-0.0655  0.996   1    0 0 
+ 0.737  -0.231  -0.93 1 0 
+-0.511  -0.596  0.729 0 1 
+
+Console.WriteLine(result.U.ToString());
+
+MatrixXD, 5 * 3:
+
+-1 -0.233 -0.562 
+ 0 -0.912  0.405 
+ 0   0     0.428 
+ 0   0      0 
+ 0   0      0 
+
+Console.WriteLine(result.P.ToString());
+
+MatrixXD, 5 * 5:
+
+1 0 0 0 0 
+0 0 0 1 0 
+0 0 0 0 1 
+0 1 0 0 0 
+0 0 1 0 0 
+
+Console.WriteLine(result.Q.ToString());
+
+MatrixXD, 3 * 3:
+
+1 0 0 
+0 0 1 
+0 1 0 
 ```
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
