@@ -150,6 +150,66 @@ namespace EigenCore.Test.Dense.Core
             Assert.Equal(new double[] { 3.5, 0, 0, 0, 2, 0, 0, 0, 4.5 }, A.GetValues().ToArray());
         }
 
+        [Fact]
+        public void Scale__ShouldSucceed()
+        {
+            MatrixXD A = MatrixXD.Ones(3,2);
+            A.Scale(0.4);
+
+            for(int i = 0; i< A.Rows; i++)
+            {
+                for (int j = 0; j< A.Cols; j++)
+                {
+                    Assert.Equal(0.4, A.Get(i, j));
+                }
+            }
+        }
+
+        [Fact]
+        public void Row_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var v1 = A.Row(0);
+            var v2 = A.Row(1);
+            var v3 = A.Row(2);
+
+            Assert.Equal(new VectorXD("1 2"), v1);
+            Assert.Equal(new VectorXD("4 5"), v2);
+            Assert.Equal(new VectorXD("7 8"), v3);
+        }
+
+        [Fact]
+        public void Col_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var v1 = A.Col(0);
+            var v2 = A.Col(1);
+
+            Assert.Equal(new VectorXD("1 4 7"), v1);
+            Assert.Equal(new VectorXD("2 5 8"), v2);
+        }
+
+        [Fact]
+        public void Slice_ArrayInput_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2 3; 4 5 5; 7 8 2");
+            var result = A.Slice(new[] { 1, 2 }, new[] { 0, 1 });
+
+            Assert.Equal(new MatrixXD("4 5; 7 8"), result);
+        }
+
+        [Fact]
+        public void Slice_StartEnd_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2 3; 4 5 6; 7 8 2");
+            var result = A.Slice(0, 1, 1 , 2);
+
+            Assert.Equal(new MatrixXD("2 3; 5 6"), result);
+
+            result = A.Slice(0, 1, 0, 2);
+
+            Assert.Equal(new MatrixXD("1 2 3; 4 5 6"), result);
+        }
 
         [Fact(Skip = "need to update .so")]
         public void MultV_ShouldSucceed()

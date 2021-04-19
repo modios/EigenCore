@@ -109,6 +109,120 @@ namespace EigenCore.Core.Dense
             return new MatrixXD(input, size, size);
         }
 
+        public void Scale(double scalar)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                _values[i] = _values[i] * scalar;
+            }
+        }
+
+        public VectorXD Row(int row)
+        {
+            double[] rowVector = new double[Cols];
+
+            for(int i=0; i<Cols; i++)
+            {
+                rowVector[i] = Get(row, i);
+            }
+
+            return new VectorXD(rowVector);
+        }
+
+        public VectorXD Col(int col)
+        {
+            double[] rowVector = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                rowVector[i] = Get(i, col);
+            }
+
+            return new VectorXD(rowVector);
+        }
+
+        public MatrixXD Slice(int[] rows, int[] cols)
+        {
+            int nrows = rows.Length;
+            int ncols = cols.Length;
+            double[] inputValues = new double[nrows * ncols];
+            MatrixXD matrixXD = new MatrixXD(inputValues, nrows, ncols);
+
+            for (int i = 0; i < nrows; i++)
+            {
+                for (int j = 0; j < ncols; j++)
+                {
+                    matrixXD.Set(i, j, Get(rows[i], cols[j]));
+                }
+            }
+
+            return matrixXD;
+        }
+
+
+        public MatrixXD Concat(MatrixXD other, int dimension)
+        {
+            if (dimension == 0)
+            {
+                var totalCols = Cols + other.Cols;
+
+                double[] inputValues = new double[Rows * totalCols];
+                var matrixXD = new MatrixXD(inputValues, Rows, totalCols);
+
+                for (int i = 0; i < Rows; i++)
+                {
+                    for (int j = 0; j < Cols; j++)
+                    {
+                        matrixXD.Set(i, j, Get(i, j));
+                    }
+                }
+
+                for (int i = 0; i < Rows; i++)
+                {
+                    for (int j = Cols; j < totalCols; j++)
+                    {
+                        matrixXD.Set(i, j, Get(i, j));
+                    }
+                }
+
+                return matrixXD;
+            }
+            else
+            {
+
+                int totalRows = Rows + other.Rows;
+
+                double[] inputValues = new double[totalRows * Cols];
+                MatrixXD matrixXD = new MatrixXD(inputValues, totalRows, Cols);
+
+                for (int i = 0; i < Rows; i++)
+                {
+                    for (int j = 0; j < Cols; j++)
+                    {
+                        matrixXD.Set(i, j, Get(i, j));
+                    }
+                }
+
+                for (int i = Rows; i < totalRows; i++)
+                {
+                    for (int j = 0; j < Cols; j++)
+                    {
+                        matrixXD.Set(i, j, Get(i, j));
+                    }
+                }
+
+                return matrixXD;
+            }
+        }
+
+        public MatrixXD Slice(int startRow, int endRow, int startCol, int endCol)
+        {
+            var rows = Enumerable.Range(startRow, endRow - startRow  + 1).ToArray();
+            var cols = Enumerable.Range(startCol, endCol- startCol + 1).ToArray();
+
+            return Slice(rows, cols);
+        }
+
         public double Max() => _values.Max();
 
         public double Min() => _values.Min();
@@ -117,7 +231,7 @@ namespace EigenCore.Core.Dense
         {
             for (int i = 0; i < Cols; i++)
             {
-                Set(i, i, 1.0);
+                Set(i, i, scalar);
             }
         }      
         
@@ -380,6 +494,19 @@ namespace EigenCore.Core.Dense
                 new MatrixXD(p, Rows, Rows),
                 new MatrixXD(q, Cols, Cols));
 
+        }
+
+        public void Resize(int rows, int cols, bool keepValues = false)
+        {
+            double[] resizedValues = new double[rows * cols];
+           
+            if (keepValues)
+            {
+                for (int i = 0; i < rows; i++)
+                {
+
+                }
+            }
         }
 
         public override MatrixXD Clone()
