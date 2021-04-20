@@ -391,6 +391,57 @@ MatrixXD, 3 * 3:
 0 0 1 
 0 1 0 
 ```
+
+### Concatenate and Slice Matrices
+```csharp
+
+// Provide indices to extract.
+MatrixXD A = new MatrixXD("1 2 3; 4 5 5; 7 8 2");
+MatrixXD result = A.Slice(new[] { 1, 2 }, new[] { 0, 1 });
+
+Console.WriteLine(result.ToString());
+
+MatrixXD, 2 * 2:
+  
+  4 5 
+  7 8 
+
+// Provide start and end indices.
+MatrixXD A = new MatrixXD("1 2 3; 4 5 6; 7 8 2");
+MatrixXD result = A.Slice(0, 1, 1, 2);
+
+MatrixXD, 2 * 2:
+
+  2 3 
+  5 6 
+  
+// Concatenate Horizontal.
+MatrixXD A = new MatrixXD("1 2; 4 5");
+MatrixXD B = MatrixXD.Diag("1 0; 0 2");
+MatrixXD result = A.Concat(B, ConcatType.Horizontal);
+
+Console.WriteLine(result.ToString());
+
+MatrixXD, 2 * 4:
+
+  1 2 1 0 
+  4 5 0 2 
+
+// Concatenate vertical.
+MatrixXD A = new MatrixXD("1 2; 4 5");
+MatrixXD B = MatrixXD.Diag("1 0; 0 2");
+MatrixXD result = A.Concat(B, ConcatType.Vertical);
+
+Console.WriteLine(result.ToString());
+
+MatrixXD, 4 * 2:
+
+  1 2 
+  4 5 
+  1 0 
+  0 2 
+```
+
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
