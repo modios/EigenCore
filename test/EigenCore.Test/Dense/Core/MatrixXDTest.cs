@@ -151,6 +151,41 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact]
+        public void Min_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 3 4");
+            Assert.Equal(1, A.Min());
+        }
+
+        [Fact]
+        public void Max_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 3 4");
+            Assert.Equal(4, A.Max());
+        }
+
+        [Fact]
+        public void Sum_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 3 4");
+            Assert.Equal(10, A.Sum());
+        }
+
+        [Fact]
+        public void Prod_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 3 4");
+            Assert.Equal(24, A.Prod());
+        }
+
+        [Fact]
+        public void Mean_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 3 4");
+            Assert.Equal(2.5, A.Mean());
+        }
+
+        [Fact]
         public void Scale__ShouldSucceed()
         {
             MatrixXD A = MatrixXD.Ones(3,2);

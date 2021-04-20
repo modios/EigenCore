@@ -69,6 +69,16 @@ namespace EigenCore.Core.Dense
             return new MatrixXD(input, size, size);
         }
 
+        public double Max() => _values.AsParallel().Max();
+
+        public double Min() => _values.AsParallel().Min();
+
+        public double Sum() => _values.AsParallel().Sum();
+
+        public double Prod() => _values.AsParallel().Aggregate((product, nextElement) => product * nextElement);
+
+        public double Mean() => _values.AsParallel().Average();
+
         public void Scale(double scalar)
         {
             for (int i = 0; i < Length; i++)
@@ -189,10 +199,6 @@ namespace EigenCore.Core.Dense
             return Slice(rows, cols);
         }
 
-        public double Max() => _values.Max();
-
-        public double Min() => _values.Min();
-    
         public void SetDiag(double scalar)
         {
             for (int i = 0; i < Cols; i++)
