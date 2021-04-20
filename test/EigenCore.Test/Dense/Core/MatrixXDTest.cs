@@ -211,6 +211,31 @@ namespace EigenCore.Test.Dense.Core
             Assert.Equal(new MatrixXD("1 2 3; 4 5 6"), result);
         }
 
+        [InlineData("1 2 3; 4 5 6; 7 8 2", new double[] { 1, 2, 3 }, "1 2 3 1 0 0;4 5 6 0 2 0;7 8 2 0 0 3")]
+        [InlineData("1 2; 4 5; 7 8", new double[] { 1, 2, 3 }, "1 2 1 0 0;4 5 0 2 0;7 8 0 0 3")]
+        [InlineData("1 2; 4 5", new double[] { 1, 2 }, "1 2 1 0;4 5 0 2")]
+        [Theory]
+        public void ConcatHorizontal_ShouldSucceed(string matrixString, double[] diag, string expected)
+        {
+            MatrixXD A = new MatrixXD(matrixString);
+            MatrixXD B = MatrixXD.Diag(diag);
+            var C = A.Concat(B, ConcatType.Horizontal);
+            Assert.Equal(new MatrixXD(expected), C);
+        }
+
+        [InlineData("1 2 3; 4 5 6; 7 8 2", new double[] { 1, 2, 3 }, "1 2 3;4 5 6;7 8 2;1 0 0; 0 2 0; 0 0 3")]
+        [InlineData("1 2; 4 5; 7 8", new double[] { 1, 2 }, "1 2 ;4 5 ;7 8; 1 0; 0 2")]
+        [InlineData("1 2; 4 5", new double[] { 1, 2 }, "1 2;4 5;1 0; 0 2")]
+        [Theory]
+        public void ConcatVertical_ShouldSucceed(string matrixString, double[] diag, string expected)
+        {
+            MatrixXD A = new MatrixXD(matrixString);
+            MatrixXD B = MatrixXD.Diag(diag);
+            var C = A.Concat(B, ConcatType.Vertical);
+            Assert.Equal(new MatrixXD(expected), C);
+        }
+
+
         [Fact(Skip = "need to update .so")]
         public void MultV_ShouldSucceed()
         {

@@ -160,58 +160,64 @@ namespace EigenCore.Core.Dense
         }
 
 
-        public MatrixXD Concat(MatrixXD other, int dimension)
+        public MatrixXD Concat(MatrixXD other, ConcatType concatType)
         {
-            if (dimension == 0)
+            switch (concatType)
             {
-                var totalCols = Cols + other.Cols;
-
-                double[] inputValues = new double[Rows * totalCols];
-                var matrixXD = new MatrixXD(inputValues, Rows, totalCols);
-
-                for (int i = 0; i < Rows; i++)
-                {
-                    for (int j = 0; j < Cols; j++)
+                case ConcatType.Horizontal:
                     {
-                        matrixXD.Set(i, j, Get(i, j));
-                    }
-                }
+                        var totalCols = Cols + other.Cols;
 
-                for (int i = 0; i < Rows; i++)
-                {
-                    for (int j = Cols; j < totalCols; j++)
+                        double[] inputValues = new double[Rows * totalCols];
+                        var matrixXD = new MatrixXD(inputValues, Rows, totalCols);
+
+                        for (int i = 0; i < Rows; i++)
+                        {
+                            for (int j = 0; j < Cols; j++)
+                            {
+                                matrixXD.Set(i, j, Get(i, j));
+                            }
+                        }
+
+                        int otherCols = other.Cols;
+                        for (int i = 0; i < other.Rows; i++)
+                        {
+                            for (int j = 0 ; j < otherCols; j++)
+                            {
+                                matrixXD.Set(i, Cols + j, other.Get(i, j));
+                            }
+                        }
+
+                        return matrixXD;
+                    }
+                case ConcatType.Vertical:
+                default:
                     {
-                        matrixXD.Set(i, j, Get(i, j));
+
+                        int totalRows = Rows + other.Rows;
+
+                        double[] inputValues = new double[totalRows * Cols];
+                        MatrixXD matrixXD = new MatrixXD(inputValues, totalRows, Cols);
+
+                        for (int i = 0; i < Rows; i++)
+                        {
+                            for (int j = 0; j < Cols; j++)
+                            {
+                                matrixXD.Set(i, j, Get(i, j));
+                            }
+                        }
+
+                        int otherRows= other.Rows;
+                        for (int i = 0; i < otherRows; i++)
+                        {
+                            for (int j = 0; j < Cols; j++)
+                            {
+                                matrixXD.Set(Rows + i, j, other.Get(i, j));
+                            }
+                        }
+
+                        return matrixXD;
                     }
-                }
-
-                return matrixXD;
-            }
-            else
-            {
-
-                int totalRows = Rows + other.Rows;
-
-                double[] inputValues = new double[totalRows * Cols];
-                MatrixXD matrixXD = new MatrixXD(inputValues, totalRows, Cols);
-
-                for (int i = 0; i < Rows; i++)
-                {
-                    for (int j = 0; j < Cols; j++)
-                    {
-                        matrixXD.Set(i, j, Get(i, j));
-                    }
-                }
-
-                for (int i = Rows; i < totalRows; i++)
-                {
-                    for (int j = 0; j < Cols; j++)
-                    {
-                        matrixXD.Set(i, j, Get(i, j));
-                    }
-                }
-
-                return matrixXD;
             }
         }
 
