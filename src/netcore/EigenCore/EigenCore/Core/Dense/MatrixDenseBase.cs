@@ -56,6 +56,46 @@ namespace EigenCore.Core.Dense
             return inputValues;
         }
 
+        protected static (int, int) JaggedRowsAndColsInfo(T[][] inputValues) => (inputValues.Length, inputValues[0].Length);
+
+        protected static (int, int) MultDimRowsAndColsInfo(T[,] inputValues) => (inputValues.GetLength(0), inputValues.GetLength(1));
+
+        protected static T[] JaggedToFlatColumnWise(T[][] inputValues)
+        {
+            var numberOfRows = inputValues.Length;
+            var numberOfCols = inputValues[0].Length;
+            T[] values = new T[numberOfRows * numberOfCols];
+            int index = 0;
+            for (int col = 0; col < numberOfCols; col++)
+            {
+                for (int row = 0; row < numberOfRows; row++)
+                {
+                    values[index] = inputValues[row][col];
+                    index += 1;
+                }
+            }
+
+            return values;
+        }
+
+        protected static T[] MultyDimToFlatColumnWise(T[,] inputValues)
+        {
+            var numberOfRows = inputValues.GetLength(0);
+            var numberOfCols = inputValues.GetLength(1);
+            T[] values = new T[numberOfRows * numberOfCols];
+            int index = 0;
+            for (int col = 0; col < numberOfCols; col++)
+            {
+                for (int row = 0; row < numberOfRows; row++)
+                {
+                    values[index] = inputValues[row, col];
+                    index += 1;
+                }
+            }
+
+            return values;
+        }
+
         public static void SetRandomState(int seed)
         {
             _random = new Random(seed);
