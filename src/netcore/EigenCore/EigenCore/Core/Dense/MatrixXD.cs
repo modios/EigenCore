@@ -433,14 +433,14 @@ namespace EigenCore.Core.Dense
             return new MatrixXD(vout, Rows, Cols);
         }
 
-        public double RelativeError(VectorXD rhs, VectorXD x)
-        {
-            return EigenDenseUtilities.RelativeError(GetValues(), Rows, Cols, rhs.GetValues(), x.GetValues());
-        }
-
         public double AbsoluteError(VectorXD rhs, VectorXD x)
         {
             return EigenDenseUtilities.AbsoluteError(GetValues(), Rows, Cols, rhs.GetValues(), x.GetValues());
+        }
+
+        public double RelativeError(VectorXD rhs, VectorXD x)
+        {
+            return EigenDenseUtilities.RelativeError(GetValues(), Rows, Cols, rhs.GetValues(), x.GetValues());
         }
 
         /// <summary>
