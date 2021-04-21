@@ -79,6 +79,126 @@ namespace EigenCore.Core.Dense
 
         public double Mean() => _values.AsParallel().Average();
 
+        public VectorXD ColwiseMin()
+        {
+            double[] result = new double[Cols];
+
+            for(int i=0; i< Cols; i++)
+            {
+                result[i] = Col(i).Min();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseMin()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Min();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD ColwiseMax()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Max();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseMax()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Max();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD ColwiseSum()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Sum();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseSum()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Sum();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD ColwiseProd()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Prod();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseProd()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Prod();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD ColwiseMean()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Mean();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseMean()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Mean();
+            }
+
+            return new VectorXD(result);
+        }
+
         public void Scale(double scalar)
         {
             for (int i = 0; i < Length; i++)

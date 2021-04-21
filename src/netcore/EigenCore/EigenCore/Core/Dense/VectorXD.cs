@@ -63,11 +63,15 @@ namespace EigenCore.Core.Dense
             return new VectorXD(input);
         }
 
-        public double Min() => _values.Min();
+        public double Max() => _values.AsParallel().Max();
 
-        public double Max() => _values.Max();
+        public double Min() => _values.AsParallel().Min();
 
-        public double Sum() => _values.Sum();
+        public double Sum() => _values.AsParallel().Sum();
+
+        public double Prod() => _values.AsParallel().Aggregate((product, nextElement) => product * nextElement);
+
+        public double Mean() => _values.AsParallel().Average();
 
         public double Dot(VectorXD other)
         {

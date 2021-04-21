@@ -186,6 +186,86 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact]
+        public void ColwiseMin_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.ColwiseMin();
+            Assert.Equal(new VectorXD("1 2"), result);
+        }
+
+        [Fact]
+        public void RowwiseMin_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.RowwiseMin();
+            Assert.Equal(new VectorXD("1 4 7"), result);
+        }
+
+        [Fact]
+        public void ColwiseMax_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.ColwiseMax();
+            Assert.Equal(new VectorXD("7 8"), result);
+        }
+
+        [Fact]
+        public void RowwiseMax_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.RowwiseMax();
+            Assert.Equal(new VectorXD("2 5 8"), result);
+        }
+
+        [Fact]
+        public void ColwiseSum_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.ColwiseSum();
+            Assert.Equal(new VectorXD("12 15"), result);
+        }
+
+        [Fact]
+        public void RowwiseSum_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.RowwiseSum();
+            Assert.Equal(new VectorXD("3 9 15"), result);
+        }
+
+        [Fact]
+        public void ColwiseProd_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.ColwiseProd();
+            Assert.Equal(new VectorXD("28, 80"), result);
+        }
+
+        [Fact]
+        public void RowwiseProd_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.RowwiseProd();
+            Assert.Equal(new VectorXD("2 20, 56"), result);
+        }
+
+        [Fact]
+        public void ColwiseMean_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.ColwiseMean();
+            Assert.Equal(new VectorXD("4 5"), result);
+        }
+
+        [Fact]
+        public void RowwiseMean_ShouldSucceed()
+        {
+            MatrixXD A = new MatrixXD("1 2; 4 5; 7 8");
+            var result = A.RowwiseMean();
+            Assert.Equal(new VectorXD("1.5 4.5 7.5"), result);
+        }
+
+        [Fact]
         public void Scale__ShouldSucceed()
         {
             MatrixXD A = MatrixXD.Ones(3,2);
@@ -494,7 +574,7 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact(Skip = "need to update .so")]
-        public void FullPivLU()
+        public void FullPivLU_ShouldSucceed()
         {
             var A = new MatrixXD("-1 -0.562 -0.233;-0.737 -0.906 0.0388; 0.511 0.358 0.662; -0.0827 0.359 -0.931;  0.0655   0.869  -0.893");
             var result =  A.FullPivLU();
