@@ -18,6 +18,18 @@ namespace EigenCore.Eigen
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void dscale_([In] double* firstVector, double scale, int length, [Out] double* vout);
 
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dvnorm_([In] double* firstVector, int length);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dvsquared_norm_([In] double* firstVector, int length);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dvlp1_norm_([In] double* firstVector, int length);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dvlpinf_norm_([In] double* firstVector, int length);
+
         #endregion Vectors
 
         #region Matrices
@@ -28,6 +40,17 @@ namespace EigenCore.Eigen
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void dmult_([In] double* firstMatrix, int row1, int col1, [In] double* secondMatrix, int row2, int col2, [Out] double* vout);
 
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dnorm_([In] double* firstMatrix, int row1, int col1);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dsquared_norm_([In] double* firstMatrix, int row1, int col1);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dlp1_norm_([In] double* firstMatrix, int row1, int col1);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dlpinf_norm_([In] double* firstMatrix, int row1, int col1);
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void dtransp_([In] double* firstMatrix, int row1, int col1, [Out] double* vout);

@@ -33,6 +33,30 @@ EXPORT_API(void) dscale_(_In_ double* v1, double scale, int length1, _Out_ doubl
 	result = first * scale;
 }
 
+EXPORT_API(double) dvnorm_(_In_ double* v1, const int size)
+{
+	Map<const VectorXd> vector(v1, size);
+	return vector.norm();
+}
+
+EXPORT_API(double) dvsquared_norm_(_In_ double* v1, const int size)
+{
+	Map<const VectorXd> vector(v1, size);
+	return vector.squaredNorm();
+}
+
+EXPORT_API(double) dvlp1_norm_(_In_ double* v1, const int size)
+{
+	Map<const VectorXd> vector(v1, size);
+	return vector.lpNorm<1>();
+}
+
+EXPORT_API(double) dvlpinf_norm_(_In_ double* v1, const int size)
+{
+	Map<const VectorXd> vector(v1, size);
+	return vector.lpNorm<Infinity>();
+}
+
 // m1 - m2.
 EXPORT_API(void) dminus_(_In_ double* m1, const int row1, const int col1, _In_ double* m2, const int row2, const int col2, _Out_ double* vout)
 {
@@ -100,6 +124,29 @@ EXPORT_API(double) dtrace_(_In_ double* m1, const int row1, const int col1)
 	return matrix1.trace();
 }
 
+EXPORT_API(double) dnorm_(_In_ double* m1, const int row1, const int col1)
+{
+	Map<const MatrixXd> matrix1(m1, row1, col1);
+	return matrix1.norm();
+}
+
+EXPORT_API(double) dsquared_norm_(_In_ double* m1, const int row1, const int col1)
+{
+	Map<const MatrixXd> matrix1(m1, row1, col1);
+	return matrix1.squaredNorm();
+}
+
+EXPORT_API(double) dlp1_norm_(_In_ double* m1, const int row1, const int col1)
+{
+	Map<const MatrixXd> matrix1(m1, row1, col1);
+	return matrix1.lpNorm<1>();
+}
+
+EXPORT_API(double) dlpinf_norm_(_In_ double* m1, const int row1, const int col1)
+{
+	Map<const MatrixXd> matrix1(m1, row1, col1);
+	return matrix1.lpNorm<Infinity>();
+}
 
 // matrix eigenvalues for general matrix.
 EXPORT_API(void) deigenvalues_(_In_ double* m1, 

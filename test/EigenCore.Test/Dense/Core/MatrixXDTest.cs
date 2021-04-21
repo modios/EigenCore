@@ -185,6 +185,42 @@ namespace EigenCore.Test.Dense.Core
             Assert.Equal(2.5, A.Mean());
         }
 
+        [InlineData("2 2 1; 1 2 -3; 1 0 1", 5)]
+        [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void Norm_ShouldSucceed(string valuesString, double expected)
+        {
+            MatrixXD A = new MatrixXD(valuesString);
+            Assert.Equal(expected, A.Norm());
+        }
+
+        [InlineData("2 2 1; 1 2 -3; 1 0 1", 25)]
+        [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void SquaredNorm_ShouldSucceed(string valuesString, double expected)
+        {
+            MatrixXD A = new MatrixXD(valuesString);
+            Assert.Equal(expected, A.SquaredNorm());
+        }
+
+        [InlineData("2 2 1; 1 2 -3; 1 0 1", 13)]
+        [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void Lp1Norm_ShouldSucceed(string valuesString, double expected)
+        {
+            MatrixXD A = new MatrixXD(valuesString);
+            Assert.Equal(expected, A.Lp1Norm());
+        }
+
+        [InlineData("2 2 1; 1 2 -3; 1 0 1", 3)]
+        [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void LpInfoNorm_ShouldSucceed(string valuesString, double expected)
+        {
+            MatrixXD A = new MatrixXD(valuesString);
+            Assert.Equal(expected, A.LpInfoNorm());
+        }
+
         [Fact]
         public void ColwiseMin_ShouldSucceed()
         {

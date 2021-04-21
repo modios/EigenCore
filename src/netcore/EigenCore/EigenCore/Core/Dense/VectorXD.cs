@@ -78,6 +78,26 @@ namespace EigenCore.Core.Dense
             return EigenDenseUtilities.Dot(GetValues(), other.GetValues(), Length);
         }
 
+        public double Norm()
+        {
+            return EigenDenseUtilities.Norm(GetValues(), Length);
+        }
+
+        public double SquaredNorm()
+        {
+            return EigenDenseUtilities.SquaredNorm(GetValues(), Length);
+        }
+
+        public double Lp1Norm()
+        {
+            return EigenDenseUtilities.Lp1Norm(GetValues(), Length);
+        }
+
+        public double LpInfoNorm()
+        {
+            return EigenDenseUtilities.LpInfNorm(GetValues(), Length);
+        }
+
         public VectorXD Add(VectorXD other)
         {
             double[] outVector = new double[Length];

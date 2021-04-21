@@ -43,6 +43,54 @@ namespace EigenCore.Eigen
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Norm(ReadOnlySpan<double> firstVector, int length)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstVector))
+                {
+                    return ThunkDenseEigen.dvnorm_(pfirst, length);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquaredNorm(ReadOnlySpan<double> firstVector, int length)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstVector))
+                {
+                    return ThunkDenseEigen.dvsquared_norm_(pfirst, length);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Lp1Norm(ReadOnlySpan<double> firstVector, int length)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstVector))
+                {
+                    return ThunkDenseEigen.dvlp1_norm_(pfirst, length);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double LpInfNorm(ReadOnlySpan<double> firstVector, int length)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstVector))
+                {
+                    return ThunkDenseEigen.dvlpinf_norm_(pfirst, length);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Scale(ReadOnlySpan<double> vector, double scalar, int length, Span<double> outVector)
         {
             unsafe
@@ -99,6 +147,66 @@ namespace EigenCore.Eigen
                             ThunkDenseEigen.dmult_(pfirst, rows1, cols1, pSecond, rows2, cols2, pOut);
                         }
                     }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Norm(
+        ReadOnlySpan<double> firstMatrix,
+        int rows1,
+        int cols1)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    return ThunkDenseEigen.dnorm_(pfirst, rows1, cols1);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquaredNorm(
+            ReadOnlySpan<double> firstMatrix,
+            int rows1,
+            int cols1)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    return ThunkDenseEigen.dsquared_norm_(pfirst, rows1, cols1);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Lp1Norm(
+            ReadOnlySpan<double> firstMatrix,
+            int rows1,
+            int cols1)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    return ThunkDenseEigen.dlp1_norm_(pfirst, rows1, cols1);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double LpInfNorm(
+            ReadOnlySpan<double> firstMatrix,
+            int rows1,
+            int cols1)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    return ThunkDenseEigen.dlpinf_norm_(pfirst, rows1, cols1);
                 }
             }
         }

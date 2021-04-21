@@ -73,6 +73,44 @@ namespace EigenCore.Test.Dense.Core
             Assert.Equal(30.0, A.Dot(B));
         }
 
+        [InlineData("2 2 1", 3)]
+        [InlineData("1 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void Norm_ShouldSucceed(string valuesString, double expected)
+        {
+            VectorXD v = new VectorXD(valuesString);
+            Assert.Equal(expected, v.Norm());
+        }
+
+        [InlineData("2 2 1", 9)]
+        [InlineData("1 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void SquaredNorm_ShouldSucceed(string valuesString, double expected)
+        {
+            VectorXD v = new VectorXD(valuesString);
+            Assert.Equal(expected, v.SquaredNorm());
+        }
+
+        [InlineData("2 2 1", 5)]
+        [InlineData("2 2 -1", 5)]
+        [InlineData("1 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void Lp1Norm_ShouldSucceed(string valuesString, double expected)
+        {
+            VectorXD v = new VectorXD(valuesString);
+            Assert.Equal(expected, v.Lp1Norm());
+        }
+
+        [InlineData("2 2 1", 2)]
+        [InlineData("2 2 -3", 3)]
+        [InlineData("1 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void LpInfoNorm_ShouldSucceed(string valuesString, double expected)
+        {
+            VectorXD v = new VectorXD(valuesString);
+            Assert.Equal(expected, v.LpInfoNorm());
+        }
+
         [Fact]
         public void Add_ShouldSucceed()
         {

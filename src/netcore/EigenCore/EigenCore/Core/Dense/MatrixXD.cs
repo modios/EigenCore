@@ -79,6 +79,26 @@ namespace EigenCore.Core.Dense
 
         public double Mean() => _values.AsParallel().Average();
 
+        public double Norm()
+        {
+            return EigenDenseUtilities.Norm(GetValues(), Rows, Cols);
+        }
+
+        public double SquaredNorm()
+        {
+            return EigenDenseUtilities.SquaredNorm(GetValues(), Rows, Cols);
+        }
+
+        public double Lp1Norm()
+        {
+            return EigenDenseUtilities.Lp1Norm(GetValues(), Rows, Cols);
+        }
+
+        public double LpInfoNorm()
+        {
+            return EigenDenseUtilities.LpInfNorm(GetValues(), Rows, Cols);
+        }
+
         public VectorXD ColwiseMin()
         {
             double[] result = new double[Cols];
