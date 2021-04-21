@@ -94,7 +94,7 @@ namespace EigenCore.Core.Dense
             return EigenDenseUtilities.Lp1Norm(GetValues(), Rows, Cols);
         }
 
-        public double LpInfoNorm()
+        public double LpInfNorm()
         {
             return EigenDenseUtilities.LpInfNorm(GetValues(), Rows, Cols);
         }

@@ -215,10 +215,10 @@ namespace EigenCore.Test.Dense.Core
         [InlineData("2 2 1; 1 2 -3; 1 0 1", 3)]
         [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
         [Theory(Skip = "need to update .so")]
-        public void LpInfoNorm_ShouldSucceed(string valuesString, double expected)
+        public void LpInfNorm_ShouldSucceed(string valuesString, double expected)
         {
             MatrixXD A = new MatrixXD(valuesString);
-            Assert.Equal(expected, A.LpInfoNorm());
+            Assert.Equal(expected, A.LpInfNorm());
         }
 
         [Fact]
