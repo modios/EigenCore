@@ -451,6 +451,17 @@ A.Sum()) // Sum of all elements
 A.Prod() // Product of all elements
 A.Mean() // Mean of all elements.
 A.Trace(); // Trace of the matrix.
+
+VectorXD result = A.ColwiseMin(); // Min over columns
+VectorXD result = A.RowwiseMin(); // Min over rows
+VectorXD result = A.ColwiseMax(); // Max over columns
+VectorXD result = A.RowwiseMax(); // Max over rows
+VectorXD result = A.ColwiseSum(); // Sum over columns
+VectorXD result = A.RowwiseSum(); // Sum over rows
+VectorXD result = A.ColwiseProd(); // Product over columns
+VectorXD result = A.RowwiseProd(); // Product over rows
+VectorXD result = A.ColwiseMean(); // Mean over rows
+VectorXD result = A.RowwiseMean(); // Mean over rows
 ```
 
 
