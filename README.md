@@ -460,7 +460,7 @@ VectorXD result = A.ColwiseSum(); // Sum over columns
 VectorXD result = A.RowwiseSum(); // Sum over rows
 VectorXD result = A.ColwiseProd(); // Product over columns
 VectorXD result = A.RowwiseProd(); // Product over rows
-VectorXD result = A.ColwiseMean(); // Mean over rows
+VectorXD result = A.ColwiseMean(); // Mean over columns
 VectorXD result = A.RowwiseMean(); // Mean over rows
 ```
 
