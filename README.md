@@ -442,6 +442,18 @@ MatrixXD, 4 * 2:
   0 2 
 ```
 
+### Reductions
+```csharp
+
+A.Min() //  Min of all elements
+A.Max() //  Max of all elements
+A.Sum()) // Sum of all elements
+A.Prod() // Product of all elements
+A.Mean() // Mean of all elements.
+A.Trace(); // Trace of the matrix.
+```
+
+
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
