@@ -474,9 +474,9 @@ v.Lp1Norm();
 v.LpInfoNorm();
 
 MatrixXD A = new MatrixXD("2 2 1; 1 2 -3; 1 0 1");
-A.Norm());
+A.Norm();
 A.SquaredNorm();
-A.Lp1Norm());
+A.Lp1Norm();
 A.LpInfNorm();
 
 ```
