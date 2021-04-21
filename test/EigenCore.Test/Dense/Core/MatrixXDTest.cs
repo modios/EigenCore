@@ -526,6 +526,24 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact(Skip = "need to update .so")]
+        public void AbsoluteError_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
+            var rhs = new VectorXD("3 3 4");
+            var x = new VectorXD("3 -3 4");
+            Assert.Equal(38.065732621348559, A.AbsoluteError(rhs, x), DoublePrecision);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void RelativeError_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
+            var rhs = new VectorXD("3 3 4");
+            var x = new VectorXD("3 -3 4");
+            Assert.Equal(16.978359929108375, A.RelativeError(rhs, x), DoublePrecision);
+        }
+
+        [Fact(Skip = "need to update .so")]
         public void Inverse_ShouldSucceed()
         {
             var A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");

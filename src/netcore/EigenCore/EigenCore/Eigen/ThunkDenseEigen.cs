@@ -184,6 +184,22 @@ namespace EigenCore.Eigen
             int row1,
             int col1,
             [Out] double* uout);
+  
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double dabsolute_error_(
+            [In] double* m1,
+            int row,
+            int col,
+            [In] double* v1,
+            [In] double* v2);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double drelative_error_(
+            [In] double* m1,
+            int row,
+            int col,
+            [In] double* v1,
+            [In] double* v2);
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void dhouseholderQR_(

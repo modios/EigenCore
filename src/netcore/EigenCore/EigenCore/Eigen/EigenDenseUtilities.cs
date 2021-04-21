@@ -497,6 +497,42 @@ namespace EigenCore.Eigen
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double AbsoluteError(ReadOnlySpan<double> firstMatrix, int rows1, int cols1, ReadOnlySpan<double> x, ReadOnlySpan<double> rhs)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pX = &MemoryMarshal.GetReference(x))
+                    {
+                        fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
+                        {
+                           return ThunkDenseEigen.dabsolute_error_(pfirst, rows1, cols1, pX, pRhs);
+                        }
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double RelativeError(ReadOnlySpan<double> firstMatrix, int rows1, int cols1, ReadOnlySpan<double> rhs, ReadOnlySpan<double> x)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* pX = &MemoryMarshal.GetReference(x))
+                    {
+                        fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
+                        {
+                            return ThunkDenseEigen.drelative_error_(pfirst, rows1, cols1, pX, pRhs);
+                        }
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void HouseholderQR(ReadOnlySpan<double> firstMatrix,
         int rows1,
         int cols1,
