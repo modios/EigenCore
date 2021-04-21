@@ -464,7 +464,22 @@ VectorXD result = A.ColwiseMean(); // Mean over rows
 VectorXD result = A.RowwiseMean(); // Mean over rows
 ```
 
+### Norms
+```csharp
 
+VectorXD v = new VectorXD("2 2 1");
+v.Norm();
+v.SquaredNorm();
+v.Lp1Norm();
+v.LpInfoNorm();
+
+MatrixXD A = new MatrixXD("2 2 1; 1 2 -3; 1 0 1");
+A.Norm());
+A.SquaredNorm();
+A.Lp1Norm());
+A.LpInfNorm();
+
+```
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
