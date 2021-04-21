@@ -468,19 +468,6 @@ namespace EigenCore.Core.Dense
 
         }
 
-        public void Resize(int rows, int cols, bool keepValues = false)
-        {
-            double[] resizedValues = new double[rows * cols];
-           
-            if (keepValues)
-            {
-                for (int i = 0; i < rows; i++)
-                {
-
-                }
-            }
-        }
-
         public override MatrixXD Clone()
         {
             return new MatrixXD(_values.ToArray(), Rows, Cols);
