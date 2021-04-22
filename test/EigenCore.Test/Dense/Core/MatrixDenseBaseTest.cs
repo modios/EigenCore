@@ -6,6 +6,27 @@ namespace EigenCore.Test.Dense.Core
     public sealed class MatrixDenseBaseTest
     {
         [Fact]
+        public void Count_ShouldSucceed()
+        {
+            var A = new MatrixXD(new double[][] { new double[] { 1, 3, double.NaN }, new double[] { 0, double.PositiveInfinity, double.NaN } });
+
+            Assert.Equal(2, A.Count(x => double.IsNaN(x)));
+            Assert.Equal(1, A.Count(x => double.IsInfinity(x)));       
+        }
+
+        [Fact]
+        public void Replace_ShouldSucceed()
+        {
+            var A = new MatrixXD(new double[][] { new double[] { 1, 3, double.NaN }, new double[] { 0, double.PositiveInfinity, double.NaN } });
+
+            A.Replace(x => double.IsNaN(x) ? 0.0 : x);
+            Assert.Equal(0, A.Get(0, 2));
+            Assert.Equal(0, A.Get(1, 2));
+            A.Replace(x => double.IsInfinity(x) ? 0.0 : x);
+            Assert.Equal(0, A.Get(1, 1));
+        }
+
+        [Fact]
         public void ToString_ShouldSucceed()
         {
             var A = new MatrixXD(new double[][] { new double[] { 1, 3, 1 }, new double[] { 0, 2, 1 } });

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -15,6 +16,10 @@ namespace EigenCore.Core.Dense
         protected static int MaxColsToPrint => 20;
 
         protected static Random _random = default(Random);
+
+        public int Rows { get; }
+
+        public int Cols { get; }
 
         private static (int, int) GetRowsAndColsInfo(string valuesString)
         {
@@ -101,9 +106,27 @@ namespace EigenCore.Core.Dense
             _random = new Random(seed);
         }
 
-        public int Rows { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public int Count(Func<T, bool> action)
+        {
+            return _values.Count(v => action(v));
+        }
 
-        public int Cols { get; }
+        /// <summary>
+        /// Replace values in array with action.
+        /// </summary>
+        /// <param name="action"></param>
+        public void Replace(Func<T, T> action)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                _values[i] = action(_values[i]);
+            }
+        }
 
         public abstract MatrixDenseBase<T> Clone();
 
