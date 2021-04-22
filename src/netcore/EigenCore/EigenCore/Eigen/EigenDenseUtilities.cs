@@ -555,6 +555,52 @@ namespace EigenCore.Eigen
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SolveFullPivLU(ReadOnlySpan<double> firstMatrix,
+        int rows1,
+        int cols1,
+        ReadOnlySpan<double> rhs,
+        Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* prhs = &MemoryMarshal.GetReference(rhs))
+                    {
+                        fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                        {
+                            ThunkDenseEigen.dsolve_fullPivLu_(pfirst, rows1, cols1, prhs, pVOut);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SolvePartialPivLU(ReadOnlySpan<double> firstMatrix,
+            int rows1,
+            int cols1,
+            ReadOnlySpan<double> rhs,
+            Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* prhs = &MemoryMarshal.GetReference(rhs))
+                    {
+                        fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                        {
+                            ThunkDenseEigen.dsolve_partialPivLU_(pfirst, rows1, cols1, prhs, pVOut);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SolveLLT(ReadOnlySpan<double> firstMatrix,
                 int rows1,
                 int cols1,
@@ -569,7 +615,31 @@ namespace EigenCore.Eigen
                     {
                         fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
                         {
-                            ThunkDenseEigen.dsolve_LLT_(pfirst, rows1, cols1, prhs, pVOut);
+                            ThunkDenseEigen.dsolve_llt_(pfirst, rows1, cols1, prhs, pVOut);
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SolveLDLT(ReadOnlySpan<double> firstMatrix,
+        int rows1,
+        int cols1,
+        ReadOnlySpan<double> rhs,
+        Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (double* pfirst = &MemoryMarshal.GetReference(firstMatrix))
+                {
+                    fixed (double* prhs = &MemoryMarshal.GetReference(rhs))
+                    {
+                        fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                        {
+                            ThunkDenseEigen.dsolve_ldlt_(pfirst, rows1, cols1, prhs, pVOut);
                         }
 
                     }
@@ -605,7 +675,7 @@ namespace EigenCore.Eigen
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AbsoluteError(ReadOnlySpan<double> firstMatrix, int rows1, int cols1, ReadOnlySpan<double> x, ReadOnlySpan<double> rhs)
+        public static double AbsoluteError(ReadOnlySpan<double> firstMatrix, int rows1, int cols1, ReadOnlySpan<double> rhs, ReadOnlySpan<double> x)
         {
             unsafe
             {
@@ -615,7 +685,7 @@ namespace EigenCore.Eigen
                     {
                         fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
                         {
-                            return ThunkDenseEigen.dabsolute_error_(pfirst, rows1, cols1, pX, pRhs);
+                            return ThunkDenseEigen.dabsolute_error_(pfirst, rows1, cols1, pRhs, pX);
                         }
                     }
                 }
@@ -633,7 +703,7 @@ namespace EigenCore.Eigen
                     {
                         fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
                         {
-                            return ThunkDenseEigen.drelative_error_(pfirst, rows1, cols1, pX, pRhs);
+                            return ThunkDenseEigen.drelative_error_(pfirst, rows1, cols1, pRhs, pX);
                         }
                     }
                 }

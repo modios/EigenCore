@@ -3,6 +3,9 @@
     public enum DenseSolverType
     {
         ColPivHouseholderQR,
-        LLT
+        LLT,
+        LDLT,
+        PartialPivLU,
+        FullPivLU
     }
 }

@@ -545,11 +545,38 @@ namespace EigenCore.Test.Dense.Core
         }
 
         [Fact(Skip = "need to update .so")]
+        public void SolveLDLT_ShouldSucceed()
+        {
+            var A = new MatrixXD("2 4 0;4 2 1;0 1 4");
+            var rhs = new VectorXD("3 3 4");
+            VectorXD result = A.Solve(rhs, DenseSolverType.LDLT);
+            Assert.Equal(new VectorXD("0.22 0.64 0.84"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
         public void SolveLLT_ShouldSucceed()
+        {
+            var A = new MatrixXD("6 4 0;4 4 1;0 1 8");
+            var rhs = new VectorXD("3 3 4");
+            VectorXD result = A.Solve(rhs, DenseSolverType.LLT);
+            Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void SolveFullPivLU_ShouldSucceed()
         {
             var A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
             var rhs = new VectorXD("3 3 4");
-            VectorXD result = A.Solve(rhs, DenseSolverType.LLT);
+            VectorXD result = A.Solve(rhs, DenseSolverType.FullPivLU);
+            Assert.Equal(new VectorXD("2.3333333333333321 -1.6666666666666643 3.9999999999999978"), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void SolvePartialPivLU_ShouldSucceed()
+        {
+            var A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
+            var rhs = new VectorXD("3 3 4");
+            VectorXD result = A.Solve(rhs, DenseSolverType.PartialPivLU);
             Assert.Equal(new VectorXD("2.3333333333333321 -1.6666666666666643 3.9999999999999978"), result);
         }
 
@@ -566,8 +593,8 @@ namespace EigenCore.Test.Dense.Core
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
             var rhs = new VectorXD("3 3 4");
-            var x = new VectorXD("3 -3 4");
-            Assert.Equal(38.065732621348559, A.AbsoluteError(rhs, x), DoublePrecision);
+            var x = new VectorXD("-2 1 1");
+            Assert.Equal(0.0, A.AbsoluteError(rhs, x), DoublePrecision);
         }
 
         [Fact(Skip = "need to update .so")]
@@ -575,8 +602,8 @@ namespace EigenCore.Test.Dense.Core
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
             var rhs = new VectorXD("3 3 4");
-            var x = new VectorXD("3 -3 4");
-            Assert.Equal(16.978359929108375, A.RelativeError(rhs, x), DoublePrecision);
+            var x = new VectorXD("-2 1 1");
+            Assert.Equal(0.0, A.RelativeError(rhs, x), DoublePrecision);
         }
 
         [Fact(Skip = "need to update .so")]

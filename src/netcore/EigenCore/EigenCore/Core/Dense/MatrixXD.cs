@@ -429,6 +429,15 @@ namespace EigenCore.Core.Dense
             double[] vout = new double[Rows];
             switch (denseSolverType)
             {
+                case DenseSolverType.PartialPivLU:
+                    EigenDenseUtilities.SolvePartialPivLU(GetValues(), Rows, Cols, other.GetValues(), vout);
+                    break;
+                case DenseSolverType.FullPivLU:
+                    EigenDenseUtilities.SolveFullPivLU(GetValues(), Rows, Cols, other.GetValues(), vout);
+                    break;
+                case DenseSolverType.LDLT:
+                    EigenDenseUtilities.SolveLDLT(GetValues(), Rows, Cols, other.GetValues(), vout);
+                    break;
                 case DenseSolverType.LLT:
                     EigenDenseUtilities.SolveLLT(GetValues(), Rows, Cols, other.GetValues(), vout);
                     break;

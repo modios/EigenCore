@@ -179,7 +179,7 @@ namespace EigenCore.Eigen
             [Out] double* uout);
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
-        public static extern void dnormal_equations__leastsquares_(
+        public static extern void dsolve_partialPivLU_(
             [In] double* firstMatrix,
             int row1,
             int col1,
@@ -187,7 +187,31 @@ namespace EigenCore.Eigen
             [Out] double* uout);
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
-        public static extern void dsolve_LLT_(
+        public static extern void dsolve_fullPivLu_(
+            [In] double* firstMatrix,
+            int row1,
+            int col1,
+            [In] double* rhs,
+            [Out] double* uout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dsolve_llt_(
+            [In] double* firstMatrix,
+            int row1,
+            int col1,
+            [In] double* rhs,
+            [Out] double* uout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dsolve_ldlt_(
+             [In] double* firstMatrix,
+             int row1,
+             int col1,
+             [In] double* rhs,
+             [Out] double* uout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void dnormal_equations__leastsquares_(
             [In] double* firstMatrix,
             int row1,
             int col1,

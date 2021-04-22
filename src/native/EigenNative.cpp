@@ -267,13 +267,38 @@ EXPORT_API(void) dsolve_colPivHouseholderQr_(_In_ double* m1, const int row, con
 	result = matrix1.colPivHouseholderQr().solve(rhs);
 }
 
-// Standard Cholesky decomposition (LL^T) of a matrix and associated features.
-EXPORT_API(void) dsolve_LLT_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+EXPORT_API(void) dsolve_partialPivLU_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
 {
 	Map<const MatrixXd> matrix1(m1, row, col);
 	Map<VectorXd> rhs(v1, row);
 	Map<VectorXd> result(vout, row);
-	result = matrix1.colPivHouseholderQr().solve(rhs);
+	result = matrix1.partialPivLu().solve(rhs);
+}
+
+EXPORT_API(void) dsolve_fullPivLu_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> result(vout, row);
+	result = matrix1.fullPivLu().solve(rhs);
+}
+
+// Standard Cholesky decomposition (LL^T) of a matrix and associated features.
+EXPORT_API(void) dsolve_llt_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> result(vout, row);
+	result = matrix1.llt().solve(rhs);
+}
+
+// Perform a robust Cholesky decomposition of a positive semidefinite or negative semidefinite matrix.
+EXPORT_API(void) dsolve_ldlt_(_In_ double* m1, const int row, const int col, _In_ double* v1, _Out_ double* vout)
+{
+	Map<const MatrixXd> matrix1(m1, row, col);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> result(vout, row);
+	result = matrix1.ldlt().solve(rhs);
 }
 
 EXPORT_API(double) ddeterminant_(_In_ double* m1, const int row, const int col)
