@@ -283,7 +283,7 @@ VectorXD, 3:
     
     -2 1 1
     
-MatrixXD A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
+MatrixXD A = new MatrixXD("6 4 0;4 4 1;0 1 8");
 VectorXD rhs = new VectorXD("3 3 4");
 VectorXD result = A.Solve(rhs, DenseSolverType.LLT);  
 
@@ -291,7 +291,7 @@ Console.WriteLine(result.ToString());
 
 VectorXD, 3:
     
-    2.33 -1.67 4
+    0.224 0.414 0.448
 ```
 
 ### QR decomposition
