@@ -31,10 +31,10 @@ namespace EigenCore.Core.Dense
         {
             (int rows, int cols) = GetRowsAndColsInfo(valuesString);
             var inputValues = new T[rows * cols];
-  
+
             string[] lines = valuesString.Split(";");
             int row = 0;
-            
+
             foreach (string line in lines)
             {
                 string lineTrim = Regex.Replace(line, @"\s+", " ").Trim();

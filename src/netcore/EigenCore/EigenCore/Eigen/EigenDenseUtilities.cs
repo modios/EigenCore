@@ -615,7 +615,7 @@ namespace EigenCore.Eigen
                     {
                         fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
                         {
-                           return ThunkDenseEigen.dabsolute_error_(pfirst, rows1, cols1, pX, pRhs);
+                            return ThunkDenseEigen.dabsolute_error_(pfirst, rows1, cols1, pX, pRhs);
                         }
                     }
                 }
@@ -681,7 +681,7 @@ namespace EigenCore.Eigen
                         {
                             fixed (double* pP = &MemoryMarshal.GetReference(p))
                             {
-                                ThunkDenseEigen.dcolPivHouseholderQR_(pfirst, rows1, cols1, pQ, pR,pP);
+                                ThunkDenseEigen.dcolPivHouseholderQR_(pfirst, rows1, cols1, pQ, pR, pP);
                             }
                         }
 

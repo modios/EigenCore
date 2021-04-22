@@ -23,9 +23,9 @@ namespace EigenCore.Core.Dense
             var inputValues = new T[length];
 
             string trimmedLine = Regex.Replace(valuesString, @"\s+", " ").Trim();
-            string[] splitline = trimmedLine.Split(" ");;
+            string[] splitline = trimmedLine.Split(" "); ;
 
-            for(int index = 0; index < length; index++)
+            for (int index = 0; index < length; index++)
             {
                 inputValues[index] = parser(splitline[index]);
             }
@@ -49,9 +49,9 @@ namespace EigenCore.Core.Dense
             stringBuilder.Append(GetType().Name + ", " + Length + ":\n");
             stringBuilder.Append('\n');
 
-            for(int i =0; i<Length; i++)
+            for (int i = 0; i < Length; i++)
             {
-                if(i > MaxElements)
+                if (i > MaxElements)
                 {
                     stringBuilder.Append("...");
                     return stringBuilder.ToString().Trim();

@@ -103,7 +103,7 @@ namespace EigenCore.Core.Dense
         {
             double[] result = new double[Cols];
 
-            for(int i=0; i< Cols; i++)
+            for (int i = 0; i < Cols; i++)
             {
                 result[i] = Col(i).Min();
             }
@@ -231,7 +231,7 @@ namespace EigenCore.Core.Dense
         {
             double[] rowVector = new double[Cols];
 
-            for(int i=0; i<Cols; i++)
+            for (int i = 0; i < Cols; i++)
             {
                 rowVector[i] = Get(row, i);
             }
@@ -292,7 +292,7 @@ namespace EigenCore.Core.Dense
                         int otherCols = other.Cols;
                         for (int i = 0; i < other.Rows; i++)
                         {
-                            for (int j = 0 ; j < otherCols; j++)
+                            for (int j = 0; j < otherCols; j++)
                             {
                                 matrixXD.Set(i, Cols + j, other.Get(i, j));
                             }
@@ -317,7 +317,7 @@ namespace EigenCore.Core.Dense
                             }
                         }
 
-                        int otherRows= other.Rows;
+                        int otherRows = other.Rows;
                         for (int i = 0; i < otherRows; i++)
                         {
                             for (int j = 0; j < Cols; j++)
@@ -333,8 +333,8 @@ namespace EigenCore.Core.Dense
 
         public MatrixXD Slice(int startRow, int endRow, int startCol, int endCol)
         {
-            var rows = Enumerable.Range(startRow, endRow - startRow  + 1).ToArray();
-            var cols = Enumerable.Range(startCol, endCol- startCol + 1).ToArray();
+            var rows = Enumerable.Range(startRow, endRow - startRow + 1).ToArray();
+            var cols = Enumerable.Range(startCol, endCol - startCol + 1).ToArray();
 
             return Slice(rows, cols);
         }
@@ -345,8 +345,8 @@ namespace EigenCore.Core.Dense
             {
                 Set(i, i, scalar);
             }
-        }      
-        
+        }
+
         public MatrixXD Minus(MatrixXD other)
         {
             double[] outMatrix = new double[Rows * other.Cols];
@@ -557,7 +557,7 @@ namespace EigenCore.Core.Dense
             }
             else
             {
-               EigenDenseUtilities.SVDLeastSquaresBdcSvd(GetValues(), Rows, Cols, rhs.GetValues(), vout);
+                EigenDenseUtilities.SVDLeastSquaresBdcSvd(GetValues(), Rows, Cols, rhs.GetValues(), vout);
             }
 
             return new VectorXD(vout);
@@ -607,7 +607,7 @@ namespace EigenCore.Core.Dense
             double[] p = new double[Rows * Rows];
             double[] q = new double[Cols * Cols];
 
-            EigenDenseUtilities.FullPivLU(GetValues(),Rows, Cols, l, u, p, q);
+            EigenDenseUtilities.FullPivLU(GetValues(), Rows, Cols, l, u, p, q);
 
             var L = new MatrixXD(l, Rows, Rows);
             L.SetDiag(1.0);
@@ -658,7 +658,7 @@ namespace EigenCore.Core.Dense
             JaggedRowsAndColsInfo(inputValues).Item1,
             JaggedRowsAndColsInfo(inputValues).Item2)
         {
- 
+
         }
 
         public MatrixXD(double[,] inputValues) :

@@ -13,7 +13,7 @@ namespace EigenCore.Core.Dense
 
         public ReadOnlySpan<T> GetImagValues() => _imagValues.AsSpan(0, Length);
 
-        public (T,T) GetItem(int index) => (_realValues[index], _imagValues[index]);
+        public (T, T) GetItem(int index) => (_realValues[index], _imagValues[index]);
 
         public VBufferDenseComplex(T[] realValues, T[] complexValues)
         {

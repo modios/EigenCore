@@ -23,7 +23,7 @@ namespace EigenCore.Core.Dense
 
         public static VectorXD Ones(int size)
         {
-            double[] input = Enumerable.Range(1,size).Select(n => 1.0).ToArray();
+            double[] input = Enumerable.Range(1, size).Select(n => 1.0).ToArray();
             return new VectorXD(input);
         }
 
@@ -137,7 +137,7 @@ namespace EigenCore.Core.Dense
             return base.GetHashCode();
         }
 
-        public VectorXD(string valuesString) 
+        public VectorXD(string valuesString)
             : base(valuesString, (string value) => double.Parse(value))
         {
         }

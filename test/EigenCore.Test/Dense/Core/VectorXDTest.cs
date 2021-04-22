@@ -9,7 +9,7 @@ namespace EigenCore.Test.Dense.Core
         [Fact]
         public void ArrayConstructor_ShouldSucced()
         {
-            VectorXD v = new VectorXD( new double[] { 1, 2, 5, 6 });
+            VectorXD v = new VectorXD(new double[] { 1, 2, 5, 6 });
             Assert.Equal(new double[] { 1, 2, 5, 6 }, v.GetValues().ToArray());
             Assert.Equal("VectorXD, 4:\n\n1 2 5 6", v.ToString());
         }
@@ -31,7 +31,7 @@ namespace EigenCore.Test.Dense.Core
             Assert.True(v.Max() <= 1.0);
             Assert.True(v.Min() >= 1.0);
             Assert.Equal(4, v.Length);
-            Assert.Equal(new VectorXD(new [] {1.0, 1.0, 1.0, 1.0 }), v);
+            Assert.Equal(new VectorXD(new[] { 1.0, 1.0, 1.0, 1.0 }), v);
         }
 
         [Fact]
@@ -117,7 +117,7 @@ namespace EigenCore.Test.Dense.Core
             VectorXD A = new VectorXD(new double[] { 1, 2, 3, 4 });
             VectorXD B = new VectorXD(new double[] { 1, 2, 3, 4 });
             var addVector = A.Add(B);
-            Assert.Equal(new VectorXD(new double[] { 2,4,6,8}), addVector);
+            Assert.Equal(new VectorXD(new double[] { 2, 4, 6, 8 }), addVector);
         }
 
         [Fact]

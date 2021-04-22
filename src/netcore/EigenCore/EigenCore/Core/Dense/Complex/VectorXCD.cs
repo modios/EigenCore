@@ -15,7 +15,7 @@ namespace EigenCore.Core.Dense.Complex
             return new VectorXD(_imagValues.ToArray());
         }
 
-        public VectorXCD(double[] realValues, double[] imagValues) 
+        public VectorXCD(double[] realValues, double[] imagValues)
             : base(realValues, imagValues)
         {
         }

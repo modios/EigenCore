@@ -207,7 +207,7 @@ namespace EigenCore.Eigen
             int row1,
             int col1,
             [Out] double* uout);
-  
+
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern double dabsolute_error_(
             [In] double* m1,
@@ -252,7 +252,7 @@ namespace EigenCore.Eigen
                         [Out] double* u,
                         [Out] double* p,
                         [Out] double* q);
-        
+
         #endregion Matrices
     }
 }

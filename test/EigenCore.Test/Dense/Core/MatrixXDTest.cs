@@ -11,7 +11,7 @@ namespace EigenCore.Test.Dense.Core
         [Fact]
         public void ConstructorJagged_ShouldSucceed()
         {
-            var A = new MatrixXD(new double[][] { new double[] { 1, 3, 2 } , new double[] { 0, 2, 1 } });
+            var A = new MatrixXD(new double[][] { new double[] { 1, 3, 2 }, new double[] { 0, 2, 1 } });
             Assert.Equal(2, A.Rows);
             Assert.Equal(3, A.Cols);
             Assert.Equal(new double[] { 1, 0, 3, 2, 2, 1 }, A.GetValues().ToArray());
@@ -304,12 +304,12 @@ namespace EigenCore.Test.Dense.Core
         [Fact]
         public void Scale__ShouldSucceed()
         {
-            MatrixXD A = MatrixXD.Ones(3,2);
+            MatrixXD A = MatrixXD.Ones(3, 2);
             A.Scale(0.4);
 
-            for(int i = 0; i< A.Rows; i++)
+            for (int i = 0; i < A.Rows; i++)
             {
-                for (int j = 0; j< A.Cols; j++)
+                for (int j = 0; j < A.Cols; j++)
                 {
                     Assert.Equal(0.4, A.Get(i, j));
                 }
@@ -353,7 +353,7 @@ namespace EigenCore.Test.Dense.Core
         public void Slice_StartEnd_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("1 2 3; 4 5 6; 7 8 2");
-            var result = A.Slice(0, 1, 1 , 2);
+            var result = A.Slice(0, 1, 1, 2);
 
             Assert.Equal(new MatrixXD("2 3; 5 6"), result);
 
@@ -444,7 +444,7 @@ namespace EigenCore.Test.Dense.Core
         {
             MatrixXD A = new MatrixXD("2 2; 1 1");
             var result = A.PlusT();
-            Assert.Equal(new double[] { 4, 3, 3 , 2 }, result.GetValues().ToArray());
+            Assert.Equal(new double[] { 4, 3, 3, 2 }, result.GetValues().ToArray());
         }
 
         [Fact(Skip = "need to update .so")]
@@ -599,7 +599,7 @@ namespace EigenCore.Test.Dense.Core
                 "-0.5773502691896257 -0.7071067811865475 0.40824829046386313"),
                 result.Q);
 
-            Assert.Equal(new MatrixXD( "-1.7320508075688772 1.7320508075688776 -2.886751345948128;" +
+            Assert.Equal(new MatrixXD("-1.7320508075688772 1.7320508075688776 -2.886751345948128;" +
                 "0 -1.4142135623730951 2.82842712474619;" +
                 "0 0 0.8164965809277254"), result.R);
         }
@@ -631,8 +631,8 @@ namespace EigenCore.Test.Dense.Core
         public void FullPivLU_ShouldSucceed()
         {
             var A = new MatrixXD("-1 -0.562 -0.233;-0.737 -0.906 0.0388; 0.511 0.358 0.662; -0.0827 0.359 -0.931;  0.0655   0.869  -0.893");
-            var result =  A.FullPivLU();
-            
+            var result = A.FullPivLU();
+
             Assert.Equal(new MatrixXD("1 0 0 0 0;" +
                 "0.0827 1 0 0 0;" +
                 "-0.0655 0.9961947105225896 1 0 0;" +
