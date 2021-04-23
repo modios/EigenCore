@@ -14,7 +14,7 @@ namespace EigenCore.Core.Dense
                 return false;
             }
 
-            return VectorHelpers.ArraysEqual(_values, other.GetValues().ToArray());
+            return VectorHelpers.ArraysEqual(_values, other._values);
         }
 
         public static MatrixXD Zeros(int rows, int cols)

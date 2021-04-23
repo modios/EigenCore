@@ -3,6 +3,7 @@
 #include "EigenNative.h"
 #include <Eigen/Core>
 #include <Eigen/Eigenvalues>
+#include "Eigen/Sparse"
 
 using namespace std;
 using namespace Eigen;
@@ -368,4 +369,26 @@ EXPORT_API(void) dfullPivLU_(_In_ double* m1,
 
 	U = lu.matrixLU().triangularView<Upper>();
 	L = lu.matrixLU().triangularView<StrictlyLower>();
+}
+
+EXPORT_API(bool) ssolve_conjugateGradient_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout){
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	ConjugateGradient<SparseMatrix<double>> solver;
+	solver.compute(matrix);
+	x = solver.solve(rhs);
+
+    return solver.info() == Success;
 }

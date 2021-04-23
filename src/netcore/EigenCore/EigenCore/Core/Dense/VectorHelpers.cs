@@ -14,6 +14,24 @@ namespace EigenCore.Core.Dense
             }
         }
 
+        internal static bool ArraysEqual(int[] array1, int[] array2)
+        {
+            if (array1.Length == array2.Length)
+            {
+                for (int i = 0; i < array1.Length; i++)
+                {
+                    if (Math.Abs(array1[i] - array2[i]) > DoubleTolerance)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
         internal static bool ArraysEqual(double[] array1, double[] array2)
         {
             if (array1.Length == array2.Length)
