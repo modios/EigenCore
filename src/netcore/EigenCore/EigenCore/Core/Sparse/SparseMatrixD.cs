@@ -102,6 +102,36 @@ namespace EigenCore.Core.Sparse
             return base.GetHashCode();
         }
 
+        public SparseMatrixD Add(SparseMatrixD other)
+        {
+            int[] innerIndices = new int[Nnz + other.Nnz];
+            int[] outOuterStarts = new int[Cols + 1];
+            double[] valeus = new double[Nnz + other.Nnz];
+            int nnz;
+            Eigen.EigenSparseUtilities.ADD(Rows, Cols,
+               Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(),
+               other.Nnz, other.GetOuterStarts(), other.GetInnerIndices(), other.GetValues(),
+               outOuterStarts, innerIndices, valeus, out nnz);
+            Array.Resize(ref innerIndices, nnz);
+            Array.Resize(ref valeus, nnz);
+            return new SparseMatrixD(valeus, innerIndices, outOuterStarts, Rows, Cols);
+        }
+
+        public SparseMatrixD Minus(SparseMatrixD other)
+        {
+            int[] innerIndices = new int[Nnz + other.Nnz];
+            int[] outOuterStarts = new int[Cols + 1];
+            double[] valeus = new double[Nnz + other.Nnz];
+            int nnz;
+            Eigen.EigenSparseUtilities.Minus(Rows, Cols,
+               Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(),
+               other.Nnz, other.GetOuterStarts(), other.GetInnerIndices(), other.GetValues(),
+               outOuterStarts, innerIndices, valeus, out nnz);
+            Array.Resize(ref innerIndices, nnz);
+            Array.Resize(ref valeus, nnz);
+            return new SparseMatrixD(valeus, innerIndices, outOuterStarts, Rows, Cols);
+        }
+
         public IterativeSolverResult Solve(VectorXD other, IterativeSolverInfo iterativeSolverInfo = default(IterativeSolverInfo))
         {
             double[] x = new double[other.Length];
@@ -116,9 +146,25 @@ namespace EigenCore.Core.Sparse
 
             switch (iterativeSolverInfo.Solver)
             {
+                case IterativeSolverType.BiCGSTAB:
+                    success = Eigen.EigenSparseUtilities.SolveBiCGSTAB(
+                       Rows,
+                       Cols,
+                       Nnz,
+                       iterativeSolverInfo.MaxIterations,
+                       iterativeSolverInfo.Tolerance,
+                       GetOuterStarts(),
+                       GetInnerIndices(),
+                       GetValues(),
+                       other.GetValues(),
+                       other.Length,
+                       x,
+                       out iterations,
+                       out error);
+                    break;
                 case IterativeSolverType.ConjugateGradient:
                 default:
-                    success = Eigen.EigenSparseUtilities.ConjugateGradient(
+                    success = Eigen.EigenSparseUtilities.SolveConjugateGradient(
                        Rows,
                        Cols,
                        Nnz,

@@ -2,6 +2,7 @@
 {
     public enum IterativeSolverType
     {
-        ConjugateGradient
+        ConjugateGradient,
+        BiCGSTAB
     }
 }

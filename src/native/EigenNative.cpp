@@ -403,8 +403,127 @@ EXPORT_API(bool) ssolve_conjugateGradient_(
 	solver.compute(matrix);
 	x = solver.solve(rhs);
 
-	*iterations = solver.iterations();
+	*iterations = (int)solver.iterations();
 	*error = solver.error();
 
     return solver.info() == Success;
+}
+
+EXPORT_API(bool) ssolve_biCGSTAB_(
+	int row,
+	int col,
+	int nnz,
+	int maxIterations,
+	double tolerance,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout,
+	_Out_ int* iterations,
+	_Out_ double* error) {
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	BiCGSTAB<SparseMatrix<double>> solver;
+
+	if (maxIterations > 0) {
+		solver.setMaxIterations(maxIterations);
+	}
+
+	if (tolerance > 0) {
+		solver.setTolerance(tolerance);
+	}
+
+	solver.compute(matrix);
+	x = solver.solve(rhs);
+
+	*iterations = (int)solver.iterations();
+	*error = solver.error();
+
+	return solver.info() == Success;
+}
+
+EXPORT_API(void) sadd_(
+	int row,
+	int col,
+	int nnz1,
+	_In_ int* outerIndex1,
+	_In_ int* innerIndex1,
+	_In_ double* values1,
+	 int nnz2,
+	_In_ int* outerIndex2,
+	_In_ int* innerIndex2,
+	_In_ double* values2,
+	_Out_ int* nnz,
+	_Out_ int* outerIndex,
+	_Out_ int* innerIndex,
+	_Out_ double* values) {
+
+	Map<SparseMatrix<double>>  matrix1(row, col, nnz1, outerIndex1, innerIndex1, values1);
+	Map<SparseMatrix<double>>  matrix2(row, col, nnz2, outerIndex2, innerIndex2, values2);
+	SparseMatrix<double> resultTmp = matrix1 + matrix2;
+	*nnz = (int)resultTmp.nonZeros();
+	resultTmp.makeCompressed();
+
+	copy(resultTmp.outerIndexPtr(), resultTmp.outerIndexPtr() + (col + 1), outerIndex);
+	copy(resultTmp.innerIndexPtr(), resultTmp.innerIndexPtr() + *nnz, innerIndex);
+	copy(resultTmp.valuePtr(), resultTmp.valuePtr() + *nnz, values);
+}
+
+EXPORT_API(void) sminus_(
+	int row,
+	int col,
+	int nnz1,
+	_In_ int* outerIndex1,
+	_In_ int* innerIndex1,
+	_In_ double* values1,
+	int nnz2,
+	_In_ int* outerIndex2,
+	_In_ int* innerIndex2,
+	_In_ double* values2,
+	_Out_ int* nnz,
+	_Out_ int* outerIndex,
+	_Out_ int* innerIndex,
+	_Out_ double* values) {
+
+	Map<SparseMatrix<double>>  matrix1(row, col, nnz1, outerIndex1, innerIndex1, values1);
+	Map<SparseMatrix<double>>  matrix2(row, col, nnz2, outerIndex2, innerIndex2, values2);
+	SparseMatrix<double> resultTmp = matrix1 - matrix2;
+	*nnz = (int)resultTmp.nonZeros();
+	resultTmp.makeCompressed();
+
+	copy(resultTmp.outerIndexPtr(), resultTmp.outerIndexPtr() + (col + 1), outerIndex);
+	copy(resultTmp.innerIndexPtr(), resultTmp.innerIndexPtr() + *nnz, innerIndex);
+	copy(resultTmp.valuePtr(), resultTmp.valuePtr() + *nnz, values);
+}
+
+EXPORT_API(void) smult_(
+	int row,
+	int col,
+	int nnz1,
+	_In_ int* outerIndex1,
+	_In_ int* innerIndex1,
+	_In_ double* values1,
+	int nnz2,
+	_In_ int* outerIndex2,
+	_In_ int* innerIndex2,
+	_In_ double* values2,
+	_Out_ int* nnz,
+	_Out_ int* outerIndex,
+	_Out_ int* innerIndex,
+	_Out_ double* values) {
+
+	Map<SparseMatrix<double>>  matrix1(row, col, nnz1, outerIndex1, innerIndex1, values1);
+	Map<SparseMatrix<double>>  matrix2(row, col, nnz2, outerIndex2, innerIndex2, values2);
+	SparseMatrix<double> resultTmp = matrix1 * matrix2;
+	*nnz = (int)resultTmp.nonZeros();
+	resultTmp.makeCompressed();
+
+	copy(resultTmp.outerIndexPtr(), resultTmp.outerIndexPtr() + (col + 1), outerIndex);
+	copy(resultTmp.innerIndexPtr(), resultTmp.innerIndexPtr() + *nnz, innerIndex);
+	copy(resultTmp.valuePtr(), resultTmp.valuePtr() + *nnz, values);
 }
