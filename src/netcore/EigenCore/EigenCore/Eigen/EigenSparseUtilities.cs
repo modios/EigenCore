@@ -11,15 +11,21 @@ namespace EigenCore.Eigen
         int rows,
         int cols,
         int nnz,
+        int maxIterations,
+        double tolerance,
         ReadOnlySpan<int> outerIndex,
         ReadOnlySpan<int> innerIndex,
         ReadOnlySpan<double> values,
         ReadOnlySpan<double> rhs,
         int size,
-        Span<double> vout)
+        Span<double> vout,
+        out int iterations,
+        out double error)
         {
             unsafe
             {
+                int iterationsOut;
+                double errorOut;
                 fixed (int* pOuterIndex = &MemoryMarshal.GetReference(outerIndex))
                 {
                     fixed (int* pInnerIndex = &MemoryMarshal.GetReference(innerIndex))
@@ -30,7 +36,10 @@ namespace EigenCore.Eigen
                             {
                                 fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
                                 {
-                                   return ThunkSparseEigen.ssolve_conjugateGradient_(rows, cols, nnz, pOuterIndex, pInnerIndex, pValues, pRhs, size, pVOut);
+                                    bool result = ThunkSparseEigen.ssolve_conjugateGradient_(rows, cols, nnz, maxIterations, tolerance, pOuterIndex, pInnerIndex, pValues, pRhs, size, pVOut, &iterationsOut, &errorOut);
+                                    iterations = iterationsOut;
+                                    error = errorOut;
+                                    return result;
                                 }
                             }
                         }

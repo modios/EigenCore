@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace EigenCore.Core.Sparse
 {
@@ -6,6 +7,13 @@ namespace EigenCore.Core.Sparse
     {
         protected static int MaxRowsToPrint => 20;
         protected static int MaxColsToPrint => 20;
+
+        protected static Random _random = default(Random);
+
+        public static void SetRandomState(int seed)
+        {
+            _random = new Random(seed);
+        }
 
         public T Get(int row, int col)
         {

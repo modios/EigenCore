@@ -1,11 +1,14 @@
 ﻿using EigenCore.Core.Dense;
 using EigenCore.Core.Sparse;
+using EigenCore.Core.Sparse.LinearAlgebra;
 using Xunit;
 
 namespace EigenCore.Test.Sparse
 {
     public class SparseMatrixDTest
     {
+        public const int DoublePrecision = 12;
+        
         [Fact]
         public void ConstructorListTuples_ShouldSucced()
         {
@@ -28,8 +31,8 @@ namespace EigenCore.Test.Sparse
             }
         }
 
-        [Fact(Skip = "need to update .so")]
-        public void ConstructorL_ShouldSucced()
+        [Fact]
+        public void IterativeSolvers_ShouldSucced()
         {
             (int, int, double)[] elements = {
                 (0, 0, 6),
@@ -46,7 +49,14 @@ namespace EigenCore.Test.Sparse
             SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
             var rhs = new VectorXD("3 3 4");
             var result = A.Solve(rhs);
-            Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result);
+            Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result.Result);
+            Assert.Equal(2, result.Interations);
+            Assert.Equal(0, result.Error, DoublePrecision);
+
+            result = A.Solve(rhs, new IterativeSolverInfo(IterativeSolverType.ConjugateGradient, 2, 1e-2));
+            Assert.Equal(new VectorXD("0.22758069267348396 0.4094769178975719 0.44892479905735805"), result.Result);
+            Assert.Equal(1, result.Interations);
+            Assert.Equal(0.00077389987808970792, result.Error, DoublePrecision);
         }
     }
 }

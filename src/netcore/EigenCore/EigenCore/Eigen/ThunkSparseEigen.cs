@@ -12,11 +12,15 @@ namespace EigenCore.Eigen
 		int row,
 		int col,
 		int nnz,
+		int maxIterations,
+		double tolerance,
 		[In] int* outerIndex,
 		[In] int* innerIndex,
 		[In] double* values,
 		[In] double* inrhs,
 		[In] int size,
-		[Out] double* vout);
+		[Out] double* vout,
+		[Out] int* iterations,
+		[Out] double* error);
 	}
 }
