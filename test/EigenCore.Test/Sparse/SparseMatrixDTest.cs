@@ -32,6 +32,27 @@ namespace EigenCore.Test.Sparse
         }
 
         [Fact(Skip = "need to update .so")]
+        public void Scale_ShouldSucced()
+        {
+            (int, int, double)[] elements = {
+                (0, 0, 6),
+                (0, 1, 4),
+                (0, 2, 0),
+                (1, 0, 4),
+                (1 ,1, 4),
+                (1, 2, 1),
+                (2, 0, 0),
+                (2, 1, 1),
+                (2, 2, 8)
+            };
+
+            SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
+            A.Scale(0.1);
+
+            Assert.Equal(new MatrixXD("0.6 0.4 0; 0.4 0.4 0.1; 0 0.1 0.8"), A.ToDense());
+        }
+
+        [Fact(Skip = "need to update .so")]
         public void ADD_ShouldSucced()
         {
             (int, int, double)[] elements = {

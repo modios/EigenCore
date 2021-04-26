@@ -96,6 +96,13 @@ namespace EigenCore.Core.Sparse
 
         public double Mean() => _values.AsParallel().Average();
 
+        public void Scale(double scalar)
+        {
+            for (int i = 0; i < Nnz; i++)
+            {
+                _values[i] = _values[i] * scalar;
+            }
+        }
 
         public override bool Equals(object value)
         {
