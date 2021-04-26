@@ -41,6 +41,22 @@ namespace EigenCore.Eigen
              [Out] double* error);
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern bool ssolve_LeastSquaresConjugateGradient_(
+             int row,
+             int col,
+             int nnz,
+             int maxIterations,
+             double tolerance,
+             [In] int* outerIndex,
+             [In] int* innerIndex,
+             [In] double* values,
+             [In] double* inrhs,
+             [In] int size,
+             [Out] double* vout,
+             [Out] int* iterations,
+             [Out] double* error);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void sadd_(
             int row,
             int col,

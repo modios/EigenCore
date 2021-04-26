@@ -206,6 +206,22 @@ namespace EigenCore.Core.Sparse
                        out iterations,
                        out error);
                     break;
+                case IterativeSolverType.LeastSquaresConjugateGradient:
+                    success = Eigen.EigenSparseUtilities.SolveLeastSquaresConjugateGradient(
+                       Rows,
+                       Cols,
+                       Nnz,
+                       iterativeSolverInfo.MaxIterations,
+                       iterativeSolverInfo.Tolerance,
+                       GetOuterStarts(),
+                       GetInnerIndices(),
+                       GetValues(),
+                       other.GetValues(),
+                       other.Length,
+                       x,
+                       out iterations,
+                       out error);
+                    break;
                 case IterativeSolverType.ConjugateGradient:
                 default:
                     success = Eigen.EigenSparseUtilities.SolveConjugateGradient(

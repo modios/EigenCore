@@ -177,5 +177,32 @@ namespace EigenCore.Test.Sparse
             Assert.Equal(2, result.Interations);
             Assert.Equal(0.00053859978391084472, result.Error, DoublePrecision);
         }
+
+        [Fact(Skip = "need to update .so")]
+        public void LeastSquaresConjugateGradient_ShouldSucced()
+        {
+            (int, int, double)[] elements = {
+                (0, 0, 6),
+                (0, 1, 4),
+                (0, 2, 0),
+                (1, 0, 4),
+                (1 ,1, 4),
+                (1, 2, 1),
+                (2, 0, 0),
+                (2, 1, 1),
+                (2, 2, 8)
+            };
+
+            SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
+            var rhs = new VectorXD("3 3 4");
+            var result = A.Solve(rhs, new IterativeSolverInfo(IterativeSolverType.LeastSquaresConjugateGradient));
+            Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result.Result);
+            Assert.Equal(4, result.Interations);
+            Assert.Equal(0, result.Error, DoublePrecision);
+            result = A.Solve(rhs, new IterativeSolverInfo(IterativeSolverType.LeastSquaresConjugateGradient, 2, 1e-2));
+            Assert.Equal(new VectorXD("0.23124185920058873 0.40457228879171925 0.44956098501407293"), result.Result);
+            Assert.Equal(1, result.Interations);
+            Assert.Equal(0.00013934485365227543, result.Error, DoublePrecision);
+        }
     }
 }

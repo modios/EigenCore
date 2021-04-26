@@ -3,6 +3,7 @@
     public enum IterativeSolverType
     {
         ConjugateGradient,
-        BiCGSTAB
+        BiCGSTAB,
+        LeastSquaresConjugateGradient
     }
 }
