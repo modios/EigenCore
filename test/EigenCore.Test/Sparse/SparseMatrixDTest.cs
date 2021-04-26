@@ -103,6 +103,29 @@ namespace EigenCore.Test.Sparse
         }
 
         [Fact(Skip = "need to update .so")]
+        public void Transpose_ShouldSucced()
+        {
+            (int, int, double)[] elements = {
+                (0, 0, 6),
+                (0, 1, 2),
+                (1, 0, 1),
+                (1 ,1, 4),
+                (1, 2, 5),
+                (2, 1, 3),
+                (2, 2, 2)
+            };
+
+            SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
+            var result = A.Transpose();
+
+            Assert.Equal(new MatrixXD("6 1 0;2 4 3;0 5 2"), result.ToDense());
+
+            SparseMatrixD B = new MatrixXD("1 2 4; 3 5 7").ToSparse();
+            result = B.Transpose();
+            Assert.Equal(new MatrixXD("1 3; 2 5; 4, 7").ToSparse(), result);
+        }
+
+        [Fact(Skip = "need to update .so")]
         public void MultWithVector_ShouldSucced()
         {
             SparseMatrixD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 }).ToSparse();

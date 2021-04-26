@@ -583,3 +583,22 @@ EXPORT_API(void) smultv_(
 	Map<VectorXd> result(vout, row);
 	result = matrix * vector;
 }
+
+// sparse transpose.
+EXPORT_API(void) stranspose_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_Out_ int* outerIndexout,
+	_Out_ int* innerIndexout,
+	_Out_ double* valuesout)
+{
+	Map<SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	SparseMatrix<double> result = matrix.transpose();
+	copy(result.outerIndexPtr(), result.outerIndexPtr() + (row + 1), outerIndexout);
+	copy(result.innerIndexPtr(), result.innerIndexPtr() + nnz, innerIndexout);
+	copy(result.valuePtr(), result.valuePtr() + nnz, valuesout);
+}

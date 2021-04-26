@@ -109,14 +109,27 @@ namespace EigenCore.Eigen
 
         [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
         public static extern void smultv_(
-        int row,
-        int col,
-        int nnz,
-        [In] int* outerIndex,
-        [In] int* innerIndex,
-        [In] double* values,
-        [In] double* v1,
-        int length,
-        [Out] double* vout);
+           int row,
+           int col,
+           int nnz,
+           [In] int* outerIndex,
+           [In] int* innerIndex,
+           [In] double* values,
+           [In] double* v1,
+           int length,
+           [Out] double* vout);
+
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void stranspose_(
+           int row,
+           int col,
+           int nnz,
+           [In] int* outerIndex,
+           [In] int* innerIndex,
+           [In] double* values,
+           [Out] int* outerIndexout,
+           [Out] int* innerIndexout,
+           [Out] double* valuesout);
     }
 }

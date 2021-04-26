@@ -126,30 +126,30 @@ namespace EigenCore.Core.Sparse
         {
             int[] innerIndices = new int[Nnz + other.Nnz];
             int[] outOuterStarts = new int[Cols + 1];
-            double[] valeus = new double[Nnz + other.Nnz];
+            double[] values = new double[Nnz + other.Nnz];
             int nnz;
             Eigen.EigenSparseUtilities.ADD(Rows, Cols,
                Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(),
                other.Nnz, other.GetOuterStarts(), other.GetInnerIndices(), other.GetValues(),
-               outOuterStarts, innerIndices, valeus, out nnz);
+               outOuterStarts, innerIndices, values, out nnz);
             Array.Resize(ref innerIndices, nnz);
-            Array.Resize(ref valeus, nnz);
-            return new SparseMatrixD(valeus, innerIndices, outOuterStarts, Rows, Cols);
+            Array.Resize(ref values, nnz);
+            return new SparseMatrixD(values, innerIndices, outOuterStarts, Rows, Cols);
         }
 
         public SparseMatrixD Minus(SparseMatrixD other)
         {
             int[] innerIndices = new int[Nnz + other.Nnz];
             int[] outOuterStarts = new int[Cols + 1];
-            double[] valeus = new double[Nnz + other.Nnz];
+            double[] values = new double[Nnz + other.Nnz];
             int nnz;
             Eigen.EigenSparseUtilities.Minus(Rows, Cols,
                Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(),
                other.Nnz, other.GetOuterStarts(), other.GetInnerIndices(), other.GetValues(),
-               outOuterStarts, innerIndices, valeus, out nnz);
+               outOuterStarts, innerIndices, values, out nnz);
             Array.Resize(ref innerIndices, nnz);
-            Array.Resize(ref valeus, nnz);
-            return new SparseMatrixD(valeus, innerIndices, outOuterStarts, Rows, Cols);
+            Array.Resize(ref values, nnz);
+            return new SparseMatrixD(values, innerIndices, outOuterStarts, Rows, Cols);
         }
 
         public VectorXD Mult(VectorXD other)
@@ -165,15 +165,27 @@ namespace EigenCore.Core.Sparse
             var upperBound = NonZeroUpperBound(other);
             int[] innerIndices = new int[upperBound];
             int[] outOuterStarts = new int[Cols + 1];
-            double[] valeus = new double[upperBound];
+            double[] values = new double[upperBound];
             int nnz;
             Eigen.EigenSparseUtilities.Mult(Rows, Cols,
                Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(),
                other.Nnz, other.GetOuterStarts(), other.GetInnerIndices(), other.GetValues(),
-               outOuterStarts, innerIndices, valeus, out nnz);
+               outOuterStarts, innerIndices, values, out nnz);
             Array.Resize(ref innerIndices, nnz);
-            Array.Resize(ref valeus, nnz);
-            return new SparseMatrixD(valeus, innerIndices, outOuterStarts, Rows, Cols);
+            Array.Resize(ref values, nnz);
+            return new SparseMatrixD(values, innerIndices, outOuterStarts, Rows, Cols);
+        }
+
+        public SparseMatrixD Transpose()
+        {
+            int[] innerIndices = new int[Nnz];
+            int[] outOuterStarts = new int[Rows + 1];
+            double[] values = new double[Nnz];
+            Eigen.EigenSparseUtilities.Transpose(Rows, Cols,
+               Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(),
+               outOuterStarts, innerIndices, values);
+
+            return new SparseMatrixD(values, innerIndices, outOuterStarts, Cols, Rows);
         }
 
         public IterativeSolverResult Solve(VectorXD other, IterativeSolverInfo iterativeSolverInfo = default(IterativeSolverInfo))

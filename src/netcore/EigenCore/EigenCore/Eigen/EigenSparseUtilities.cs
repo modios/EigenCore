@@ -170,11 +170,11 @@ namespace EigenCore.Eigen
                                             {
                                                 fixed (double* pValues2 = &MemoryMarshal.GetReference(values2))
                                                 {
-                                                   int outNnz;
-                                                   ThunkSparseEigen.sadd_(rows, cols,
-                                                   nnz1, pOuterIndex1, pInnerIndex1, pValues1,
-                                                   nnz2, pOuterIndex2, pInnerIndex2, pValues2,
-                                                   &outNnz, pOuterIndex, pInnerIndex, pValues);
+                                                    int outNnz;
+                                                    ThunkSparseEigen.sadd_(rows, cols,
+                                                    nnz1, pOuterIndex1, pInnerIndex1, pValues1,
+                                                    nnz2, pOuterIndex2, pInnerIndex2, pValues2,
+                                                    &outNnz, pOuterIndex, pInnerIndex, pValues);
 
                                                     nnz = outNnz;
                                                 }
@@ -333,6 +333,46 @@ namespace EigenCore.Eigen
                                 }
                             }
 
+                        }
+                    }
+                }
+            }
+        }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Transpose(
+            int rows,
+            int cols,
+            int nnz,
+            ReadOnlySpan<int> outerIndex1,
+            ReadOnlySpan<int> innerIndex1,
+            ReadOnlySpan<double> values1,
+            Span<int> outerIndex,
+            Span<int> innerIndex,
+            Span<double> values)
+        {
+            unsafe
+            {
+
+                fixed (int* pOuterIndex = &MemoryMarshal.GetReference(outerIndex))
+                {
+                    fixed (int* pInnerIndex = &MemoryMarshal.GetReference(innerIndex))
+                    {
+                        fixed (double* pValues = &MemoryMarshal.GetReference(values))
+                        {
+                            fixed (int* pOuterIndex1 = &MemoryMarshal.GetReference(outerIndex1))
+                            {
+                                fixed (int* pInnerIndex1 = &MemoryMarshal.GetReference(innerIndex1))
+                                {
+                                    fixed (double* pValues1 = &MemoryMarshal.GetReference(values1))
+                                    {
+                                        ThunkSparseEigen.stranspose_(rows, cols,
+                                        nnz, pOuterIndex1, pInnerIndex1, pValues1,
+                                        pOuterIndex, pInnerIndex, pValues);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
