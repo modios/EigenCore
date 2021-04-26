@@ -442,6 +442,23 @@ MatrixXD, 4 * 2:
   0 2 
 ```
 
+### Norms
+```csharp
+
+VectorXD v = new VectorXD("2 2 1");
+v.Norm();
+v.SquaredNorm();
+v.Lp1Norm();
+v.LpInfoNorm();
+
+MatrixXD A = new MatrixXD("2 2 1; 1 2 -3; 1 0 1");
+A.Norm();
+A.SquaredNorm();
+A.Lp1Norm();
+A.LpInfNorm();
+
+```
+
 ### Reductions
 ```csharp
 
@@ -464,22 +481,16 @@ VectorXD result = A.ColwiseMean(); // Mean over columns
 VectorXD result = A.RowwiseMean(); // Mean over rows
 ```
 
-### Norms
+### Count and Replace
 ```csharp
 
-VectorXD v = new VectorXD("2 2 1");
-v.Norm();
-v.SquaredNorm();
-v.Lp1Norm();
-v.LpInfoNorm();
+A.Count(x => double.IsNaN(x))); // count NaN values.
+A.Count(x => double.IsInfinity(x))); // count infinity values.       
 
-MatrixXD A = new MatrixXD("2 2 1; 1 2 -3; 1 0 1");
-A.Norm();
-A.SquaredNorm();
-A.Lp1Norm();
-A.LpInfNorm();
-
+A.Replace(x => double.IsNaN(x) ? 0.0 : x); // replace NaN values with 0.0.
+A.Replace(x => double.IsInfinity(x) ? 0.0 : x); // replace infinity values with 0.0. 
 ```
+
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
