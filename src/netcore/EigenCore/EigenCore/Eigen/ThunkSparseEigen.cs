@@ -73,5 +73,22 @@ namespace EigenCore.Eigen
             [Out] int* outerIndex,
             [Out] int* innerIndex,
             [Out] double* values);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void smult_(
+           int row,
+           int col,
+           int nnz1,
+           [In] int* outerIndex1,
+           [In] int* innerIndex1,
+           [In] double* values1,
+           int nnz2,
+           [In] int* outerIndex2,
+           [In] int* innerIndex2,
+           [In] double* values2,
+           [Out] int* nnz,
+           [Out] int* outerIndex,
+           [Out] int* innerIndex,
+           [Out] double* values);
     }
 }

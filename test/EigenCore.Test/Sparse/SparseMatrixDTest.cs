@@ -78,6 +78,31 @@ namespace EigenCore.Test.Sparse
         }
 
         [Fact(Skip = "need to update .so")]
+        public void Mult_ShouldSucced()
+        {
+            (int, int, double)[] elements = {
+                (0, 0, 6),
+                (0, 1, 4),
+                (1, 0, 4),
+                (1 ,1, 4),
+                (1, 2, 1),
+                (2, 1, 1),
+                (2, 2, 8)
+            };
+
+            SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
+            var result = A.Mult(A);
+
+            Assert.Equal(new MatrixXD("52 40 4;40 33 12;4 12 65"), result.ToDense());
+
+
+            SparseMatrixD B = new MatrixXD("0 0 0;1.4 0 0;0 1.9 0;0 0 0").ToSparse();
+            SparseMatrixD C = new MatrixXD("3 0 0;0 1.2 0;0 3.2 0;0 0 0").ToSparse();
+            result = B.Mult(C);
+            Assert.Equal(new MatrixXD("0 0 0;4.199999999999999 0 0;0 2.28 0;0 0 0"), result.ToDense());
+        }
+
+        [Fact(Skip = "need to update .so")]
         public void ConjugateGradient_ShouldSucced()
         {
             (int, int, double)[] elements = {

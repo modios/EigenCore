@@ -9,6 +9,26 @@ namespace EigenCore.Core.Sparse
     public class SparseMatrixD : MatrixSparseBase<double>
     {
         private static readonly IterativeSolverInfo _defaultIterativeSolverInfo = new IterativeSolverInfo();
+
+        private int NonZeroUpperBound(SparseMatrixD other)
+        {
+            var outerStarts = _outerStarts;
+            var outStartsOther = other._outerStarts;
+            var elementsPerColum = new int[Cols];
+            var elementsPerColumOther = new int[other.Cols];
+            for (int i = 0; i <= outerStarts.Length - 2; i++)
+            {
+                elementsPerColum[i] = outerStarts[i + 1] - outerStarts[i];
+            }
+
+            for (int i = 0; i <= outStartsOther.Length - 2; i++)
+            {
+                elementsPerColumOther[i] = outStartsOther[i + 1] - outStartsOther[i];
+            }
+
+            return Math.Min(elementsPerColum.Max() * elementsPerColumOther.Max() * Cols, Cols * Rows);
+        }
+
         private bool IsEqual(SparseMatrixD other)
         {
             if (Rows != other.Rows || Cols != other.Cols)
@@ -124,6 +144,22 @@ namespace EigenCore.Core.Sparse
             double[] valeus = new double[Nnz + other.Nnz];
             int nnz;
             Eigen.EigenSparseUtilities.Minus(Rows, Cols,
+               Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(),
+               other.Nnz, other.GetOuterStarts(), other.GetInnerIndices(), other.GetValues(),
+               outOuterStarts, innerIndices, valeus, out nnz);
+            Array.Resize(ref innerIndices, nnz);
+            Array.Resize(ref valeus, nnz);
+            return new SparseMatrixD(valeus, innerIndices, outOuterStarts, Rows, Cols);
+        }
+
+        public SparseMatrixD Mult(SparseMatrixD other)
+        {
+            var upperBound = NonZeroUpperBound(other);
+            int[] innerIndices = new int[upperBound];
+            int[] outOuterStarts = new int[Cols + 1];
+            double[] valeus = new double[upperBound];
+            int nnz;
+            Eigen.EigenSparseUtilities.Mult(Rows, Cols,
                Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(),
                other.Nnz, other.GetOuterStarts(), other.GetInnerIndices(), other.GetValues(),
                outOuterStarts, innerIndices, valeus, out nnz);
