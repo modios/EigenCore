@@ -102,7 +102,7 @@ namespace EigenCore.Test.Sparse
             Assert.Equal(new MatrixXD("0 0 0;4.199999999999999 0 0;0 2.28 0;0 0 0"), result.ToDense());
         }
 
-        [Fact]
+        [Fact(Skip = "need to update .so")]
         public void MultWithVector_ShouldSucced()
         {
             SparseMatrixD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 }).ToSparse();
