@@ -1,4 +1,5 @@
 ﻿using EigenCore.Core.Dense;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -111,7 +112,7 @@ namespace EigenCore.Core.Sparse
                 {
                     var value = denseMatrix.Get(i, j);
                     
-                    if(value > tolerance)
+                    if(Math.Abs(value) > tolerance)
                     {
                         elements.Add((i, j, denseMatrix.Get(i, j)));
                     }

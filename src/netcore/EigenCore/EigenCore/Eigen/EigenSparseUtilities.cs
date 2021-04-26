@@ -260,5 +260,41 @@ namespace EigenCore.Eigen
                 }
             }
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Mult(
+              int row,
+              int col,
+              int nnz,
+              ReadOnlySpan<int> outerIndex,
+              ReadOnlySpan<int> innerIndex,
+              ReadOnlySpan<double> values,
+              ReadOnlySpan<double> vector,
+              int length,
+              Span<double> outMatrix
+            )
+        {
+            unsafe
+            {
+
+                fixed (int* pOuterIndex = &MemoryMarshal.GetReference(outerIndex))
+                {
+                    fixed (int* pInnerIndex = &MemoryMarshal.GetReference(innerIndex))
+                    {
+                        fixed (double* pValues = &MemoryMarshal.GetReference(values))
+                        {
+                            fixed (double* pSecond = &MemoryMarshal.GetReference(vector))
+                            {
+                                fixed (double* pOut = &MemoryMarshal.GetReference(outMatrix))
+                                {
+                                    ThunkSparseEigen.smultv_(row, col, nnz, pOuterIndex, pInnerIndex, pValues, pSecond, length, pOut);
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
     }
 }

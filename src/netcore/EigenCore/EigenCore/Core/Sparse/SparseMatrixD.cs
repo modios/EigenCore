@@ -152,6 +152,14 @@ namespace EigenCore.Core.Sparse
             return new SparseMatrixD(valeus, innerIndices, outOuterStarts, Rows, Cols);
         }
 
+        public VectorXD Mult(VectorXD other)
+        {
+            double[] values = new double[Rows];
+            Eigen.EigenSparseUtilities.Mult(Rows, Cols,
+               Nnz, GetOuterStarts(), GetInnerIndices(), GetValues(), other.GetValues(), other.Length, values);
+            return new VectorXD(values);
+        }
+
         public SparseMatrixD Mult(SparseMatrixD other)
         {
             var upperBound = NonZeroUpperBound(other);

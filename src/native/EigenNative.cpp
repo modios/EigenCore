@@ -527,3 +527,21 @@ EXPORT_API(void) smult_(
 	copy(resultTmp.innerIndexPtr(), resultTmp.innerIndexPtr() + *nnz, innerIndex);
 	copy(resultTmp.valuePtr(), resultTmp.valuePtr() + *nnz, values);
 }
+
+// sparse matrix product with vector.
+EXPORT_API(void) smultv_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values, 
+	_In_ double* v1, 
+	const int length, 
+	_Out_ double* vout)
+{
+	Map<SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> vector(v1, length);
+	Map<VectorXd> result(vout, row);
+	result = matrix * vector;
+}
