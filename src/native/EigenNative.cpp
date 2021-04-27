@@ -3,7 +3,7 @@
 #include "EigenNative.h"
 #include <Eigen/Core>
 #include <Eigen/Eigenvalues>
-#include "Eigen/Sparse"
+#include <Eigen/Sparse>
 
 using namespace std;
 using namespace Eigen;
@@ -601,4 +601,88 @@ EXPORT_API(void) stranspose_(
 	copy(result.outerIndexPtr(), result.outerIndexPtr() + (row + 1), outerIndexout);
 	copy(result.innerIndexPtr(), result.innerIndexPtr() + nnz, innerIndexout);
 	copy(result.valuePtr(), result.valuePtr() + nnz, valuesout);
+}
+
+EXPORT_API(void) ssolve_simplicialLLT_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout) {
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	SimplicialLLT<SparseMatrix<double>> solver;
+
+	solver.compute(matrix);
+	x = solver.solve(rhs);
+}
+
+EXPORT_API(void) ssolve_simplicialLDLT_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout){
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	SimplicialLDLT<SparseMatrix<double>> solver;
+
+	solver.compute(matrix);
+	x = solver.solve(rhs);
+}
+
+EXPORT_API(void) ssolve_sparseLU_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout) {
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	SparseLU<SparseMatrix<double>> solver;
+
+	solver.compute(matrix);
+	x = solver.solve(rhs);
+}
+
+EXPORT_API(void) ssolve_sparseQR_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout) {
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	SparseQR<SparseMatrix<double>, COLAMDOrdering<int>> solver;
+
+	solver.compute(matrix);
+	x = solver.solve(rhs);
 }

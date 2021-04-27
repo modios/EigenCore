@@ -1,5 +1,6 @@
 ﻿using EigenCore.Core.Dense;
 using EigenCore.Core.Sparse.LinearAlgebra;
+using EigenCore.Eigen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -195,7 +196,7 @@ namespace EigenCore.Core.Sparse
             return new SparseMatrixD(values, innerIndices, outOuterStarts, Cols, Rows);
         }
 
-        public IterativeSolverResult Solve(VectorXD other, IterativeSolverInfo iterativeSolverInfo = default(IterativeSolverInfo))
+        public IterativeSolverResult IterativeSolve(VectorXD other, IterativeSolverInfo iterativeSolverInfo = default(IterativeSolverInfo))
         {
             double[] x = new double[other.Length];
             bool success;
@@ -210,7 +211,7 @@ namespace EigenCore.Core.Sparse
             switch (iterativeSolverInfo.Solver)
             {
                 case IterativeSolverType.BiCGSTAB:
-                    success = Eigen.EigenSparseUtilities.SolveBiCGSTAB(
+                    success = EigenSparseUtilities.SolveBiCGSTAB(
                        Rows,
                        Cols,
                        Nnz,
@@ -226,7 +227,7 @@ namespace EigenCore.Core.Sparse
                        out error);
                     break;
                 case IterativeSolverType.LeastSquaresConjugateGradient:
-                    success = Eigen.EigenSparseUtilities.SolveLeastSquaresConjugateGradient(
+                    success = EigenSparseUtilities.SolveLeastSquaresConjugateGradient(
                        Rows,
                        Cols,
                        Nnz,
@@ -243,7 +244,7 @@ namespace EigenCore.Core.Sparse
                     break;
                 case IterativeSolverType.ConjugateGradient:
                 default:
-                    success = Eigen.EigenSparseUtilities.SolveConjugateGradient(
+                    success = EigenSparseUtilities.SolveConjugateGradient(
                        Rows,
                        Cols,
                        Nnz,
@@ -262,6 +263,33 @@ namespace EigenCore.Core.Sparse
 
             return success ? new IterativeSolverResult(new VectorXD(x), iterations, error, iterativeSolverInfo.Solver) 
                 : default(IterativeSolverResult);
+        }
+
+        public VectorXD DirectSolve(VectorXD other, DirectSolverType directSolverType = DirectSolverType.SparseLU)
+        {
+            double[] x = new double[other.Length];
+            switch (directSolverType)
+            {
+                case DirectSolverType.SimplicialLLT:
+                    EigenSparseUtilities.SolveSimplicialLLT(Rows, Cols, Nnz, GetOuterStarts(),
+                        GetInnerIndices(), GetValues(), other.GetValues(), other.Length, x);
+                    break;
+                case DirectSolverType.SimplicialLDLT:
+                    EigenSparseUtilities.SolveSimplicialLDLT(Rows, Cols, Nnz, GetOuterStarts(),
+                      GetInnerIndices(), GetValues(), other.GetValues(), other.Length, x);
+                    break;
+                case DirectSolverType.SparseQR:
+                    EigenSparseUtilities.SolveSparseQR(Rows, Cols, Nnz, GetOuterStarts(),
+                      GetInnerIndices(), GetValues(), other.GetValues(), other.Length, x);
+                    break;
+                case DirectSolverType.SparseLU:
+                default:
+                    EigenSparseUtilities.SolveSparseLU(Rows, Cols, Nnz, GetOuterStarts(),
+                      GetInnerIndices(), GetValues(), other.GetValues(), other.Length, x);
+                    break;
+            }
+
+            return new VectorXD(x);
         }
 
         public SparseMatrixD(IList<(int, int, double)> sparseInfo, int rows, int cols)

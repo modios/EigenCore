@@ -131,5 +131,56 @@ namespace EigenCore.Eigen
            [Out] int* outerIndexout,
            [Out] int* innerIndexout,
            [Out] double* valuesout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void ssolve_simplicialLLT_(
+           int row,
+           int col,
+           int nnz,
+           [In] int* outerIndex,
+           [In] int* innerIndex,
+           [In] double* values,
+           [In] double* inrhs,
+           [In] int size,
+           [Out] double* vout);
+
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void ssolve_simplicialLDLT_(
+           int row,
+           int col,
+           int nnz,
+           [In] int* outerIndex,
+           [In] int* innerIndex,
+           [In] double* values,
+           [In] double* inrhs,
+           [In] int size,
+           [Out] double* vout);
+
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void ssolve_sparseLU_(
+            int row,
+            int col,
+            int nnz,
+            [In] int* outerIndex,
+            [In] int* innerIndex,
+            [In] double* values,
+            [In] double* inrhs,
+            [In] int size,
+            [Out] double* vout);
+
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void ssolve_sparseQR_(
+            int row,
+            int col,
+            int nnz,
+            [In] int* outerIndex,
+            [In] int* innerIndex,
+            [In] double* values,
+            [In] double* inrhs,
+            [In] int size,
+            [Out] double* vout);
     }
 }
