@@ -4,6 +4,9 @@
     {
         ConjugateGradient,
         BiCGSTAB,
-        LeastSquaresConjugateGradient
+        LeastSquaresConjugateGradient,
+        GMRES,
+        DGMRES,
+        MINRES
     }
 }

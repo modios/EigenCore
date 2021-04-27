@@ -133,6 +133,132 @@ namespace EigenCore.Eigen
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool SolveGMRES(
+            int rows,
+            int cols,
+            int nnz,
+            int maxIterations,
+            double tolerance,
+            ReadOnlySpan<int> outerIndex,
+            ReadOnlySpan<int> innerIndex,
+            ReadOnlySpan<double> values,
+            ReadOnlySpan<double> rhs,
+            int size,
+            Span<double> vout,
+            out int iterations,
+            out double error)
+        {
+            unsafe
+            {
+                int iterationsOut;
+                double errorOut;
+                fixed (int* pOuterIndex = &MemoryMarshal.GetReference(outerIndex))
+                {
+                    fixed (int* pInnerIndex = &MemoryMarshal.GetReference(innerIndex))
+                    {
+                        fixed (double* pValues = &MemoryMarshal.GetReference(values))
+                        {
+                            fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
+                            {
+                                fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                                {
+                                    bool result = ThunkSparseEigen.ssolve_GMRES_(rows, cols, nnz, maxIterations, tolerance, pOuterIndex, pInnerIndex, pValues, pRhs, size, pVOut, &iterationsOut, &errorOut);
+                                    iterations = iterationsOut;
+                                    error = errorOut;
+                                    return result;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool SolveMINRES(
+            int rows,
+            int cols,
+            int nnz,
+            int maxIterations,
+            double tolerance,
+            ReadOnlySpan<int> outerIndex,
+            ReadOnlySpan<int> innerIndex,
+            ReadOnlySpan<double> values,
+            ReadOnlySpan<double> rhs,
+            int size,
+            Span<double> vout,
+            out int iterations,
+            out double error)
+        {
+            unsafe
+            {
+                int iterationsOut;
+                double errorOut;
+                fixed (int* pOuterIndex = &MemoryMarshal.GetReference(outerIndex))
+                {
+                    fixed (int* pInnerIndex = &MemoryMarshal.GetReference(innerIndex))
+                    {
+                        fixed (double* pValues = &MemoryMarshal.GetReference(values))
+                        {
+                            fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
+                            {
+                                fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                                {
+                                    bool result = ThunkSparseEigen.ssolve_MINRES_(rows, cols, nnz, maxIterations, tolerance, pOuterIndex, pInnerIndex, pValues, pRhs, size, pVOut, &iterationsOut, &errorOut);
+                                    iterations = iterationsOut;
+                                    error = errorOut;
+                                    return result;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool SolveDGMRES(
+            int rows,
+            int cols,
+            int nnz,
+            int maxIterations,
+            double tolerance,
+            ReadOnlySpan<int> outerIndex,
+            ReadOnlySpan<int> innerIndex,
+            ReadOnlySpan<double> values,
+            ReadOnlySpan<double> rhs,
+            int size,
+            Span<double> vout,
+            out int iterations,
+            out double error)
+        {
+            unsafe
+            {
+                int iterationsOut;
+                double errorOut;
+                fixed (int* pOuterIndex = &MemoryMarshal.GetReference(outerIndex))
+                {
+                    fixed (int* pInnerIndex = &MemoryMarshal.GetReference(innerIndex))
+                    {
+                        fixed (double* pValues = &MemoryMarshal.GetReference(values))
+                        {
+                            fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
+                            {
+                                fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                                {
+                                    bool result = ThunkSparseEigen.ssolve_DGMRES_(rows, cols, nnz, maxIterations, tolerance, pOuterIndex, pInnerIndex, pValues, pRhs, size, pVOut, &iterationsOut, &errorOut);
+                                    iterations = iterationsOut;
+                                    error = errorOut;
+                                    return result;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ADD(
         int rows,
         int cols,

@@ -4,6 +4,7 @@
 #include <Eigen/Core>
 #include <Eigen/Eigenvalues>
 #include <Eigen/Sparse>
+#include <unsupported/Eigen/IterativeSolvers>
 
 using namespace std;
 using namespace Eigen;
@@ -685,4 +686,121 @@ EXPORT_API(void) ssolve_sparseQR_(
 
 	solver.compute(matrix);
 	x = solver.solve(rhs);
+}
+
+// unsupported!
+EXPORT_API(bool) ssolve_GMRES_(
+	int row,
+	int col,
+	int nnz,
+	int maxIterations,
+	double tolerance,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout,
+	_Out_ int* iterations,
+	_Out_ double* error) {
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	GMRES<SparseMatrix<double>> solver;
+
+	if (maxIterations > 0) {
+		solver.setMaxIterations(maxIterations);
+	}
+
+	if (tolerance > 0) {
+		solver.setTolerance(tolerance);
+	}
+
+	solver.compute(matrix);
+	x = solver.solve(rhs);
+
+	*iterations = (int)solver.iterations();
+	*error = solver.error();
+
+	return solver.info() == Success;
+}
+
+// unsupported!
+EXPORT_API(bool) ssolve_MINRES_(
+	int row,
+	int col,
+	int nnz,
+	int maxIterations,
+	double tolerance,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout,
+	_Out_ int* iterations,
+	_Out_ double* error) {
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	MINRES<SparseMatrix<double>> solver;
+
+	if (maxIterations > 0) {
+		solver.setMaxIterations(maxIterations);
+	}
+
+	if (tolerance > 0) {
+		solver.setTolerance(tolerance);
+	}
+
+	solver.compute(matrix);
+	x = solver.solve(rhs);
+
+	*iterations = (int)solver.iterations();
+	*error = solver.error();
+
+	return solver.info() == Success;
+}
+
+// unsupported!
+EXPORT_API(bool) ssolve_DGMRES_(
+	int row,
+	int col,
+	int nnz,
+	int maxIterations,
+	double tolerance,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout,
+	_Out_ int* iterations,
+	_Out_ double* error) {
+
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<const VectorXd> rhs(inrhs, size);
+	Map<VectorXd> x(vout, size);
+
+	MINRES<SparseMatrix<double>> solver;
+
+	if (maxIterations > 0) {
+		solver.setMaxIterations(maxIterations);
+	}
+
+	if (tolerance > 0) {
+		solver.setTolerance(tolerance);
+	}
+
+	solver.compute(matrix);
+	x = solver.solve(rhs);
+
+	*iterations = (int)solver.iterations();
+	*error = solver.error();
+
+	return solver.info() == Success;
 }

@@ -223,6 +223,90 @@ namespace EigenCore.Test.Sparse
         }
 
         [Fact(Skip = "need to update .so")]
+        public void GMRES_ShouldSucced()
+        {
+            (int, int, double)[] elements = {
+                (0, 0, 6),
+                (0, 1, 4),
+                (0, 2, 0),
+                (1, 0, 4),
+                (1 ,1, 4),
+                (1, 2, 1),
+                (2, 0, 0),
+                (2, 1, 1),
+                (2, 2, 8)
+            };
+
+            SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
+            var rhs = new VectorXD("3 3 4");
+            var result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.GMRES));
+            Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result.Result);
+            Assert.Equal(3, result.Interations);
+            Assert.Equal(0, result.Error, DoublePrecision);
+
+            result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.GMRES, 2, 1e-2));
+            Assert.Equal(2, result.Interations);
+            Assert.Equal(0.016453998541607239, result.Error, DoublePrecision);
+            Assert.False(result.Success);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void MINRES_ShouldSucced()
+        {
+            (int, int, double)[] elements = {
+                (0, 0, 6),
+                (0, 1, 4),
+                (0, 2, 0),
+                (1, 0, 4),
+                (1 ,1, 4),
+                (1, 2, 1),
+                (2, 0, 0),
+                (2, 1, 1),
+                (2, 2, 8)
+            };
+
+            SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
+            var rhs = new VectorXD("3 3 4");
+            var result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.MINRES));
+            Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result.Result);
+            Assert.Equal(2, result.Interations);
+            Assert.Equal(0, result.Error, DoublePrecision);
+
+            result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.MINRES, 2, 1e-2));
+            Assert.Equal(2, result.Interations);
+            Assert.Equal(0.015782200175984317, result.Error, DoublePrecision);
+            Assert.False(result.Success);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void DGMRES_ShouldSucced()
+        {
+            (int, int, double)[] elements = {
+                (0, 0, 6),
+                (0, 1, 4),
+                (0, 2, 0),
+                (1, 0, 4),
+                (1 ,1, 4),
+                (1, 2, 1),
+                (2, 0, 0),
+                (2, 1, 1),
+                (2, 2, 8)
+            };
+
+            SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
+            var rhs = new VectorXD("3 3 4");
+            var result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.DGMRES));
+            Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result.Result);
+            Assert.Equal(2, result.Interations);
+            Assert.Equal(0, result.Error, DoublePrecision);
+
+            result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.DGMRES, 2, 1e-2));
+            Assert.Equal(2, result.Interations);
+            Assert.Equal(0.015782200175984317, result.Error, DoublePrecision);
+            Assert.False(result.Success);
+        }
+
+        [Fact(Skip = "need to update .so")]
         public void LeastSquaresConjugateGradient_ShouldSucced()
         {
             (int, int, double)[] elements = {

@@ -226,6 +226,54 @@ namespace EigenCore.Core.Sparse
                        out iterations,
                        out error);
                     break;
+                case IterativeSolverType.GMRES:
+                    success = EigenSparseUtilities.SolveGMRES(
+                       Rows,
+                       Cols,
+                       Nnz,
+                       iterativeSolverInfo.MaxIterations,
+                       iterativeSolverInfo.Tolerance,
+                       GetOuterStarts(),
+                       GetInnerIndices(),
+                       GetValues(),
+                       other.GetValues(),
+                       other.Length,
+                       x,
+                       out iterations,
+                       out error);
+                    break;
+                case IterativeSolverType.MINRES:
+                    success = EigenSparseUtilities.SolveMINRES(
+                       Rows,
+                       Cols,
+                       Nnz,
+                       iterativeSolverInfo.MaxIterations,
+                       iterativeSolverInfo.Tolerance,
+                       GetOuterStarts(),
+                       GetInnerIndices(),
+                       GetValues(),
+                       other.GetValues(),
+                       other.Length,
+                       x,
+                       out iterations,
+                       out error);
+                    break;
+                case IterativeSolverType.DGMRES:
+                    success = EigenSparseUtilities.SolveDGMRES(
+                       Rows,
+                       Cols,
+                       Nnz,
+                       iterativeSolverInfo.MaxIterations,
+                       iterativeSolverInfo.Tolerance,
+                       GetOuterStarts(),
+                       GetInnerIndices(),
+                       GetValues(),
+                       other.GetValues(),
+                       other.Length,
+                       x,
+                       out iterations,
+                       out error);
+                    break;
                 case IterativeSolverType.LeastSquaresConjugateGradient:
                     success = EigenSparseUtilities.SolveLeastSquaresConjugateGradient(
                        Rows,
@@ -261,8 +309,7 @@ namespace EigenCore.Core.Sparse
                     break;
             }
 
-            return success ? new IterativeSolverResult(new VectorXD(x), iterations, error, iterativeSolverInfo.Solver) 
-                : default(IterativeSolverResult);
+            return new IterativeSolverResult(new VectorXD(x), iterations, error, iterativeSolverInfo.Solver, success);
         }
 
         public VectorXD DirectSolve(VectorXD other, DirectSolverType directSolverType = DirectSolverType.SparseLU)
