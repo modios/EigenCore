@@ -825,3 +825,26 @@ EXPORT_API(bool) snormal_equations__leastsquares_sparselu_(
 
 	return solver.info() == Success;
 }
+
+EXPORT_API(double) snorm_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values) {
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+
+	return matrix.norm();
+}
+
+EXPORT_API(double) ssquaredNorm_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values) {
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	return matrix.squaredNorm();
+}

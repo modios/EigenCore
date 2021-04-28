@@ -242,5 +242,23 @@ namespace EigenCore.Eigen
             [In] double* inrhs,
             [In] int size,
             [Out] double* vout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double snorm_(
+            int row,
+            int col,
+            int nnz,
+            [In] int* outerIndex,
+            [In] int* innerIndex,
+            [In] double* values);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double ssquaredNorm_(
+            int row,
+            int col,
+            int nnz,
+            [In] int* outerIndex,
+            [In] int* innerIndex,
+            [In] double* values);
     }
 }

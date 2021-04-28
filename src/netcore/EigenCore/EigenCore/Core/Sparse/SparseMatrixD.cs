@@ -97,6 +97,10 @@ namespace EigenCore.Core.Sparse
 
         public double Mean() => _values.AsParallel().Average();
 
+        public double Norm() => EigenSparseUtilities.Norm(Rows, Cols,Nnz, GetOuterStarts(), GetInnerIndices(), GetValues());
+
+        public double SquaredNorm() => EigenSparseUtilities.SquaredNorm(Rows, Cols, Nnz, GetOuterStarts(), GetInnerIndices(), GetValues());
+
         public void Scale(double scalar)
         {
             for (int i = 0; i < Nnz; i++)

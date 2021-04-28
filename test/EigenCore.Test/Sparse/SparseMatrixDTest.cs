@@ -386,5 +386,23 @@ namespace EigenCore.Test.Sparse
             VectorXD result = A.LeastSquares(rhs);
             Assert.Equal(new VectorXD("0.46347421844577846 0.04209165616389611"), result);
         }
+
+        [InlineData("2 2 1; 1 2 -3; 1 0 1", 5)]
+        [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void Norm_ShouldSucceed(string valuesString, double expected)
+        {
+            var A = new MatrixXD(valuesString).ToSparse();
+            Assert.Equal(expected, A.Norm());
+        }
+
+        [InlineData("2 2 1; 1 2 -3; 1 0 1", 25)]
+        [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
+        [Theory(Skip = "need to update .so")]
+        public void SquaredNorm_ShouldSucceed(string valuesString, double expected)
+        {
+            var A = new MatrixXD(valuesString).ToSparse();
+            Assert.Equal(expected, A.SquaredNorm());
+        }
     }
 }
