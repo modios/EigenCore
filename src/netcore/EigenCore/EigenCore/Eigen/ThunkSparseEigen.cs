@@ -230,5 +230,17 @@ namespace EigenCore.Eigen
             [In] double* inrhs,
             [In] int size,
             [Out] double* vout);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern void snormal_equations__leastsquares_sparselu_(
+            int row,
+            int col,
+            int nnz,
+            [In] int* outerIndex,
+            [In] int* innerIndex,
+            [In] double* values,
+            [In] double* inrhs,
+            [In] int size,
+            [Out] double* vout);
     }
 }

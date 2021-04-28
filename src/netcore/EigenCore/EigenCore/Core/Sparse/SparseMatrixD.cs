@@ -339,6 +339,15 @@ namespace EigenCore.Core.Sparse
             return new VectorXD(x);
         }
 
+        public VectorXD LeastSquares(VectorXD other)
+        {
+            double[] x = new double[Cols];
+            EigenSparseUtilities.LeastSquaresLU(Rows, Cols, Nnz, GetOuterStarts(),
+                GetInnerIndices(), GetValues(), other.GetValues(), other.Length, x);
+
+            return new VectorXD(x);
+        }
+
         public SparseMatrixD(IList<(int, int, double)> sparseInfo, int rows, int cols)
             : base(MatrixSparseHelpers.ToCCS(sparseInfo.ToList(), cols), rows, cols)
         {

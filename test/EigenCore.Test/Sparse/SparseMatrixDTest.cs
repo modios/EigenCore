@@ -377,5 +377,14 @@ namespace EigenCore.Test.Sparse
             result = B.DirectSolve(rhs, DirectSolverType.SparseQR);
             Assert.Equal(new VectorXD("0.45833333333333331 -0.24999999999999994 0.41666666666666663"), result);
         }
+
+        [Fact(Skip = "need to update .so")]
+        public void LeastSquares_ShouldSucceed()
+        {
+            var A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ").ToSparse();
+            var rhs = new VectorXD("-0.906 0.358 0.359");
+            VectorXD result = A.LeastSquares(rhs);
+            Assert.Equal(new VectorXD("0.46347421844577846 0.04209165616389611"), result);
+        }
     }
 }

@@ -804,3 +804,24 @@ EXPORT_API(bool) ssolve_DGMRES_(
 
 	return solver.info() == Success;
 }
+
+EXPORT_API(bool) snormal_equations__leastsquares_sparselu_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* inrhs,
+	_In_ int size,
+	_Out_ double* vout){
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<VectorXd> rhs(inrhs, row);
+	Map<VectorXd> result(vout, col);
+
+	SparseLU<SparseMatrix<double>> solver;
+	solver.compute((matrix.transpose() * matrix));
+	result = solver.solve(matrix.transpose() * rhs);
+
+	return solver.info() == Success;
+}

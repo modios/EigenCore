@@ -638,5 +638,38 @@ namespace EigenCore.Eigen
                 }
             }
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void LeastSquaresLU(
+            int rows,
+            int cols,
+            int nnz,
+            ReadOnlySpan<int> outerIndex,
+            ReadOnlySpan<int> innerIndex,
+            ReadOnlySpan<double> values,
+            ReadOnlySpan<double> rhs,
+            int size,
+            Span<double> vout)
+        {
+            unsafe
+            {
+                fixed (int* pOuterIndex = &MemoryMarshal.GetReference(outerIndex))
+                {
+                    fixed (int* pInnerIndex = &MemoryMarshal.GetReference(innerIndex))
+                    {
+                        fixed (double* pValues = &MemoryMarshal.GetReference(values))
+                        {
+                            fixed (double* pRhs = &MemoryMarshal.GetReference(rhs))
+                            {
+                                fixed (double* pVOut = &MemoryMarshal.GetReference(vout))
+                                {
+                                    ThunkSparseEigen.snormal_equations__leastsquares_sparselu_(rows, cols, nnz, pOuterIndex, pInnerIndex, pValues, pRhs, size, pVOut);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
