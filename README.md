@@ -492,6 +492,34 @@ A.Replace(x => double.IsInfinity(x) ? 0.0 : x); // replace infinity values with 
 ```
 ## Sparse
 
+### Matrix Constructors
+
+```csharp
+
+(int, int, double)[] elements = {
+                (0, 1, 3.0),
+                (1, 0, 22),
+                (2, 0, 7),
+                (2, 1, 5),
+                (4, 2, 14),
+                (2, 3, 1),
+                (1, 4, 17),
+                (4, 4, 8)
+            };
+
+SparseMatrixD A = new SparseMatrixD(elements, 5, 5);
+
+Console.WriteLine(A.ToString());
+
+SparseMatrixD, 5 * 5:
+
+  0 3 0 0 0 
+  22 0 0 0 17 
+  7 5 0 1 0 
+  0 0 0 0 0 
+  0 0 14 0 8
+  
+```
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
