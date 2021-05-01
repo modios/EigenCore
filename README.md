@@ -3,7 +3,7 @@
 
 EigenCore C# wrapper for the Eigen library.
 
-## Usage 
+## Dense
 
 ### Vector Constructors
 
@@ -490,6 +490,7 @@ A.Count(x => double.IsInfinity(x))); // count infinity values.
 A.Replace(x => double.IsNaN(x) ? 0.0 : x); // replace NaN values with 0.0.
 A.Replace(x => double.IsInfinity(x) ? 0.0 : x); // replace infinity values with 0.0. 
 ```
+## Sparse
 
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
