@@ -105,10 +105,10 @@ namespace EigenCore.Test.Core.Dense.Core
         [InlineData("2 2 -3", 3)]
         [InlineData("1 0 0 0", 1)]
         [Theory(Skip = "need to update .so")]
-        public void LpInfoNorm_ShouldSucceed(string valuesString, double expected)
+        public void LpInfNorm_ShouldSucceed(string valuesString, double expected)
         {
             VectorXD v = new VectorXD(valuesString);
-            Assert.Equal(expected, v.LpInfoNorm());
+            Assert.Equal(expected, v.LpInfNorm());
         }
 
         [Fact]
