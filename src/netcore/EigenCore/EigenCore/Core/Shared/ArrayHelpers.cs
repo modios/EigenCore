@@ -2,7 +2,7 @@
 
 namespace EigenCore.Core.Dense
 {
-    public static class VectorHelpers
+    public static class ArrayHelpers
     {
         private const double DoubleTolerance = 10e-12;
 
@@ -12,6 +12,25 @@ namespace EigenCore.Core.Dense
             {
                 arr[i] = value;
             }
+        }
+
+        internal static int[] SumArrays(int[] array1, int[] array2)
+        {
+
+            if (array1.Length == array2.Length)
+            {
+                var length = array1.Length;
+                var arraySum = new int[length];
+
+                for (int i = 0; i < array1.Length; i++)
+                {
+                    arraySum[i] = array1[i] + array2[i];
+                }
+
+                return arraySum;
+            }
+
+            return default;
         }
 
         internal static bool ArraysEqual(int[] array1, int[] array2)

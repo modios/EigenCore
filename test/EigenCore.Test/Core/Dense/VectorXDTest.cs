@@ -2,7 +2,7 @@
 using System.Linq;
 using Xunit;
 
-namespace EigenCore.Test.Dense.Core
+namespace EigenCore.Test.Core.Dense.Core
 {
     public class VectorXDTest
     {

@@ -1,7 +1,7 @@
 ﻿using EigenCore.Core.Dense;
 using Xunit;
 
-namespace EigenCore.Test.Dense.Core
+namespace EigenCore.Test.Core.Dense
 {
     public sealed class MatrixDenseBaseTest
     {

@@ -1,4 +1,5 @@
 ﻿using EigenCore.Core.Dense;
+using EigenCore.Core.Shared;
 using EigenCore.Core.Sparse.LinearAlgebra;
 using EigenCore.Eigen;
 using System;
@@ -37,9 +38,9 @@ namespace EigenCore.Core.Sparse
                 return false;
             }
 
-            return VectorHelpers.ArraysEqual(_values, other._values) &&
-                VectorHelpers.ArraysEqual(_innerIndices, other._innerIndices) &&
-                VectorHelpers.ArraysEqual(_outerStarts, other._outerStarts);
+            return ArrayHelpers.ArraysEqual(_values, other._values) &&
+                ArrayHelpers.ArraysEqual(_innerIndices, other._innerIndices) &&
+                ArrayHelpers.ArraysEqual(_outerStarts, other._outerStarts);
         }
 
         public static SparseMatrixD Random(int rows, int cols, double percentageNonZeros, double min = 0, double max = 1, int seed = 0)
@@ -106,6 +107,57 @@ namespace EigenCore.Core.Sparse
             for (int i = 0; i < Nnz; i++)
             {
                 _values[i] = _values[i] * scalar;
+            }
+        }
+
+        public SparseMatrixD Concat(SparseMatrixD other, ConcatType concatType)
+        {
+            switch (concatType)
+            {
+                case ConcatType.Vertical:
+                    var valuesV = new double[_values.Length + other._values.Length];
+                    var outerV = ArrayHelpers.SumArrays(_outerStarts, other._outerStarts);
+                    var innerV = new int[valuesV.Length];
+                    int colIndex = 0;
+
+                    for (int i = 0; i < other._outerStarts.Length - 1; i++)
+                    {
+                        int startColIndex = _outerStarts[i];
+                        int colElements = _outerStarts[i + 1] - _outerStarts[i];
+
+                        int startColIndexOther = other._outerStarts[i];
+                        int colElementsOther = other._outerStarts[i + 1] - other._outerStarts[i];
+
+                        var tmpInnner = new int[colElementsOther];
+                        for (int j = 0; j < colElementsOther; j++)
+                        {
+                            tmpInnner[j] = other._innerIndices[startColIndexOther + j] + Rows;
+                        }
+
+                        Array.Copy(_innerIndices, startColIndex, innerV, colIndex, colElements);
+                        Array.Copy(_values, startColIndex, valuesV, colIndex, colElements);
+                        colIndex += colElements;
+                        Array.Copy(tmpInnner, 0, innerV, colIndex, colElementsOther);
+                        Array.Copy(other._values, startColIndexOther, valuesV, colIndex, colElementsOther);
+                        colIndex += colElementsOther;
+                    }
+
+                    return new SparseMatrixD(valuesV, innerV, outerV, Rows + other.Rows, Cols);
+                case ConcatType.Horizontal:
+                default:
+                    int[] innerH = _innerIndices.Concat(other._innerIndices).ToArray();
+                    var outerLastH = _outerStarts.Last();
+                    var lengthH = _outerStarts.Length;
+                    int[] outerH = new int[_outerStarts.Length + other._outerStarts.Length - 1];
+
+                    for (int i = 0; i < other._outerStarts.Length - 1; i++)
+                    {
+                        outerH[i + lengthH] = other._outerStarts[i + 1] + outerLastH;
+                    }
+
+                    Array.Copy(_outerStarts, outerH, _outerStarts.Length);
+                    var values = _values.Concat(other._values).ToArray();
+                    return new SparseMatrixD(values, innerH, outerH, Rows, Cols + other.Cols);
             }
         }
 

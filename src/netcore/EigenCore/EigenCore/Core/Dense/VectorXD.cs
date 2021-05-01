@@ -13,7 +13,7 @@ namespace EigenCore.Core.Dense
                 return false;
             }
 
-            return VectorHelpers.ArraysEqual(_values, other._values);
+            return ArrayHelpers.ArraysEqual(_values, other._values);
         }
 
         public static VectorXD Zeros(int size)

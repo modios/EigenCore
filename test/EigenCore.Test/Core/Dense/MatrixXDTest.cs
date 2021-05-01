@@ -1,8 +1,9 @@
 ﻿using EigenCore.Core.Dense;
 using EigenCore.Core.Dense.LinearAlgebra;
+using EigenCore.Core.Shared;
 using Xunit;
 
-namespace EigenCore.Test.Dense.Core
+namespace EigenCore.Test.Core.Dense
 {
     public class MatrixXDTest
     {

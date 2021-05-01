@@ -1,9 +1,10 @@
 ﻿using EigenCore.Core.Dense;
+using EigenCore.Core.Shared;
 using EigenCore.Core.Sparse;
 using EigenCore.Core.Sparse.LinearAlgebra;
 using Xunit;
 
-namespace EigenCore.Test.Sparse
+namespace EigenCore.Test.Core.Sparse
 {
     public class SparseMatrixDTest
     {
@@ -29,6 +30,30 @@ namespace EigenCore.Test.Sparse
             {
                 Assert.Equal(element.Item3, A.Get(element.Item1, element.Item2));
             }
+        }
+
+        [InlineData("1 2 3; 4 5 6; 7 8 2", new double[] { 1, 2, 3 }, "1 2 3;4 5 6;7 8 2;1 0 0; 0 2 0; 0 0 3")]
+        [InlineData("1 2; 4 5; 7 8", new double[] { 1, 2 }, "1 2 ;4 5 ;7 8; 1 0; 0 2")]
+        [InlineData("1 2; 4 5", new double[] { 1, 2 }, "1 2;4 5;1 0; 0 2")]
+        [Theory]
+        public void ConcatVertical_ShouldSucceed(string matrixString, double[] diag, string expected)
+        {
+            var A = new MatrixXD(matrixString).ToSparse();
+            var B = MatrixXD.Diag(diag).ToSparse();
+            var C = A.Concat(B, ConcatType.Vertical);
+            Assert.Equal(new MatrixXD(expected).ToSparse(), C);
+        }
+
+        [InlineData("1 2 3; 4 5 6; 7 8 2", new double[] { 1, 2, 3 }, "1 2 3 1 0 0;4 5 6 0 2 0;7 8 2 0 0 3")]
+        [InlineData("1 2; 4 5; 7 8", new double[] { 1, 2, 3 }, "1 2 1 0 0;4 5 0 2 0;7 8 0 0 3")]
+        [InlineData("1 2; 4 5", new double[] { 1, 2 }, "1 2 1 0;4 5 0 2")]
+        [Theory]
+        public void ConcatHorizontal_ShouldSucceed(string matrixString, double[] diag, string expected)
+        {
+            var A = new MatrixXD(matrixString).ToSparse();
+            var B = MatrixXD.Diag(diag).ToSparse();
+            SparseMatrixD C = A.Concat(B, ConcatType.Horizontal);
+            Assert.Equal(new MatrixXD(expected).ToSparse(), C);
         }
 
         [Fact(Skip = "need to update .so")]

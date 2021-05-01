@@ -1,5 +1,6 @@
 ﻿using EigenCore.Core.Dense.Complex;
 using EigenCore.Core.Dense.LinearAlgebra;
+using EigenCore.Core.Shared;
 using EigenCore.Eigen;
 using System.Linq;
 
@@ -14,7 +15,7 @@ namespace EigenCore.Core.Dense
                 return false;
             }
 
-            return VectorHelpers.ArraysEqual(_values, other._values);
+            return ArrayHelpers.ArraysEqual(_values, other._values);
         }
 
         public static MatrixXD Zeros(int rows, int cols)

@@ -1,4 +1,4 @@
-﻿namespace EigenCore.Core.Dense.LinearAlgebra
+﻿namespace EigenCore.Core.Shared
 {
     public enum ConcatType
     {
