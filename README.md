@@ -507,6 +507,7 @@ A.Replace(x => double.IsInfinity(x) ? 0.0 : x); // replace infinity values with 
                 (4, 4, 8)
             };
 
+// Compressed sparse column (CSC) format.
 SparseMatrixD A = new SparseMatrixD(elements, 5, 5);
 
 Console.WriteLine(A.ToString());
