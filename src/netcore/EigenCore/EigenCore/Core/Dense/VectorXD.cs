@@ -1,4 +1,5 @@
-﻿using EigenCore.Eigen;
+﻿using EigenCore.Core.Shared;
+using EigenCore.Eigen;
 using System;
 using System.Linq;
 
@@ -103,6 +104,16 @@ namespace EigenCore.Core.Dense
             double[] outVector = new double[Length];
             EigenDenseUtilities.Add(GetValues(), other.GetValues(), Length, outVector);
             return new VectorXD(outVector);
+        }
+
+        public VectorXD Minus(VectorXD other)
+        {
+            return new VectorXD(ArrayHelpers.ArraysMinus(_values, other._values));
+        }
+
+        public void ScaleInplace(double scalar)
+        {
+            ArrayHelpers.ArraysScaleInplace(_values, scalar);
         }
 
         public VectorXD Scale(double scalar)

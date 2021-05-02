@@ -121,6 +121,23 @@ namespace EigenCore.Test.Core.Dense.Core
         }
 
         [Fact]
+        public void Minus_ShouldSucceed()
+        {
+            var A = new VectorXD(new double[] { 1, 2, 3, 4 });
+            var B = new VectorXD(new double[] { 1, 2, 3, 4 });
+            var addVector = A.Minus(B);
+            Assert.Equal(new VectorXD(new double[] { 0, 0, 0, 0 }), addVector);
+        }
+
+        [Fact]
+        public void ScaleInplace_ShouldSucceed()
+        {
+            var A = new VectorXD(Enumerable.Range(1, 4).Select(n => (double)n).ToArray());
+            A.ScaleInplace(2.0);
+            Assert.Equal(new VectorXD(new double[] { 2, 4, 6, 8 }), A);
+        }
+
+        [Fact]
         public void Scale_ShouldSucceed()
         {
             VectorXD A = new VectorXD(Enumerable.Range(1, 4).Select(n => (double)n).ToArray());

@@ -2,7 +2,7 @@
 
 namespace EigenCore.Core.Dense
 {
-    public class VBufferDense<T>
+    public abstract class VBufferDense<T>
     {
         protected readonly T[] _values;
 

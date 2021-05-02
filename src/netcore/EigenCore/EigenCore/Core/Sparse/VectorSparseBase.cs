@@ -1,0 +1,64 @@
+﻿using System;
+using System.Text;
+
+namespace EigenCore.Core.Sparse
+{
+    public class VectorSparseBase<T> : VBufferSparse<T>
+    {
+        protected static int MaxElements = 20;
+
+        public T Get(int index)
+        {
+
+            var position = Array.FindIndex(_indices, v => v == index);
+            return position != -1 ? _values[position] : default;
+        }
+
+        public void Set(int index, T value)
+        {
+            var position = Array.FindLastIndex(_indices, v => v >= index);
+
+            // if element exists replace value.
+            if (_indices[position] == index)
+            {
+                _values[position] = value;
+                return;
+            }
+
+            // if we insert new element, shift and place.
+            Array.Copy(_values, position , _values, position + 1, Nnz - position);
+            Array.Copy(_indices, position, _indices, position + 1, Nnz - position);
+            _values[position] = value;
+            _indices[position] = index;
+            Nnz += 1;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(GetType().Name + ", " + Length + ":\n");
+            stringBuilder.Append('\n');
+
+            for (int i = 0; i < Length; i++)
+            {
+                if (i > MaxElements)
+                {
+                    stringBuilder.Append("...");
+                    return stringBuilder.ToString().Trim();
+                }
+
+                stringBuilder.AppendFormat("{0:G3} ", Get(i));
+            }
+
+            return stringBuilder.ToString().Trim();
+        }
+
+        public VectorSparseBase((int[] indices, T[] values) valuesAndIndices, int length) : base(valuesAndIndices, length)
+        {
+        }
+
+        public VectorSparseBase(int[] indices, T[] values, int length) : base(indices, values, length)
+        {
+        }
+    }
+}
