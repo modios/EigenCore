@@ -110,6 +110,142 @@ namespace EigenCore.Core.Sparse
             }
         }
 
+        public SparseVectorD Row(int row)
+        {
+            var indxAndRow = GetRow(row);
+            int[] indices = indxAndRow.Item1;
+            double[] values = indxAndRow.Item2;
+            return new SparseVectorD(indices, values, Cols);
+        }
+
+        public SparseVectorD Col(int col)
+        {
+            var indxAndRow = GetCol(col);
+            int[] indices = indxAndRow.Item1;
+            double[] values = indxAndRow.Item2;
+            return new SparseVectorD(indices, values, Rows);
+        }
+
+        public VectorXD ColwiseMin()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Min();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseMin()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Min();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD ColwiseMax()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Max();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseMax()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Max();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD ColwiseSum()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Sum();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseSum()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Sum();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD ColwiseProd()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Prod();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseProd()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Prod();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD ColwiseMean()
+        {
+            double[] result = new double[Cols];
+
+            for (int i = 0; i < Cols; i++)
+            {
+                result[i] = Col(i).Mean();
+            }
+
+            return new VectorXD(result);
+        }
+
+        public VectorXD RowwiseMean()
+        {
+            double[] result = new double[Rows];
+
+            for (int i = 0; i < Rows; i++)
+            {
+                result[i] = Row(i).Mean();
+            }
+
+            return new VectorXD(result);
+        }
+
         public SparseMatrixD Concat(SparseMatrixD other, ConcatType concatType)
         {
             switch (concatType)

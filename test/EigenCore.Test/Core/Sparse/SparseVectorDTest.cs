@@ -7,6 +7,16 @@ namespace EigenCore.Test.Core.Sparse
 {
     public class SparseVectorDTest
     {
+        [Fact]
+        public void Random_ShouldSucceed()
+        {
+            var A = SparseVectorD.Random(100, 0.1, 2, 200);
+            Assert.True(A.Max() <= 200);
+            Assert.True(A.Min() == 0);
+            Assert.Equal(10, A.Nnz);
+            Assert.Equal(100, A.Length);
+        }
+
         [InlineData("2 2 1", 3)]
         [InlineData("1 0 0 0", 1)]
         [Theory]

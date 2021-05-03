@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace EigenCore.Core.Sparse
@@ -37,6 +38,50 @@ namespace EigenCore.Core.Sparse
             }
 
             return default(T);
+        }
+
+        protected (int[], T[]) GetCol(int col)
+        {
+            int startColIndex = _outerStarts[col];
+            int colElements = _outerStarts[col + 1] - _outerStarts[col];
+            T[] columnValues = new T[colElements];
+            int[] indices = new int[colElements];
+
+            Array.Copy(_values, startColIndex, columnValues, 0, colElements);
+            Array.Copy(_innerIndices, startColIndex, indices, 0, colElements);
+
+            return (indices, columnValues);
+        }
+
+        protected (int[], T[]) GetRow(int row)
+        {
+            List<T> rowValues = new List<T>();
+            List<int> indices = new List<int>();
+
+            for (int col = 0; col < Cols; col++)
+            {
+                int startColIndex = _outerStarts[col];
+                int colElements = _outerStarts[col + 1] - _outerStarts[col];
+                int endColIndex = startColIndex + colElements;
+
+                for (int innerIndex = startColIndex; innerIndex < endColIndex; innerIndex++)
+                {
+                    var columnIndex = _innerIndices[innerIndex];
+
+                    if (columnIndex == row)
+                    {
+                        rowValues.Add(_values[innerIndex]);
+                        indices.Add(col);
+                    }
+
+                    if (columnIndex > row)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return (indices.ToArray(), rowValues.ToArray());
         }
 
 #if DEBUG

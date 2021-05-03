@@ -44,6 +44,110 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new MatrixXD(expected).ToSparse(), C);
         }
 
+        [Fact]
+        public void Row_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var v1 = A.Row(0);
+            var v2 = A.Row(1);
+            var v3 = A.Row(2);
+
+            Assert.Equal(new VectorXD("1 2").ToSparse(), v1);
+            Assert.Equal(new VectorXD("4 5").ToSparse(), v2);
+            Assert.Equal(new VectorXD("7 8").ToSparse(), v3);
+        }
+
+        [Fact]
+        public void Col_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var v1 = A.Col(0);
+            var v2 = A.Col(1);
+
+            Assert.Equal(new VectorXD("1 4 7").ToSparse(), v1);
+            Assert.Equal(new VectorXD("2 5 8").ToSparse(), v2);
+        }
+
+        [Fact]
+        public void ColwiseMin_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.ColwiseMin();
+            Assert.Equal(new VectorXD("1 2"), result);
+        }
+
+        [Fact]
+        public void RowwiseMin_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.RowwiseMin();
+            Assert.Equal(new VectorXD("1 4 7"), result);
+        }
+
+        [Fact]
+        public void ColwiseMax_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.ColwiseMax();
+            Assert.Equal(new VectorXD("7 8"), result);
+        }
+
+        [Fact]
+        public void RowwiseMax_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.RowwiseMax();
+            Assert.Equal(new VectorXD("2 5 8"), result);
+        }
+
+        [Fact]
+        public void ColwiseSum_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.ColwiseSum();
+            Assert.Equal(new VectorXD("12 15"), result);
+        }
+
+        [Fact]
+        public void RowwiseSum_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.RowwiseSum();
+            Assert.Equal(new VectorXD("3 9 15"), result);
+        }
+
+        [Fact]
+        public void ColwiseProd_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.ColwiseProd();
+            Assert.Equal(new VectorXD("28, 80"), result);
+        }
+
+        [Fact]
+        public void RowwiseProd_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.RowwiseProd();
+            Assert.Equal(new VectorXD("2 20, 56"), result);
+        }
+
+        [Fact]
+        public void ColwiseMean_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.ColwiseMean();
+            Assert.Equal(new VectorXD("4 5"), result);
+        }
+
+        [Fact]
+        public void RowwiseMean_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2; 4 5; 7 8").ToSparse();
+            var result = A.RowwiseMean();
+            Assert.Equal(new VectorXD("1.5 4.5 7.5"), result);
+        }
+
         [InlineData("1 2 3; 4 5 6; 7 8 2", new double[] { 1, 2, 3 }, "1 2 3 1 0 0;4 5 6 0 2 0;7 8 2 0 0 3")]
         [InlineData("1 2; 4 5; 7 8", new double[] { 1, 2, 3 }, "1 2 1 0 0;4 5 0 2 0;7 8 0 0 3")]
         [InlineData("1 2; 4 5", new double[] { 1, 2 }, "1 2 1 0;4 5 0 2")]

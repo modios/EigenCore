@@ -7,6 +7,13 @@ namespace EigenCore.Core.Sparse
     {
         protected static int MaxElements = 20;
 
+        protected static Random _random = default(Random);
+
+        public static void SetRandomState(int seed)
+        {
+            _random = new Random(seed);
+        }
+
         public T Get(int index)
         {
 

@@ -1,5 +1,6 @@
 ﻿using EigenCore.Core.Shared;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EigenCore.Core.Sparse
@@ -39,6 +40,29 @@ namespace EigenCore.Core.Sparse
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public static SparseVectorD Random(int size, double percentageNonZeros, double min = 0, double max = 1, int seed = 0)
+        {
+
+            double maxMinusMin = max - min;
+            int nnz = (int)Math.Floor(size * percentageNonZeros);
+            (int, double)[] elements = new (int, double)[nnz];
+            HashSet<int> visitedPosition = new HashSet<int>();
+            if (_random == null) SetRandomState(seed);
+
+            var count = 0;
+            while (visitedPosition.Count < nnz)
+            {
+                int position = _random.Next(0, size);
+                if (visitedPosition.Add(position))
+                {
+                    elements[count] =(position, maxMinusMin * _random.NextDouble() + min);
+                    count += 1;
+                }
+            }
+
+            return new SparseVectorD(elements, size);
         }
 
         public double Max() => _values.AsParallel().Max();
@@ -84,7 +108,7 @@ namespace EigenCore.Core.Sparse
             return new SparseVectorD(_indices, ArrayHelpers.ArraysScale(_values, scalar), Length);
         }
 
-        protected SparseVectorD(int[] indices, double[] values, int length)
+        internal SparseVectorD(int[] indices, double[] values, int length)
             : base(indices, values, length)
         {
         }
