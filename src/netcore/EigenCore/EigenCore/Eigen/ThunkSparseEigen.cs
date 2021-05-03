@@ -260,5 +260,28 @@ namespace EigenCore.Eigen
             [In] int* outerIndex,
             [In] int* innerIndex,
             [In] double* values);
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double srelative_error_(
+           int row,
+           int col,
+           int nnz,
+           [In] int* outerIndex,
+           [In] int* innerIndex,
+           [In] double* values,
+           [In] double* rhs,
+           [In] double* x);
+
+
+        [DllImport(NativeThunkEigenPath), SuppressUnmanagedCodeSecurity]
+        public static extern double sabsolute_error_(
+           int row,
+           int col,
+           int nnz,
+           [In] int* outerIndex,
+           [In] int* innerIndex,
+           [In] double* values,
+           [In] double* rhs,
+           [In] double* x);
     }
 }

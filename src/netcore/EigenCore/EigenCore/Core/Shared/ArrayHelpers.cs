@@ -106,7 +106,7 @@ namespace EigenCore.Core.Shared
             {
                 for (int i = 0; i < array1.Length; i++)
                 {
-                    if (Math.Abs(array1[i] - array2[i]) > DoubleTolerance)
+                    if (Math.Abs(array1[i] - array2[i]) > 0)
                     {
                         return false;
                     }

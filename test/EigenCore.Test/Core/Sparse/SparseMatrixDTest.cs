@@ -533,5 +533,29 @@ namespace EigenCore.Test.Core.Sparse
             var A = new MatrixXD(valuesString).ToSparse();
             Assert.Equal(expected, A.SquaredNorm());
         }
+
+        [Fact(Skip = "need to update .so")]
+        public void AbsoluteError_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10").ToSparse();
+            var rhs = new VectorXD("3 3 4");
+            var x = new VectorXD("-2 1 1");
+            Assert.Equal(0.0, A.AbsoluteError(rhs, x), DoublePrecision);
+
+            x = new VectorXD("-2 1 2");
+            Assert.Equal(12.041594578792296, A.AbsoluteError(rhs, x), DoublePrecision);
+        }
+
+        [Fact(Skip = "need to update .so")]
+        public void RelativeError_ShouldSucceed()
+        {
+            var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10").ToSparse();
+            var rhs = new VectorXD("3 3 4");
+            var x = new VectorXD("-2 1 1");
+            Assert.Equal(0.0, A.RelativeError(rhs, x), DoublePrecision);
+
+            x = new VectorXD("-2 1 2");
+            Assert.Equal(2.0651164331225833, A.RelativeError(rhs, x), DoublePrecision);
+        }
     }
 }

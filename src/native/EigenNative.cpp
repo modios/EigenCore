@@ -848,3 +848,33 @@ EXPORT_API(double) ssquaredNorm_(
 	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
 	return matrix.squaredNorm();
 }
+
+EXPORT_API(double) srelative_error_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,
+	_In_ double* v1,
+	_In_ double* v2) {
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> x(v2, row);
+	return (matrix * x - rhs).norm() / rhs.norm();
+}
+
+EXPORT_API(double) sabsolute_error_(
+	int row,
+	int col,
+	int nnz,
+	_In_ int* outerIndex,
+	_In_ int* innerIndex,
+	_In_ double* values,	
+	_In_ double* v1,
+	_In_ double* v2) {
+	Map<const SparseMatrix<double>>  matrix(row, col, nnz, outerIndex, innerIndex, values);
+	Map<VectorXd> rhs(v1, row);
+	Map<VectorXd> x(v2, row);
+	return (matrix * x - rhs).norm();
+}

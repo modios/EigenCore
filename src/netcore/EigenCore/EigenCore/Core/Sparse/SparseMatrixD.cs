@@ -540,6 +540,18 @@ namespace EigenCore.Core.Sparse
             return new VectorXD(x);
         }
 
+        public double AbsoluteError(VectorXD rhs, VectorXD x)
+        {
+            return EigenSparseUtilities.AbsoluteError(Rows, Cols, Nnz, GetOuterStarts(),
+                      GetInnerIndices(), GetValues(), rhs.GetValues(), x.GetValues());
+        }
+
+        public double RelativeError(VectorXD rhs, VectorXD x)
+        {
+            return EigenSparseUtilities.RelativeError(Rows, Cols, Nnz, GetOuterStarts(),
+                      GetInnerIndices(), GetValues(), rhs.GetValues(), x.GetValues());
+        }
+
         public SparseMatrixD(IList<(int, int, double)> sparseInfo, int rows, int cols)
             : base(MatrixSparseHelpers.ToCCS(sparseInfo.ToList(), cols), rows, cols)
         {
