@@ -6,6 +6,28 @@ namespace EigenCore.Test.Core.Dense
     public class VectorDenseBaseTest
     {
         [Fact]
+        public void Count_ShouldSucceed()
+        {
+            var A = new VectorXD(new double[] { 1, 3, double.NaN, 0, double.PositiveInfinity, double.NaN });
+
+            Assert.Equal(1, A.Count(x => x == 0));
+            Assert.Equal(2, A.Count(x => double.IsNaN(x)));
+            Assert.Equal(1, A.Count(x => double.IsInfinity(x)));
+        }
+
+        [Fact]
+        public void Replace_ShouldSucceed()
+        {
+            var A = new VectorXD(new double[] { 1, 3, double.NaN, 0, double.PositiveInfinity, double.NaN });
+
+            A.Replace(x => double.IsNaN(x) ? 0.0 : x);
+            Assert.Equal(0, A.Get(2));
+            Assert.Equal(0, A.Get(5));
+            A.Replace(x => double.IsInfinity(x) ? 0.0 : x);
+            Assert.Equal(0, A.Get(4));
+        }
+
+        [Fact]
         public void ToString_ShouldSucceed()
         {
             var A = new VectorXD(new double[] { 1, 3, 1 });

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -42,6 +43,28 @@ namespace EigenCore.Core.Dense
         public T Get(int index) => _values[index];
 
         public T Set(int index, T value) => _values[index] = value;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public int Count(Func<T, bool> action)
+        {
+            return _values.Count(v => action(v));
+        }
+
+        /// <summary>
+        /// Replace values in array with action.
+        /// </summary>
+        /// <param name="action"></param>
+        public void Replace(Func<T, T> action)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                _values[i] = action(_values[i]);
+            }
+        }
 
         public override string ToString()
         {

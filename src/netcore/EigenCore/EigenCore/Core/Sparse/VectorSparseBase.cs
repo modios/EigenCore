@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace EigenCore.Core.Sparse
@@ -38,6 +39,30 @@ namespace EigenCore.Core.Sparse
             _values[position] = value;
             _indices[position] = index;
             Nnz += 1;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public int Count(Func<T, bool> action)
+        {
+            return _values.Count(v => action(v));
+        }
+
+        /// <summary>
+        /// Replace values in array with the result of the action.
+        /// The replace action is applied only to the
+        /// "non-zero" elements for the sparse vector.
+        /// </summary>
+        /// <param name="action"></param>
+        public void Replace(Func<T, T> action)
+        {
+            for (int i = 0; i < Nnz; i++)
+            {
+                _values[i] = action(_values[i]);
+            }
         }
 
         public override string ToString()
