@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\netcore\EigenCore\EigenCore\EigenCore.csproj" />
+    <ProjectReference Include="..\..\src\netcore\EigenCore\EigenCore.csproj" />
   </ItemGroup>
 
 </Project>
