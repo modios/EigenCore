@@ -1,7 +1,7 @@
 # EigenCore
 [![.NET](https://github.com/modios/EigenCore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/modios/EigenCore/actions/workflows/dotnet.yml)
 
-EigenCore C# wrapper for the Eigen library.
+C# wrapper for the Eigen library.
 
 ## Dense
 
