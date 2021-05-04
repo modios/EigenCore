@@ -521,6 +521,20 @@ SparseMatrixD, 5 * 5:
   0 0 14 0 8
   
 ```
+
+### Direct Solvers
+```csharp
+
+SparseMatrixD A = new MatrixXD("6 4 0;4 4 1;0 1 8").ToSparse();
+VectorXD rhs = new VectorXD("3 3 4");
+VectorXD result = A.DirectSolve(rhs, DirectSolverType.SimplicialLLT);
+VectorXD result = A.DirectSolve(rhs, DirectSolverType.SimplicialLDLT);
+VectorXD result = A.DirectSolve(rhs, DirectSolverType.SparseLU);
+VectorXD result = A.DirectSolve(rhs, DirectSolverType.SparseQR);
+
+```
+
+
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
 - https://github.com/hughperkins/jeigen
