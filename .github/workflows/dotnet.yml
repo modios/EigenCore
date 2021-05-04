@@ -24,7 +24,7 @@ jobs:
     - name: Copy file
       uses: canastro/copy-file-action@master
       with:
-        source: "./src/netcore/EigenCore/EigenCore/Eigen/Native/eigen_core.so"
+        source: "./src/netcore/EigenCore/Eigen/Native/eigen_core.so"
         target: "./test/EigenCore.Test/bin/Release/net5.0/."
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
