@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -22,5 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\netcore\EigenCore\EigenCore.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <None Visible="false" Include="..\..\src\native\x64-lib\*" CopyToOutputDirectory="PreserveNewest"/>
+  </ItemGroup>
 </Project>
