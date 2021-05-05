@@ -539,7 +539,41 @@ VectorXD, 3:
   0.224 0.414 0.448
 
 ```
+### Iterative Solvers
+```csharp
 
+ (int, int, double)[] elements = {
+                (0, 0, 6),
+                (0, 1, 4),
+                (0, 2, 0),
+                (1, 0, 4),
+                (1 ,1, 4),
+                (1, 2, 1),
+                (2, 0, 0),
+                (2, 1, 1),
+                (2, 2, 8)
+            };
+            
+SparseMatrixD A = new SparseMatrixD(elements, 3, 3);
+VectorXD rhs = new VectorXD("3 3 4");
+
+VectorXD result = A.IterativeSolve(rhs); // Default IterativeSolverType.ConjugateGradient
+VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.BiCGSTAB));
+VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.GMRES));
+VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.GMRES, 2, 1e-2));
+VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.MINRES));
+VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.DGMRES))
+VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.LeastSquaresConjugateGradient));
+
+i.e:
+{EigenCore.Core.Sparse.LinearAlgebra.IterativeSolverResult}
+    Error: 2.1912858061200212E-16
+    Interations: 2
+    Result: {VectorXD, 3: 0.224 0.414 0.448}
+    Solver: ConjugateGradient
+    Success: true
+    
+```
 
 ## References
 - https://eigen.tuxfamily.org/dox/group__QuickRefPage.html
