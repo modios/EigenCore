@@ -532,6 +532,12 @@ VectorXD result = A.DirectSolve(rhs, DirectSolverType.SimplicialLDLT);
 VectorXD result = A.DirectSolve(rhs, DirectSolverType.SparseLU);
 VectorXD result = A.DirectSolve(rhs, DirectSolverType.SparseQR);
 
+Console.WriteLine(result.ToString());
+
+VectorXD, 3:
+
+  0.224 0.414 0.448
+
 ```
 
 
