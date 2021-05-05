@@ -560,7 +560,6 @@ VectorXD rhs = new VectorXD("3 3 4");
 VectorXD result = A.IterativeSolve(rhs); // Default IterativeSolverType.ConjugateGradient
 VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.BiCGSTAB));
 VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.GMRES));
-VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.GMRES, 2, 1e-2));
 VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.MINRES));
 VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.DGMRES))
 VectorXD result = A.IterativeSolve(rhs, new IterativeSolverInfo(IterativeSolverType.LeastSquaresConjugateGradient));
