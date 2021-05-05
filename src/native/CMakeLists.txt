@@ -9,4 +9,6 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options a
 set(EIGEN_DIRECTORY . CACHE STRING "Eigen directory.  The directory specified should have a subdirectory 'Eigen'.")
 include_directories(${EIGEN_DIRECTORY})
 
+set(CMAKE_SHARED_LIBRARY_PREFIX "")
+
 add_library(eigen_core SHARED EigenNative.cpp)
