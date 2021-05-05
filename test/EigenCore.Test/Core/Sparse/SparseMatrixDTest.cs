@@ -160,7 +160,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new MatrixXD(expected).ToSparse(), C);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Scale_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -181,7 +181,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new MatrixXD("0.6 0.4 0; 0.4 0.4 0.1; 0 0.1 0.8"), A.ToDense());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void ADD_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -202,7 +202,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new MatrixXD("7 4 0;4 5 1; 0 1 9"), result.ToDense());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Minus_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -227,7 +227,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(MatrixXD.Zeros(3,3), result.ToDense());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Mult_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -252,7 +252,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new MatrixXD("0 0 0;4.199999999999999 0 0;0 2.28 0;0 0 0"), result.ToDense());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Transpose_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -275,7 +275,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new MatrixXD("1 3; 2 5; 4, 7").ToSparse(), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void MultWithVector_ShouldSucced()
         {
             SparseMatrixD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 }).ToSparse();
@@ -295,7 +295,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new double[] { 17.0, -29.0, 26.0 }, result.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void ConjugateGradient_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -323,7 +323,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(0.00077389987808970792, result.Error, DoublePrecision);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void BiCGSTAB_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -351,7 +351,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(0.00053859978391084472, result.Error, DoublePrecision);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void GMRES_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -379,7 +379,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.False(result.Success);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void MINRES_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -407,7 +407,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.False(result.Success);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void DGMRES_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -435,7 +435,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.False(result.Success);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void LeastSquaresConjugateGradient_ShouldSucced()
         {
             (int, int, double)[] elements = {
@@ -462,7 +462,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(0.00013934485365227543, result.Error, DoublePrecision);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolveLLSimplicialLLT_ShouldSucceed()
         {
             var A = new MatrixXD("6 4 0;4 4 1;0 1 8").ToSparse();
@@ -471,7 +471,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolveSimplicialLDLT_ShouldSucceed()
         {
             var A = new MatrixXD("6 4 0;4 4 1;0 1 8").ToSparse();
@@ -480,7 +480,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolveSparseLU_ShouldSucceed()
         {
             var A = new MatrixXD("6 4 0;4 4 1;0 1 8").ToSparse();
@@ -494,7 +494,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new VectorXD("0.45833333333333331 -0.24999999999999994 0.41666666666666663"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolveSparseQR_ShouldSucceed()
         {
             var A = new MatrixXD("6 4 0;4 4 1;0 1 8").ToSparse();
@@ -507,7 +507,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(new VectorXD("0.45833333333333331 -0.24999999999999994 0.41666666666666663"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void LeastSquares_ShouldSucceed()
         {
             var A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ").ToSparse();
@@ -518,7 +518,7 @@ namespace EigenCore.Test.Core.Sparse
 
         [InlineData("2 2 1; 1 2 -3; 1 0 1", 5)]
         [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void Norm_ShouldSucceed(string valuesString, double expected)
         {
             var A = new MatrixXD(valuesString).ToSparse();
@@ -527,14 +527,14 @@ namespace EigenCore.Test.Core.Sparse
 
         [InlineData("2 2 1; 1 2 -3; 1 0 1", 25)]
         [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void SquaredNorm_ShouldSucceed(string valuesString, double expected)
         {
             var A = new MatrixXD(valuesString).ToSparse();
             Assert.Equal(expected, A.SquaredNorm());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void AbsoluteError_ShouldSucceed()
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10").ToSparse();
@@ -546,7 +546,7 @@ namespace EigenCore.Test.Core.Sparse
             Assert.Equal(12.041594578792296, A.AbsoluteError(rhs, x), DoublePrecision);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void RelativeError_ShouldSucceed()
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10").ToSparse();

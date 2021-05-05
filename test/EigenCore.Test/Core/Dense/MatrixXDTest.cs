@@ -27,7 +27,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new double[] { 1, 0, 3, 2, 2, 1 }, A.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Minus_ShouldSucceed()
         {
 
@@ -56,7 +56,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new double[] { 11, 35, 0, 20 }, result.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Transpose_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("1 2 4; 3 5 7");
@@ -64,7 +64,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new double[] { 1, 2, 4, 3, 5, 7 }, B.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void MultT_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("1 2 1; 2 5 2");
@@ -188,7 +188,7 @@ namespace EigenCore.Test.Core.Dense
 
         [InlineData("2 2 1; 1 2 -3; 1 0 1", 5)]
         [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void Norm_ShouldSucceed(string valuesString, double expected)
         {
             MatrixXD A = new MatrixXD(valuesString);
@@ -197,7 +197,7 @@ namespace EigenCore.Test.Core.Dense
 
         [InlineData("2 2 1; 1 2 -3; 1 0 1", 25)]
         [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void SquaredNorm_ShouldSucceed(string valuesString, double expected)
         {
             MatrixXD A = new MatrixXD(valuesString);
@@ -206,7 +206,7 @@ namespace EigenCore.Test.Core.Dense
 
         [InlineData("2 2 1; 1 2 -3; 1 0 1", 13)]
         [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void Lp1Norm_ShouldSucceed(string valuesString, double expected)
         {
             MatrixXD A = new MatrixXD(valuesString);
@@ -215,7 +215,7 @@ namespace EigenCore.Test.Core.Dense
 
         [InlineData("2 2 1; 1 2 -3; 1 0 1", 3)]
         [InlineData("1 0 0 ; 0 0 0; 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void LpInfNorm_ShouldSucceed(string valuesString, double expected)
         {
             MatrixXD A = new MatrixXD(valuesString);
@@ -388,7 +388,7 @@ namespace EigenCore.Test.Core.Dense
         }
 
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void MultV_ShouldSucceed()
         {
             MatrixXD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
@@ -408,7 +408,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new double[] { 17.0, -29.0, 26.0 }, result.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Trace_ShouldSucceed()
         {
             MatrixXD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
@@ -416,7 +416,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(10.0, result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Eigen_ShouldSucceed()
         {
             MatrixXD A = MatrixXD.Diag(new[] { 3.5, 2, 4.5 });
@@ -440,7 +440,7 @@ namespace EigenCore.Test.Core.Dense
                                 -0.447213595499958, 0.8944271909999157 }, v2.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void PlusT_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("2 2; 1 1");
@@ -448,7 +448,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new double[] { 4, 3, 3, 2 }, result.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void MultT_WithSelf_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("2 2; 1 1");
@@ -460,7 +460,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new MatrixXD("8 4 12; 4 2 6; 12 6 18"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void TMult_WithSelf_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("2 2; 1 1");
@@ -472,7 +472,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new MatrixXD("14 14; 14 14"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SymmetricEigen_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("4 3; 3 2");
@@ -488,7 +488,7 @@ namespace EigenCore.Test.Core.Dense
                                   0.7071067811865475, 0.7071067811865475 }, eigen.Eigenvectors.GetValues().ToArray());
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Plus_ShouldSucceed()
         {
             MatrixXD A = new MatrixXD("4 3; 3 2");
@@ -497,7 +497,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new MatrixXD("5 3; 3 3"), result);
         }
 
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         [InlineData(SVDType.Jacobi)]
         [InlineData(SVDType.BdcSvd)]
         public void SVD_ShouldSucceed(SVDType sdvType)
@@ -516,7 +516,7 @@ namespace EigenCore.Test.Core.Dense
                 result.V);
         }
 
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         [InlineData(SVDType.Jacobi)]
         [InlineData(SVDType.BdcSvd)]
         public void LeastSquaresSVD_ShouldSucceed(SVDType sdvType)
@@ -527,7 +527,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new VectorXD("0.46347421844577846 0.04209165616389611"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void LeastSquaresNE_ShouldSucceed()
         {
             var A = new MatrixXD("-1 -0.0827; -0.737 0.0655; 0.511 -0.562 ");
@@ -536,7 +536,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new VectorXD("0.46347421844577846 0.04209165616389611"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolveColPivHouseholderQr_ShouldSucceed()
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
@@ -545,7 +545,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new VectorXD("-2 1 1"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolveLDLT_ShouldSucceed()
         {
             var A = new MatrixXD("2 4 0;4 2 1;0 1 4");
@@ -554,7 +554,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new VectorXD("0.22 0.64 0.84"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolveLLT_ShouldSucceed()
         {
             var A = new MatrixXD("6 4 0;4 4 1;0 1 8");
@@ -563,7 +563,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new VectorXD("0.22413793103448287 0.41379310344827569 0.44827586206896558"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolveFullPivLU_ShouldSucceed()
         {
             var A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
@@ -572,7 +572,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new VectorXD("2.3333333333333321 -1.6666666666666643 3.9999999999999978"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void SolvePartialPivLU_ShouldSucceed()
         {
             var A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
@@ -581,7 +581,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new VectorXD("2.3333333333333321 -1.6666666666666643 3.9999999999999978"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Determinant_ShouldSucceed()
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
@@ -589,7 +589,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(-3, result, DoublePrecision);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void AbsoluteError_ShouldSucceed()
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
@@ -598,7 +598,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(0.0, A.AbsoluteError(rhs, x), DoublePrecision);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void RelativeError_ShouldSucceed()
         {
             var A = new MatrixXD("1 2 3; 4 5 6; 7 8 10");
@@ -607,7 +607,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(0.0, A.RelativeError(rhs, x), DoublePrecision);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void Inverse_ShouldSucceed()
         {
             var A = new MatrixXD("1  2  1; 2  1  0 ; -1  1  2");
@@ -617,7 +617,7 @@ namespace EigenCore.Test.Core.Dense
                                       "-1 1 1"), result);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void HouseholderQR_ShouldSucceed()
         {
             var A = new MatrixXD("1 -2 4; 1 -1 1;1 0 0");
@@ -632,7 +632,7 @@ namespace EigenCore.Test.Core.Dense
                 "0 0 0.8164965809277254"), result.R);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void ColPivHouseholderQR_ShouldSucceed()
         {
             var A = new MatrixXD("1 -2 4 -8; 1 -1 1 -1; 1 0 0 0;1 1 1 1; 1 2 4 8");
@@ -655,7 +655,7 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new MatrixXD("0 0 1 0;0 0 0 1;0 1 0 0;1 0 0 0"), result.P);
         }
 
-        [Fact(Skip = "need to update .so")]
+        [Fact]
         public void FullPivLU_ShouldSucceed()
         {
             var A = new MatrixXD("-1 -0.562 -0.233;-0.737 -0.906 0.0388; 0.511 0.358 0.662; -0.0827 0.359 -0.931;  0.0655   0.869  -0.893");
