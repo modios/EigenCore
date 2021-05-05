@@ -75,7 +75,7 @@ namespace EigenCore.Test.Core.Dense.Core
 
         [InlineData("2 2 1", 3)]
         [InlineData("1 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void Norm_ShouldSucceed(string valuesString, double expected)
         {
             VectorXD v = new VectorXD(valuesString);
@@ -84,7 +84,7 @@ namespace EigenCore.Test.Core.Dense.Core
 
         [InlineData("2 2 1", 9)]
         [InlineData("1 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void SquaredNorm_ShouldSucceed(string valuesString, double expected)
         {
             VectorXD v = new VectorXD(valuesString);
@@ -94,7 +94,7 @@ namespace EigenCore.Test.Core.Dense.Core
         [InlineData("2 2 1", 5)]
         [InlineData("2 2 -1", 5)]
         [InlineData("1 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void Lp1Norm_ShouldSucceed(string valuesString, double expected)
         {
             VectorXD v = new VectorXD(valuesString);
@@ -104,7 +104,7 @@ namespace EigenCore.Test.Core.Dense.Core
         [InlineData("2 2 1", 2)]
         [InlineData("2 2 -3", 3)]
         [InlineData("1 0 0 0", 1)]
-        [Theory(Skip = "need to update .so")]
+        [Theory]
         public void LpInfNorm_ShouldSucceed(string valuesString, double expected)
         {
             VectorXD v = new VectorXD(valuesString);
