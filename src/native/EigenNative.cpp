@@ -200,7 +200,7 @@ EXPORT_API(void) dxplusa_(_In_ double* v1, const int row1, const int col1, _In_ 
 {
 	Map<const MatrixXd> matrix1(v1, row1, col1);
 	Map<const MatrixXd> matrix2(v2, row2, col2);
-	Map<MatrixXd> result(vout, row1, row2);
+	Map<MatrixXd> result(vout, row1, col1);
 	result = matrix1 + matrix2;
 }
 
