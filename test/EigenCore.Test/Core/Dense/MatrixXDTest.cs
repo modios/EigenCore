@@ -497,6 +497,17 @@ namespace EigenCore.Test.Core.Dense
             Assert.Equal(new MatrixXD("5 3; 3 3"), result);
         }
 
+        [Theory(Skip = "need to push .so")]
+        [InlineData("4 3; 3 2; 2 3", "1 2; 2 3; 3 2", "5 5; 5 5; 5 5")]
+        [InlineData("4 3 3; 3 2 3", "1 2 2; 2 3 2", "5 5 5; 5 5 5")]
+        public void Plus_NotSquare_ShouldSucceed(string matrix1,string matrix2, string expectedResult)
+        {
+            MatrixXD A = new MatrixXD(matrix1);
+            MatrixXD B = new MatrixXD(matrix2);
+            var actualResult = A.Plus(B);
+            Assert.Equal(new MatrixXD(expectedResult), actualResult);
+        }
+
         [Theory]
         [InlineData(SVDType.Jacobi)]
         [InlineData(SVDType.BdcSvd)]
