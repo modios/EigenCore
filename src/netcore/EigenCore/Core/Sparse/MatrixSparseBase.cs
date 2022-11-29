@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -143,7 +144,7 @@ namespace EigenCore.Core.Sparse
                 {
                     for (int col = 0; col < Cols; col++)
                     {
-                        stringBuilder.AppendFormat("{0:G3} ", Get(row, col));
+                        stringBuilder.AppendFormat(CultureInfo.InvariantCulture, "{0:G3} ", Get(row, col));
                     }
                     stringBuilder.Append('\n');
                 }

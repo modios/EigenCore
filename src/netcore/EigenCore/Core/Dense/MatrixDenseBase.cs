@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -203,7 +204,7 @@ namespace EigenCore.Core.Dense
                 {
                     for (int col = 0; col < Cols; col++)
                     {
-                        stringBuilder.AppendFormat("{0:G3} ", Get(row, col));
+                        stringBuilder.AppendFormat(CultureInfo.InvariantCulture, "{0:G3} ", Get(row, col));
                     }
                     stringBuilder.Append('\n');
                 }

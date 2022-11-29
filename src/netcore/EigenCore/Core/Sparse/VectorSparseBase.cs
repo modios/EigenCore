@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -79,7 +80,7 @@ namespace EigenCore.Core.Sparse
                     return stringBuilder.ToString().Trim();
                 }
 
-                stringBuilder.AppendFormat("{0:G3} ", Get(i));
+                stringBuilder.AppendFormat(CultureInfo.InvariantCulture, "{0:G3} ", Get(i));
             }
 
             return stringBuilder.ToString().Trim();
