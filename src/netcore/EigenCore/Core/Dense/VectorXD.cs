@@ -1,6 +1,7 @@
 ﻿using EigenCore.Core.Shared;
 using EigenCore.Eigen;
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace EigenCore.Core.Dense
@@ -149,7 +150,7 @@ namespace EigenCore.Core.Dense
         }
 
         public VectorXD(string valuesString)
-            : base(valuesString, (string value) => double.Parse(value))
+            : base(valuesString, (string value) => double.Parse(value, CultureInfo.InvariantCulture))
         {
         }
 

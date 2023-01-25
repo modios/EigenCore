@@ -6,6 +6,11 @@ namespace EigenCore.Core.Dense
     {
         protected readonly T[] _values;
 
+        /// <summary>
+        /// Use only for reading raw data efficiently.
+        /// </summary>
+        public T[] Values => _values;
+
         public readonly int Length;
 
         public ReadOnlySpan<T> GetValues() => _values.AsSpan(0, Length);

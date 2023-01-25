@@ -2,6 +2,7 @@
 using EigenCore.Core.Dense.LinearAlgebra;
 using EigenCore.Core.Shared;
 using EigenCore.Eigen;
+using System.Globalization;
 using System.Linq;
 
 namespace EigenCore.Core.Dense
@@ -628,7 +629,7 @@ namespace EigenCore.Core.Dense
 
         }
 
-        public override MatrixXD Clone()
+        public override MatrixDenseBase<double> Clone()
         {
             return new MatrixXD(_values.ToArray(), Rows, Cols);
         }
@@ -685,7 +686,7 @@ namespace EigenCore.Core.Dense
         }
 
         public MatrixXD(string valuesString)
-            : base(valuesString, (string value) => double.Parse(value))
+            : base(valuesString, (string value) => double.Parse(value, CultureInfo.InvariantCulture))
         {
 
         }
