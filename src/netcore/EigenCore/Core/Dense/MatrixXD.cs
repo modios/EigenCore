@@ -629,7 +629,7 @@ namespace EigenCore.Core.Dense
 
         }
 
-        public override MatrixXD Clone()
+        public override MatrixDenseBase<double> Clone()
         {
             return new MatrixXD(_values.ToArray(), Rows, Cols);
         }

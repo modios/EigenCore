@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <Product />
     <Company />
     <Authors>modios</Authors>
-    <Version>1.0.0-alpha</Version>
+    <Version>1.0.2-alpha</Version>
     <Description>.Net wrapper for the Eigen C++ library</Description>
     <Copyright>modios</Copyright>
     <RepositoryUrl>https://github.com/modios/EigenCore</RepositoryUrl>
